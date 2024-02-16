@@ -1,7 +1,5 @@
-import { Link, useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
+import { Link } from "expo-router";
 import { ActivityIndicator, Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Page() {
   // const { top } = useSafeAreaInsets();
@@ -11,7 +9,7 @@ export default function Page() {
       <ActivityIndicator size="large" color="gray" />
       <Link
         href={{
-          pathname: "/sign-in/"
+          pathname: "/sign-in/",
         }}
       >
         Go to sign in page

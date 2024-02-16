@@ -1,10 +1,7 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-import React, { useContext } from "react";
 import { Drawer } from "expo-router/drawer";
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { FontAwesome } from "@expo/vector-icons";
-import { Redirect, router, usePathname } from "expo-router";
-import { DrawerActions, useNavigation } from "@react-navigation/native";
+import { DrawerContentScrollView } from "@react-navigation/drawer";
+import { Redirect } from "expo-router";
 import CustomDrawerItem from "@/components/layout/CustomDrawerItem";
 //stole from somewhere..
 //feel free to adjust the file!!
@@ -53,7 +50,7 @@ export default function DrawerLayout() {
 const styles = StyleSheet.create({
   navItemLabel: {
     marginLeft: -20,
-    fontSize: 18
+    fontSize: 18,
   },
   userInfoWrapper: {
     flexDirection: "row",
@@ -61,24 +58,24 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
-    marginBottom: 10
+    marginBottom: 10,
   },
   userImg: {
     borderRadius: 40,
     width: 80,
-    height: 80
+    height: 80,
   },
   userDetailsWrapper: {
     marginTop: 25,
-    marginLeft: 10
+    marginLeft: 10,
   },
   userName: {
     fontSize: 16,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   userEmail: {
     fontSize: 16,
     fontStyle: "italic",
-    textDecorationLine: "underline"
-  }
+    textDecorationLine: "underline",
+  },
 });

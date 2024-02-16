@@ -1,6 +1,4 @@
-import React from "react";
-
-import { Link, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import NavBarIcon from "@/components/layout/NavBarIcon";
 import { COLORS } from "@/constants";
 
@@ -9,10 +7,10 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarLabelStyle: {
-          display: "none"
+          display: "none",
         },
         tabBarActiveTintColor: COLORS.primary,
-        headerShown: false
+        headerShown: false,
       }}
     >
       <Tabs.Screen
@@ -25,7 +23,7 @@ export default function TabLayout() {
               name="code"
               color={color}
             />
-          )
+          ),
         }}
       />
       <Tabs.Screen
@@ -39,7 +37,7 @@ export default function TabLayout() {
               name="code"
               color={color}
             />
-          )
+          ),
         }}
       />
     </Tabs>

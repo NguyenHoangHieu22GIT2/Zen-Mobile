@@ -1,5 +1,4 @@
 import { View, Text } from "react-native";
-import React from "react";
 import { Stack } from "expo-router";
 import DrawerOpenIcon from "@/components/layout/DrawerOpenIcon";
 import { IMAGES } from "@/constants";
@@ -17,7 +16,7 @@ export default function StackLayout() {
               <Text className="text-xl font-bold">Logo</Text>
             </View>
           ),
-          headerLeft: () => <DrawerOpenIcon source={IMAGES.fakeavatar} />
+          headerLeft: () => <DrawerOpenIcon source={IMAGES.fakeavatar} />,
         }}
       />
       <Stack.Screen name="details" />
