@@ -1,7 +1,5 @@
-import { View } from "react-native";
 import "../global.css";
-import { Slot, SplashScreen, Stack } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SplashScreen, Stack } from "expo-router";
 import useFontLoader from "../hook/useFontLoader";
 
 SplashScreen.preventAutoHideAsync();
@@ -17,19 +15,19 @@ export default function Layout() {
       <Stack.Screen
         name="index"
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="(auth)/sign-up"
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="(auth)/sign-in"
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
