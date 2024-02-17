@@ -1,28 +1,32 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es2021: true
   },
   extends: [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/jsx-runtime"
   ],
   overrides: [
     {
       env: {
-        node: true,
+        browser: true,
+        es6: true,
+        node: true
       },
       files: [".eslintrc.{js,cjs}"],
       parserOptions: {
-        sourceType: "script",
-      },
-    },
+        sourceType: "script"
+      }
+    }
   ],
   parserOptions: {
     ecmaVersion: "latest",
-    sourceType: "module",
+    sourceType: "module"
   },
-  plugins: ["react"],
-  rules: {},
+  plugins: ["@typescript-eslint"],
+  rules: {
+    "react/prop-types": "off"
+  }
 };

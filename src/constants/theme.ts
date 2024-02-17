@@ -3,6 +3,8 @@ const COLORS = {
   secondary: "#eef0ff",
   // tertiary: "#FF7754",
 
+  lightblack: "#37364a",
+
   lightgray: "#bdbdbd",
   gray: "#83829A",
   gray2: "#C1C0C8",
@@ -12,9 +14,12 @@ const COLORS = {
 };
 
 const FONT = {
-  regular: "AirBnbRegular",
+  light: "AirBnbLight",
+  book: "AirBnbBook",
   medium: "AirBnbMedium",
-  bold: "AirBnbBold"
+  bold: "AirBnbBold",
+  Extrabold: "AirBnbExtrabold",
+  black: "AirBnbBlack"
 };
 
 const SIZES = {

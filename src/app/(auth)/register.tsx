@@ -1,5 +1,4 @@
 import { View, Text } from "react-native";
-import React from "react";
 import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 export default function SignUpForm() {
@@ -10,7 +9,7 @@ export default function SignUpForm() {
       <Text>This is SignUpForm</Text>
       <TouchableOpacity
         onPress={() => {
-          router.push("/sign-in/");
+          router.push("/login/");
         }}
       >
         <Text>Go to sign-in page</Text>

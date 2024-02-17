@@ -5,7 +5,7 @@ export default function Popular() {
   return (
     <View className="flex justify-center items-center">
       <Text className="text-xl font-bold">Feeds</Text>
-      <Pressable onPress={() => router.push("/sign-in")}>
+      <Pressable onPress={() => router.push("/login")}>
         <Text>Go back to HomePage</Text>
       </Pressable>
       <Pressable onPress={() => router.push("/details/")}>

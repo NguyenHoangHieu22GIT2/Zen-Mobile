@@ -3,7 +3,6 @@ import { SplashScreen, Stack } from "expo-router";
 import useFontLoader from "../hook/useFontLoader";
 
 SplashScreen.preventAutoHideAsync();
-
 export default function Layout() {
   const { loaded } = useFontLoader();
 
@@ -15,19 +14,19 @@ export default function Layout() {
       <Stack.Screen
         name="index"
         options={{
-          headerShown: false,
+          headerShown: false
         }}
       />
       <Stack.Screen
-        name="(auth)/sign-up"
+        name="(auth)/login"
         options={{
-          headerShown: false,
+          headerShown: false
         }}
       />
       <Stack.Screen
-        name="(auth)/sign-in"
+        name="(auth)/register"
         options={{
-          headerShown: false,
+          headerShown: false
         }}
       />
       <Stack.Screen name="(drawer)" options={{ headerShown: false }} />

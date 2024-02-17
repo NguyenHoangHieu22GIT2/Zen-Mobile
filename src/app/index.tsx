@@ -1,19 +1,27 @@
-import { Link } from "expo-router";
-import { ActivityIndicator, Text, View } from "react-native";
+import BigZenLogo from "@/components/common/BigZenLogo";
+import { IMAGES } from "@/constants";
+import { router } from "expo-router";
+import { useEffect } from "react";
+import { Image, View } from "react-native";
 
 export default function Page() {
   // const { top } = useSafeAreaInsets();
+  useEffect(() => {
+    setTimeout(() => {
+      router.push("/login/");
+    }, 3000);
+  }, []);
   return (
-    <View className="flex-1 bg-white justify-center items-center">
-      <Text>This is a loading page</Text>
-      <ActivityIndicator size="large" color="gray" />
-      <Link
+    <View className="flex-1  justify-center items-center ">
+      <Image source={IMAGES.appbackground} className="w-full h-full absolute" />
+      <BigZenLogo />
+      {/* <Link
         href={{
-          pathname: "/sign-in/",
+          pathname: "/login/"
         }}
       >
         Go to sign in page
-      </Link>
+      </Link> */}
     </View>
   );
 }
