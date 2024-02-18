@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { Pressable, TouchableOpacityProps } from "react-native";
 import FontText from "./FontText";
 
 export default function RectangleButton(
@@ -25,10 +25,15 @@ export default function RectangleButton(
   const finalTextColor = textColor ?? (secondary ? "black" : "white");
 
   return (
-    <TouchableOpacity
+    <Pressable
+      android_ripple={{
+        color: "#7b99fd",
+        borderless: false,
+        foreground: true,
+      }}
       className={`py-5 px-3 mx-8 relative ${
         secondary ? "bg-white" : "bg-primary"
-      } rounded-2xl shadow-xl flex-row justify-center items-center ${className}`}
+      } rounded-2xl overflow-hidden shadow-lg shadow-slate-300 flex-row justify-center items-center ${className}`}
       {...otherProps}
     >
       {iconLeft && iconLeft}
@@ -39,6 +44,6 @@ export default function RectangleButton(
         {text}
       </FontText>
       {iconRight && iconRight}
-    </TouchableOpacity>
+    </Pressable>
   );
 }

@@ -15,6 +15,8 @@ import GoogleSVG from "./svg/GoogleSVG";
 import PasswordSVG from "./svg/PasswordSVG";
 import EyeSVG from "./svg/EyeSVG";
 import EyeSlashSVG from "./svg/EyeSlashSVG";
+import ProfileSvg from "./svg/ProfileSVG";
+import BackSvg from "./svg/BackSvg";
 export {
   BigZenLogo,
   AuthTextInput,
@@ -30,5 +32,7 @@ export {
   GoogleSVG,
   PasswordSVG,
   EyeSVG,
-  EyeSlashSVG
+  EyeSlashSVG,
+  ProfileSvg,
+  BackSvg,
 };

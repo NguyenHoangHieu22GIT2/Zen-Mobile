@@ -1,26 +1,13 @@
-import { ReactNode, useState } from "react";
-import {
-  TextInput,
-  TextInputProps,
-  TouchableOpacity,
-  View
-} from "react-native";
-import EyeSVG from "../svg/EyeSVG";
-import EyeSlashSVG from "../svg/EyeSlashSVG";
+import { ReactNode } from "react";
+import { TextInput, TextInputProps, View } from "react-native";
 
-export default function AuthTextInput(
-  props: {
-    SVGIconElement: ReactNode;
-    label: string;
-    password?: boolean;
-  } & TextInputProps
-) {
-  const { SVGIconElement, label, password, ...otherProps } = props;
-  const [visible, setVisible] = useState(false);
-  const togglePasswordVisibility = () => {
-    setVisible((prev) => !prev);
-  };
-  const isSecured = password ? !visible : false;
+type props = {
+  SVGIconElement: ReactNode;
+  label: string;
+} & TextInputProps;
+
+export default function AuthTextInput(props: props) {
+  const { SVGIconElement, label, ...otherProps } = props;
 
   return (
     <View className="flex-row gap-3 items-center border border-gray-300 rounded-xl px-4 py-3">
@@ -29,14 +16,9 @@ export default function AuthTextInput(
         className="flex-1"
         placeholder={label}
         placeholderTextColor={"gray"}
-        secureTextEntry={isSecured}
+        secureTextEntry={false}
         {...otherProps}
       />
-      {password && (
-        <TouchableOpacity onPress={togglePasswordVisibility}>
-          {visible ? <EyeSVG /> : <EyeSlashSVG />}
-        </TouchableOpacity>
-      )}
     </View>
   );
 }

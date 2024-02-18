@@ -11,24 +11,18 @@ export default function useFontLoader() {
     AirBnbBold: require("../assets/fonts/AirbnbCereal_W_Bd.otf"),
     AirBnbExtrabold: require("../assets/fonts/AirbnbCereal_W_XBd.otf"),
     AirBnbBlack: require("../assets/fonts/AirbnbCereal_W_Blk.otf"),
-    ...FontAwesome.font
+    ...FontAwesome.font,
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(
-    () => {
-      if (error) throw error;
-    },
-    [error]
-  );
+  useEffect(() => {
+    if (error) throw error;
+  }, [error]);
 
-  useEffect(
-    () => {
-      if (loaded) {
-        SplashScreen.hideAsync();
-      }
-    },
-    [loaded]
-  );
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
   return { loaded };
 }

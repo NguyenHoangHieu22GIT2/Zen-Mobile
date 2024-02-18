@@ -10,23 +10,27 @@ export default function Layout() {
     return null;
   }
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        contentStyle: { backgroundColor: "white" },
+      }}
+    >
       <Stack.Screen
         name="index"
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="(auth)/login"
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="(auth)/register"
         options={{
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen name="(drawer)" options={{ headerShown: false }} />

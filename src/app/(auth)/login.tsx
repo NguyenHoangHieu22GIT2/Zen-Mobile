@@ -12,7 +12,7 @@ import {
   GoogleSVG,
   PasswordSVG,
   PressableText,
-  RectangleButton
+  RectangleButton,
 } from "@/components";
 
 export default function SignInForm() {
