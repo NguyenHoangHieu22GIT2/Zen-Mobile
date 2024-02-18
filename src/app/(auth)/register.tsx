@@ -22,7 +22,7 @@ export default function SignUpForm() {
         <BackSvg />
       </View>
       <View className="w-full px-8 gap-4 mt-10 ">
-        <FontText className="text-2xl mb-1 ">Sign in</FontText>
+        <FontText className="text-2xl mb-1 ">Sign up</FontText>
 
         <AuthTextInput SVGIconElement={<ProfileSvg />} label="Full Name" />
         <AuthTextInput SVGIconElement={<EmailSVG />} label="abc@email.com" />
@@ -36,7 +36,7 @@ export default function SignUpForm() {
         />
         <RectangleButton
           className="mt-5"
-          text="SIGN IN"
+          text="SIGN UP"
           iconRight={
             <FontAwesome
               name="arrow-right"

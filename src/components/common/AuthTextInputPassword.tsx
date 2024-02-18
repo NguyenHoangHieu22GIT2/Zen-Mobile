@@ -27,7 +27,7 @@ export default function AuthTextInputPassword(props: props) {
         className="flex-1"
         placeholder={label}
         placeholderTextColor={"gray"}
-        secureTextEntry={true}
+        secureTextEntry={}
         {...otherProps}
       />
       <TouchableOpacity onPress={togglePasswordVisibility}>
