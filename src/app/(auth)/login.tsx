@@ -14,6 +14,7 @@ import {
   PressableText,
   RectangleButton,
 } from "@/components";
+import AuthTextInputPassword from "@/components/common/AuthTextInputPassword";
 
 export default function SignInForm() {
   const [rememberMe, setRememberMe] = useState(false);
@@ -25,10 +26,9 @@ export default function SignInForm() {
       <View className="w-full px-8 gap-4 mt-8">
         <FontText className="text-2xl mb-1 ">Sign in</FontText>
         <AuthTextInput SVGIconElement={<EmailSVG />} label="abc@email.com" />
-        <AuthTextInput
+        <AuthTextInputPassword
           SVGIconElement={<PasswordSVG />}
           label="Your password"
-          password
         />
         <View className="flex-row items-center">
           <Switch

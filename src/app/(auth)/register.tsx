@@ -12,16 +12,16 @@ import {
   PressableText,
   ProfileSvg,
   BackSvg,
-  TopWrapperView,
+  TopWrapperView
 } from "@/components";
 import AuthTextInputPassword from "@/components/common/AuthTextInputPassword";
 export default function SignUpForm() {
   return (
-    <TopWrapperView className="mt-5">
-      <View className="w-full px-8 mb-5">
+    <TopWrapperView className="mt-8">
+      <View className="w-full px-8 mb-10">
         <BackSvg />
       </View>
-      <View className="w-full px-8 gap-4 mt-10 ">
+      <View className="w-full px-8 gap-4">
         <FontText className="text-2xl mb-1 ">Sign up</FontText>
 
         <AuthTextInput SVGIconElement={<ProfileSvg />} label="Full Name" />
@@ -49,7 +49,7 @@ export default function SignUpForm() {
           }}
         />
       </View>
-      <View className="mt-10 gap-4">
+      <View className="w-full px-8 gap-3 mt-10">
         <FontText className="text-center opacity-50">OR</FontText>
         <RectangleButton
           text="Login with Google"
@@ -64,10 +64,10 @@ export default function SignUpForm() {
           secondary
         />
       </View>
-      <View className="flex-row items-center mt-10 justify-center">
+      <View className="flex-row items-center mt-6 justify-center">
         <FontText>Already have an account? </FontText>
         <PressableText
-          text="Sign in"
+          text="Signin"
           className="text-primary"
           onPress={() => router.push("/login/")}
         />
