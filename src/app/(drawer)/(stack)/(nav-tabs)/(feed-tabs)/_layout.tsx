@@ -1,5 +1,3 @@
-import { View, Text } from "react-native";
-import React from "react";
 import {
   createMaterialTopTabNavigator,
   MaterialTopTabNavigationOptions,
@@ -22,7 +20,18 @@ export default function FeedLayout() {
     <MaterialTopTabs
       screenOptions={{
         tabBarActiveTintColor: COLORS.primary,
-        tabBarIndicatorStyle: { backgroundColor: COLORS.primary },
+        tabBarPressColor: COLORS.white,
+        tabBarStyle: {
+          shadowColor: "white",
+          borderBottomWidth: 0.5,
+          borderBottomColor: COLORS.lightgray
+        },
+        tabBarIndicatorStyle: {
+          backgroundColor: COLORS.primary,
+          width: 90,
+          borderRadius: 100,
+          marginLeft: 15
+        },
         tabBarLabelStyle: { textTransform: "capitalize", fontWeight: "bold" }
       }}
     >

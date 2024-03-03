@@ -7,7 +7,13 @@ import { IMAGES } from "@/constants";
 //all the feed details, settings, favourites,.. will be seperate from the nav-tab
 export default function StackLayout() {
   return (
-    <Stack screenOptions={{ headerTitleAlign: "center", headerShown: true }}>
+    <Stack
+      screenOptions={{
+        headerTitleAlign: "center",
+        headerShadowVisible: false,
+        headerShown: true
+      }}
+    >
       <Stack.Screen
         name="(nav-tabs)"
         options={{
@@ -16,7 +22,7 @@ export default function StackLayout() {
               <Text className="text-xl font-bold">Logo</Text>
             </View>
           ),
-          headerLeft: () => <DrawerOpenIcon source={IMAGES.fakeavatar} />,
+          headerLeft: () => <DrawerOpenIcon source={IMAGES.fakeavatar} />
         }}
       />
       <Stack.Screen name="details" />

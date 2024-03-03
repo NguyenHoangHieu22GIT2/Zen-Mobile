@@ -9,6 +9,8 @@ import CustomDrawerItem from "./layout/CustomDrawerItem";
 import DrawerOpenIcon from "./layout/DrawerOpenIcon";
 import NavBarIcon from "./layout/NavBarIcon";
 
+import Feed from "./home/feed/Feed";
+
 import EmailSVG from "./svg/EmailSVG";
 import FacebookSVG from "./svg/FacebookSVG";
 import GoogleSVG from "./svg/GoogleSVG";
@@ -35,4 +37,5 @@ export {
   EyeSlashSVG,
   ProfileSvg,
   BackSvg,
+  Feed
 };
