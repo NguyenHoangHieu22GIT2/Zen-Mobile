@@ -1,18 +1,12 @@
 import { ReactNode } from "react";
-import { ScrollView } from "react-native";
-import {
-  SafeAreaView,
-  SafeAreaViewProps
-} from "react-native-safe-area-context";
+import { View, ViewProps } from "react-native";
 export default function TopWrapperView(
-  props: { children: ReactNode } & SafeAreaViewProps
+  props: { children: ReactNode } & ViewProps
 ) {
   return (
-    <SafeAreaView
-      style={{ backgroundColor: "white", height: "100%" }}
-      {...props}
-    >
-      <ScrollView>{props.children}</ScrollView>
-    </SafeAreaView>
+    <View className={`bg-white ${props.className}`} {...props}>
+      {/* <ScrollView>{props.children}</ScrollView> */}
+      {props.children}
+    </View>
   );
 }

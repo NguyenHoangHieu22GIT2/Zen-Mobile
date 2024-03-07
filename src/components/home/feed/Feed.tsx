@@ -1,35 +1,61 @@
 import FontText from "@/components/common/FontText";
-import { View, Image, TouchableOpacity } from "react-native";
-import AvatarImage from "./AvatarImage";
+import { View } from "react-native";
 import { IMAGES } from "@/constants";
-import LikeReaction from "./LikeReaction";
-import CommentReaction from "./CommentReaction";
-import SaveReaction from "./SaveReaction";
-import ShareReaction from "./ShareReaction";
+import FeedImage from "./FeedImage";
+import FeedAvatarImage from "./FeedAvatarImage";
+import ToggleableReactionButton from "./ToggleableReactionButton";
+import HeartSVG from "@/components/svg/HeartSVG";
+import BookmarkSVG from "@/components/svg/BookmarkSVG";
+import UnToggleableReactionButton from "./UnToggleableReactionButton";
+import CommentSVG from "@/components/svg/CommentSVG";
+import ShareSVG from "@/components/svg/ShareSVG";
+import OptionMenuSVG from "@/components/svg/OptionMenuSVG";
 
 export default function Feed() {
   return (
     <View className="px-4 py-3 gap-3 border-b border-gray-200">
-      <View className="flex-row items-center justify-between px-2 ">
-        <AvatarImage source={IMAGES.fakeavatar} className="mr-2" />
+      <View className="flex-row items-center justify-between pl-2 ">
+        <FeedAvatarImage source={IMAGES.fakeavatar} className="mr-2" />
         <FontText className="font-bold">Thanh Pham</FontText>
         <FontText className="flex-1 text-right text-gray-400">
           1 hour ago
         </FontText>
+        <UnToggleableReactionButton
+          className="ml-2"
+          svgComponent={<OptionMenuSVG />}
+          onPress={() => {}}
+        />
       </View>
       <FontText className="mx-2">I'm so handsome, leave likes for me!</FontText>
-      <TouchableOpacity>
-        <Image
-          source={IMAGES.fakepostimage}
-          resizeMode="cover"
-          className="w-full h-72 rounded-2xl"
-        />
-      </TouchableOpacity>
+      <FeedImage
+        sources={[
+          IMAGES.fakepostimage,
+          IMAGES.fakepostimage,
+          IMAGES.fakepostimage,
+          IMAGES.fakepostimage,
+          IMAGES.fakepostimage
+        ]}
+      />
       <View className="flex-row gap-5 px-3 justify-between">
-        <LikeReaction number={99} />
-        <CommentReaction number={9999} />
-        <ShareReaction />
-        <SaveReaction className="flex-1 flex-row justify-end" />
+        <ToggleableReactionButton
+          number={5}
+          canActiveSvgComponent={<HeartSVG />}
+          onPress={() => {}}
+        />
+        <UnToggleableReactionButton
+          number={999}
+          svgComponent={<CommentSVG />}
+          onPress={() => {}}
+        />
+        <UnToggleableReactionButton
+          svgComponent={<ShareSVG />}
+          onPress={() => {}}
+        />
+        <ToggleableReactionButton
+          className="flex-1 flex-row justify-end"
+          canActiveSvgComponent={<BookmarkSVG />}
+          onPress={() => {}}
+        />
       </View>
     </View>
   );

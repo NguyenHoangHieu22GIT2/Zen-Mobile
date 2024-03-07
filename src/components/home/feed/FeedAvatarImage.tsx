@@ -1,7 +1,7 @@
 import { COLORS } from "@/constants";
 import { Image, ImageProps, Pressable } from "react-native";
 
-export default function AvatarImage(
+export default function FeedAvatarImage(
   props: { onPress?: () => void } & ImageProps
 ) {
   const { className, source, onPress, ...otherProps } = props;
