@@ -61,7 +61,7 @@ export default function FeedImage(props: { sources: ImageSourcePropType[] }) {
     <View>
       <View
         onLayout={(event) => findImageWidthAndHeightusingContainerWidth(event)}
-        style={{ height: CONTAINER_HEIGHT }}
+        style={props.sources.length != 0 && { height: CONTAINER_HEIGHT }}
         className="w-full bg-gray-100 rounded-2xl gap-1 flex-row flex-wrap overflow-hidden relative"
       >
         {!isLoading && smallImagesTobeRender}
