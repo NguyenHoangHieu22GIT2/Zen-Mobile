@@ -1,5 +1,5 @@
 import BigZenLogo from "./common/BigZenLogo";
-import AuthTextInput from "./common/AuthTextInput";
+import AuthTextInput from "./auth/AuthTextInput";
 import FontText from "./common/FontText";
 import PressableText from "./common/PressableText";
 import RectangleButton from "./common/RectangleButton";
@@ -17,6 +17,9 @@ import EyeSVG from "./svg/EyeSVG";
 import EyeSlashSVG from "./svg/EyeSlashSVG";
 import ProfileSvg from "./svg/ProfileSVG";
 import BackSvg from "./svg/BackSvg";
+import CheckSVG from "./svg/CheckSVG";
+import InforSVG from "./svg/InforSVG";
+import ErrorSVG from "./svg/ErrorSVG";
 export {
   BigZenLogo,
   AuthTextInput,
@@ -35,4 +38,7 @@ export {
   EyeSlashSVG,
   ProfileSvg,
   BackSvg,
+  CheckSVG,
+  InforSVG,
+  ErrorSVG
 };
