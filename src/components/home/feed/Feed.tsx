@@ -1,17 +1,20 @@
 import FontText from "@/components/common/FontText";
 import { View } from "react-native";
 import { IMAGES } from "@/constants";
-import FeedImage from "./FeedImage";
-import FeedAvatarImage from "./FeedAvatarImage";
-import ToggleableReactionButton from "./ToggleableReactionButton";
+import FeedImage from "./Images/FeedImage";
+import FeedAvatarImage from "./Images/FeedAvatarImage";
+import ToggleableReactionButton from "./Buttons/ToggleableReactionButton";
 import HeartSVG from "@/components/svg/HeartSVG";
 import BookmarkSVG from "@/components/svg/BookmarkSVG";
-import UnToggleableReactionButton from "./UnToggleableReactionButton";
+import UnToggleableReactionButton from "./Buttons/UnToggleableReactionButton";
 import CommentSVG from "@/components/svg/CommentSVG";
 import ShareSVG from "@/components/svg/ShareSVG";
 import OptionMenuSVG from "@/components/svg/OptionMenuSVG";
+import { Modalize } from "react-native-modalize";
+import { useRef } from "react";
 
 export default function Feed() {
+  const modalizeRef = useRef<Modalize>();
   return (
     <View className="px-4 py-3 gap-3 border-b border-gray-200">
       <View className="flex-row items-center justify-between pl-2 ">
@@ -45,7 +48,9 @@ export default function Feed() {
         <UnToggleableReactionButton
           number={999}
           svgComponent={<CommentSVG />}
-          onPress={() => {}}
+          onPress={() => {
+            modalizeRef.current?.open();
+          }}
         />
         <UnToggleableReactionButton
           svgComponent={<ShareSVG />}
@@ -57,6 +62,19 @@ export default function Feed() {
           onPress={() => {}}
         />
       </View>
+      <Modalize
+        ref={modalizeRef}
+        flatListProps={{
+          data: [],
+          renderItem: ({ item }) => (
+            <View>
+              <FontText>{item}</FontText>
+            </View>
+          ),
+          keyExtractor: (item) => item,
+          showsVerticalScrollIndicator: false
+        }}
+      />
     </View>
   );
 }
