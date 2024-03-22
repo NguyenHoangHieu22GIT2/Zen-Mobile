@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import PlaceholderSmallImage from "./PlaceholderSmallImage";
 import useFeedImageWidthandHeightCalculator from "@/hook/feed/useFeedImageWidthandHeightCalculator";
-import ImageDetailModal from "../ImageDetailModal";
+import ImageDetailModal from "./ImageDetailModal";
 
 const MAX_IMAGE_NUMBER_TO_RENDER = 4;
 const CONTAINER_HEIGHT = 250;

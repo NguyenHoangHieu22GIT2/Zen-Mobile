@@ -1,5 +1,5 @@
 import BigZenLogo from "./common/BigZenLogo";
-import AuthTextInput from "./common/AuthTextInput";
+import AuthTextInput from "./auth/AuthTextInput";
 import FontText from "./common/FontText";
 import PressableText from "./common/PressableText";
 import RectangleButton from "./common/RectangleButton";
@@ -24,6 +24,9 @@ import ShareSVG from "./svg/ShareSVG";
 import BookmarkSVG from "./svg/BookmarkSVG";
 import HeartSVG from "./svg/HeartSVG";
 import OptionMenuSVG from "./svg/OptionMenuSVG";
+import CheckSVG from "./svg/CheckSVG";
+import InforSVG from "./svg/InforSVG";
+import ErrorSVG from "./svg/ErrorSVG";
 export {
   BigZenLogo,
   AuthTextInput,
@@ -47,5 +50,8 @@ export {
   ShareSVG,
   BookmarkSVG,
   OptionMenuSVG,
-  Feed
+  Feed,
+  CheckSVG,
+  InforSVG,
+  ErrorSVG
 };

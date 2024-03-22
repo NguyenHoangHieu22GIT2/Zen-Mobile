@@ -12,9 +12,9 @@ import {
   GoogleSVG,
   PasswordSVG,
   PressableText,
-  RectangleButton,
+  RectangleButton
 } from "@/components";
-import AuthTextInputPassword from "@/components/common/AuthTextInputPassword";
+import AuthTextInputPassword from "@/components/auth/AuthTextInputPassword";
 
 export default function SignInForm() {
   const [rememberMe, setRememberMe] = useState(false);

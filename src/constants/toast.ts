@@ -1,0 +1,1 @@
+export const SHOW_TOAST_EVENT_NAME = "SHOW_TOAST_MESSAGE";

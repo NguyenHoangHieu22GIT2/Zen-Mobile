@@ -12,10 +12,13 @@ import {
   PressableText,
   ProfileSvg,
   BackSvg,
-  TopWrapperView
+  TopWrapperView,
+  InforSVG
 } from "@/components";
-import AuthTextInputPassword from "@/components/common/AuthTextInputPassword";
+import AuthTextInputPassword from "@/components/auth/AuthTextInputPassword";
+import { useRegister } from "@/hook/auth/useRegister";
 export default function SignUpForm() {
+  const { changeInputs, submitRegister, inputs } = useRegister();
   return (
     <TopWrapperView className="mt-8">
       <View className="w-full px-8 mb-10">
@@ -24,13 +27,27 @@ export default function SignUpForm() {
       <View className="w-full px-8 gap-4">
         <FontText className="text-2xl mb-1 ">Sign up</FontText>
 
-        <AuthTextInput SVGIconElement={<ProfileSvg />} label="Full Name" />
-        <AuthTextInput SVGIconElement={<EmailSVG />} label="abc@email.com" />
+        <AuthTextInput
+          value={inputs.username}
+          onChangeText={(value) => changeInputs("username", value)}
+          SVGIconElement={<ProfileSvg />}
+          label="Username"
+        />
+        <AuthTextInput
+          value={inputs.email}
+          onChangeText={(value) => changeInputs("email", value)}
+          SVGIconElement={<EmailSVG />}
+          label="abc@email.com"
+        />
         <AuthTextInputPassword
+          value={inputs.password}
+          onChangeText={(value) => changeInputs("password", value)}
           SVGIconElement={<PasswordSVG />}
           label="Your password"
         />
         <AuthTextInputPassword
+          value={inputs.confirmPassword}
+          onChangeText={(value) => changeInputs("confirmPassword", value)}
           SVGIconElement={<PasswordSVG />}
           label="Confirm password"
         />
@@ -44,9 +61,7 @@ export default function SignUpForm() {
               color="white"
             />
           }
-          onPress={() => {
-            router.push("/popular/");
-          }}
+          onPress={submitRegister}
         />
       </View>
       <View className="w-full px-8 gap-3 mt-10">
