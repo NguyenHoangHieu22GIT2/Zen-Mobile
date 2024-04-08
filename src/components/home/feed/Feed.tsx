@@ -12,6 +12,7 @@ import ShareSVG from "@/components/svg/ShareSVG";
 import OptionMenuSVG from "@/components/svg/OptionMenuSVG";
 import { Modalize } from "react-native-modalize";
 import { useRef } from "react";
+import { Portal } from "react-native-portalize";
 
 export default function Feed() {
   const modalizeRef = useRef<Modalize>();
@@ -62,19 +63,24 @@ export default function Feed() {
           onPress={() => {}}
         />
       </View>
-      <Modalize
-        ref={modalizeRef}
-        flatListProps={{
-          data: [],
-          renderItem: ({ item }) => (
-            <View>
-              <FontText>{item}</FontText>
-            </View>
-          ),
-          keyExtractor: (item) => item,
-          showsVerticalScrollIndicator: false
-        }}
-      />
+      <Portal>
+        <Modalize
+          ref={modalizeRef}
+          snapPoint={600}
+          flatListProps={{
+            data: ["a", "b"],
+            renderItem: ({ item }) => (
+              <View>
+                <FontText>{item}</FontText>
+              </View>
+            ),
+            keyExtractor: (item) => item,
+            showsVerticalScrollIndicator: true
+          }}
+          adjustToContentHeight
+          childrenStyle={{ height: 650 }}
+        />
+      </Portal>
     </View>
   );
 }

@@ -1,5 +1,4 @@
-import { Text, Pressable, FlatList, StatusBar } from "react-native";
-import { router } from "expo-router";
+import { FlatList, StatusBar } from "react-native";
 import { Feed, TopWrapperView } from "@/components";
 
 export default function Popular() {

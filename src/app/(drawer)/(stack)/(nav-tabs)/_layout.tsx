@@ -7,10 +7,11 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarLabelStyle: {
-          display: "none",
+          display: "none"
         },
         tabBarActiveTintColor: COLORS.primary,
         headerShown: false,
+        tabBarHideOnKeyboard: true
       }}
     >
       <Tabs.Screen
@@ -23,21 +24,59 @@ export default function TabLayout() {
               name="code"
               color={color}
             />
-          ),
+          )
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="search"
         options={{
-          title: "Profile",
           tabBarIcon: ({ color, focused }) => (
             <NavBarIcon
               focused={focused}
-              label="Profile"
+              label="Search"
               name="code"
               color={color}
             />
-          ),
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="group"
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <NavBarIcon
+              focused={focused}
+              label="Group"
+              name="code"
+              color={color}
+            />
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="notification"
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <NavBarIcon
+              focused={focused}
+              label="Notifications"
+              name="code"
+              color={color}
+            />
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <NavBarIcon
+              focused={focused}
+              label="Chat"
+              name="code"
+              color={color}
+            />
+          )
         }}
       />
     </Tabs>

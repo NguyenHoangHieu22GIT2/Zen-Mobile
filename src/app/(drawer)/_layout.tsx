@@ -50,7 +50,7 @@ export default function DrawerLayout() {
 const styles = StyleSheet.create({
   navItemLabel: {
     marginLeft: -20,
-    fontSize: 18,
+    fontSize: 18
   },
   userInfoWrapper: {
     flexDirection: "row",
@@ -58,24 +58,24 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
-    marginBottom: 10,
+    marginBottom: 10
   },
   userImg: {
     borderRadius: 40,
     width: 80,
-    height: 80,
+    height: 80
   },
   userDetailsWrapper: {
     marginTop: 25,
-    marginLeft: 10,
+    marginLeft: 10
   },
   userName: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "bold"
   },
   userEmail: {
     fontSize: 16,
     fontStyle: "italic",
-    textDecorationLine: "underline",
-  },
+    textDecorationLine: "underline"
+  }
 });

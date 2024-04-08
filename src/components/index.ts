@@ -11,6 +11,8 @@ import NavBarIcon from "./layout/NavBarIcon";
 
 import Feed from "./home/feed/Feed";
 
+import SearchInput from "./search/SearchInput";
+
 import EmailSVG from "./svg/EmailSVG";
 import FacebookSVG from "./svg/FacebookSVG";
 import GoogleSVG from "./svg/GoogleSVG";
@@ -27,6 +29,7 @@ import OptionMenuSVG from "./svg/OptionMenuSVG";
 import CheckSVG from "./svg/CheckSVG";
 import InforSVG from "./svg/InforSVG";
 import ErrorSVG from "./svg/ErrorSVG";
+import SearchSVG from "./svg/SearchSVG";
 export {
   BigZenLogo,
   AuthTextInput,
@@ -53,5 +56,7 @@ export {
   Feed,
   CheckSVG,
   InforSVG,
-  ErrorSVG
+  ErrorSVG,
+  SearchSVG,
+  SearchInput
 };
