@@ -12,11 +12,13 @@ import {
   GoogleSVG,
   PasswordSVG,
   PressableText,
-  RectangleButton
+  RectangleButton,
 } from "@/components";
 import AuthTextInputPassword from "@/components/auth/AuthTextInputPassword";
+import { useLogin } from "@/hook/auth/useLogin";
 
 export default function SignInForm() {
+  const { submitLogin, changeInputs, inputs } = useLogin();
   const [rememberMe, setRememberMe] = useState(false);
   return (
     <View className="flex-1 justify-center items-center ">
@@ -25,9 +27,16 @@ export default function SignInForm() {
 
       <View className="w-full px-8 gap-4 mt-8">
         <FontText className="text-2xl mb-1 ">Sign in</FontText>
-        <AuthTextInput SVGIconElement={<EmailSVG />} label="abc@email.com" />
+        <AuthTextInput
+          onChangeText={(value) => changeInputs("email", value)}
+          value={inputs.email}
+          SVGIconElement={<EmailSVG />}
+          label="abc@email.com"
+        />
         <AuthTextInputPassword
+          value={inputs.password}
           SVGIconElement={<PasswordSVG />}
+          onChangeText={(value) => changeInputs("password", value)}
           label="Your password"
         />
         <View className="flex-row items-center">
@@ -50,6 +59,7 @@ export default function SignInForm() {
             />
           }
           onPress={() => {
+            submitLogin();
             router.push("/popular/");
           }}
         />
