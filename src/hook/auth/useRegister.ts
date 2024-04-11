@@ -11,7 +11,7 @@ export function useRegister() {
     email: "hoanghieufro@gmail.com",
     password: "SonGoku@1",
     confirmPassword: "SonGoku@1",
-    gender: "male"
+    gender: "male",
   });
 
   function changeInputs(type: keyof ztRegisterInputs, value: string) {
@@ -23,24 +23,28 @@ export function useRegister() {
     // toast.success({ message: "Successfully signed up!" });
     // router.push("/popular");
     const zodResult = zRegisterInputs.safeParse(inputs);
-    if (!zodResult.success) return false;
+    if (!zodResult.success) {
+      toast.danger({
+        message: "Invalid inputs",
+        subMessage: "Please check your inputs",
+        duration: 3000,
+      });
+      return;
+    }
     try {
-      const result = await http.post(
-        process.env.HTTP_ENDPOINT_REGISTER,
-        inputs
-      );
-      console.log(result);
-      // if (result.status !== HTTP_POST_SUCCESS) {
-      //   console.log("Failed Register");
-      // } else {
-      toast.success({ message: "Successfully signed up!" });
-      router.push("/login");
-      // }
+      const result = await http.post("auth/register-account", inputs);
+      if (result.status !== HTTP_POST_SUCCESS) {
+        toast.danger({ message: "Failed signed up!" });
+      } else {
+        toast.success({ message: "Successfully signed up!" });
+        router.push("/login");
+      }
     } catch (error) {
+      console.log(error);
       toast.danger({
         message: error.message,
-        subMessage: "Breh",
-        duration: 3000
+        subMessage: error.message,
+        duration: 3000,
       });
       console.log(error.message);
       console.log(error.request);
@@ -51,6 +55,6 @@ export function useRegister() {
   return {
     inputs,
     changeInputs,
-    submitRegister
+    submitRegister,
   };
 }

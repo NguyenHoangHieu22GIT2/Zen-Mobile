@@ -13,12 +13,12 @@ import {
   ProfileSvg,
   BackSvg,
   TopWrapperView,
-  InforSVG
 } from "@/components";
 import AuthTextInputPassword from "@/components/auth/AuthTextInputPassword";
 import { useRegister } from "@/hook/auth/useRegister";
 export default function SignUpForm() {
   const { changeInputs, submitRegister, inputs } = useRegister();
+
   return (
     <TopWrapperView className="mt-8">
       <View className="w-full px-8 mb-10">
