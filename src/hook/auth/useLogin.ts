@@ -24,7 +24,10 @@ export function useLogin() {
       return;
     }
     try {
-      const result = await http.patch("auth/login-account", inputs);
+      const result = await http.patch(
+        process.env.EXPO_PUBLIC_HTTP_ENDPOIND_LOGIN,
+        inputs
+      );
       console.log(result);
     } catch (error) {
       console.log(error);

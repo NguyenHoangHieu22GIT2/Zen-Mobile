@@ -1,13 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-<<<<<<< HEAD
-  // baseURL: "http://10.0.2.2:3001/v1",
-  baseURL: "http://192.168.1.113:3001/v1",
-=======
-  baseURL: "http://10.0.2.2:3001/v1",
-  // baseURL: "http://192.168.1.106:3001/v1",
->>>>>>> main
+  baseURL: process.env.EXPO_PUBLIC_BASE_URL,
   timeout: 6000,
   withCredentials: true,
 });

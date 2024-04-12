@@ -4,7 +4,6 @@ import { zRegisterInputs, ztRegisterInputs } from "@/libs/zod";
 import { useState } from "react";
 import { router } from "expo-router";
 import toast from "@/utils/toast/toast";
-import { CanceledError } from "axios";
 export function useRegister() {
   const [inputs, setInputs] = useState<ztRegisterInputs>({
     username: "brangto",
@@ -32,7 +31,10 @@ export function useRegister() {
       return;
     }
     try {
-      const result = await http.post("auth/register-account", inputs);
+      const result = await http.post(
+        process.env.EXPO_PUBLIC_HTTP_ENDPOINT_REGISTER,
+        inputs
+      );
       if (result.status !== HTTP_POST_SUCCESS) {
         toast.danger({ message: "Failed signed up!" });
       } else {
@@ -46,9 +48,6 @@ export function useRegister() {
         subMessage: error.message,
         duration: 3000,
       });
-      console.log(error.message);
-      console.log(error.request);
-      console.log(error.error);
     }
   }
 
