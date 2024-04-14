@@ -12,7 +12,7 @@ import {
   PressableText,
   ProfileSvg,
   BackSvg,
-  TopWrapperView,
+  TopWrapperView
 } from "@/components";
 import AuthTextInputPassword from "@/components/auth/AuthTextInputPassword";
 import { useRegister } from "@/hook/auth/useRegister";
@@ -82,10 +82,11 @@ export default function SignUpForm() {
       <View className="flex-row items-center mt-6 justify-center">
         <FontText>Already have an account? </FontText>
         <PressableText
-          text="Signin"
           className="text-primary"
           onPress={() => router.push("/login/")}
-        />
+        >
+          Signin
+        </PressableText>
       </View>
     </TopWrapperView>
   );

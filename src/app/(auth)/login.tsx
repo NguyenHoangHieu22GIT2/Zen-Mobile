@@ -12,7 +12,7 @@ import {
   GoogleSVG,
   PasswordSVG,
   PressableText,
-  RectangleButton,
+  RectangleButton
 } from "@/components";
 import AuthTextInputPassword from "@/components/auth/AuthTextInputPassword";
 import { useLogin } from "@/hook/auth/useLogin";
@@ -47,7 +47,7 @@ export default function SignInForm() {
             thumbColor="white"
           />
           <FontText className="flex-1">Remember Me</FontText>
-          <PressableText text="Forgot Password?" className="text-right" />
+          <PressableText className="text-right">Forgot Password?</PressableText>
         </View>
         <RectangleButton
           text="SIGN IN"
@@ -79,10 +79,11 @@ export default function SignInForm() {
         <View className="flex-row items-center justify-center">
           <FontText>Don't have an account? </FontText>
           <PressableText
-            text="Sign up"
             className="text-primary"
             onPress={() => router.push("/register/")}
-          />
+          >
+            Sign up
+          </PressableText>
         </View>
       </View>
     </View>

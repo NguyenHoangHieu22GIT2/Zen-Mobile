@@ -1,13 +1,14 @@
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import FontText from "./FontText";
+import { ReactNode } from "react";
 
 export default function PressableText(
-  props: { text: string } & TouchableOpacityProps
+  props: { children: ReactNode } & TouchableOpacityProps
 ) {
-  const { text, className, ...otherProps } = props;
+  const { children, className, ...otherProps } = props;
   return (
     <TouchableOpacity {...otherProps}>
-      <FontText className={className}>{text}</FontText>
+      <FontText className={className}>{children}</FontText>
     </TouchableOpacity>
   );
 }

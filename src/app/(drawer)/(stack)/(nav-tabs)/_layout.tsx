@@ -15,13 +15,13 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="(feed-tabs)"
+        name="(home-tabs)"
         options={{
           tabBarIcon: ({ color, focused }) => (
             <NavBarIcon
               focused={focused}
               label="Home"
-              name="code"
+              name="home"
               color={color}
             />
           )
@@ -34,7 +34,7 @@ export default function TabLayout() {
             <NavBarIcon
               focused={focused}
               label="Search"
-              name="code"
+              name="search"
               color={color}
             />
           )
@@ -47,7 +47,7 @@ export default function TabLayout() {
             <NavBarIcon
               focused={focused}
               label="Group"
-              name="code"
+              name="group"
               color={color}
             />
           )
@@ -60,7 +60,7 @@ export default function TabLayout() {
             <NavBarIcon
               focused={focused}
               label="Notifications"
-              name="code"
+              name="bell"
               color={color}
             />
           )
@@ -73,7 +73,7 @@ export default function TabLayout() {
             <NavBarIcon
               focused={focused}
               label="Chat"
-              name="code"
+              name="commenting"
               color={color}
             />
           )

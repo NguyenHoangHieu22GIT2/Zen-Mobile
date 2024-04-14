@@ -30,6 +30,9 @@ import CheckSVG from "./svg/CheckSVG";
 import InforSVG from "./svg/InforSVG";
 import ErrorSVG from "./svg/ErrorSVG";
 import SearchSVG from "./svg/SearchSVG";
+import PlusSVG from "./svg/PlusSVG";
+import DownArrowSVG from "./svg/DownArrowSVG";
+import CameraSVG from "./svg/CameraSVG";
 export {
   BigZenLogo,
   AuthTextInput,
@@ -58,5 +61,8 @@ export {
   InforSVG,
   ErrorSVG,
   SearchSVG,
-  SearchInput
+  SearchInput,
+  PlusSVG,
+  DownArrowSVG,
+  CameraSVG
 };

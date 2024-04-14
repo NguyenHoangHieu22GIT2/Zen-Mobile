@@ -28,6 +28,12 @@ export default function StackLayout() {
           }}
         />
         <Stack.Screen
+          name="add-post"
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
           name="(profile-tab)"
           options={{
             headerTitle: () => (
