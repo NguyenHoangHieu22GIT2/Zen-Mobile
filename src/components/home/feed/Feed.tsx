@@ -10,12 +10,12 @@ import UnToggleableReactionButton from "./Buttons/UnToggleableReactionButton";
 import CommentSVG from "@/components/svg/CommentSVG";
 import ShareSVG from "@/components/svg/ShareSVG";
 import OptionMenuSVG from "@/components/svg/OptionMenuSVG";
-import { Modalize } from "react-native-modalize";
 import { useRef } from "react";
-import { Portal } from "react-native-portalize";
+import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 export default function Feed() {
-  const modalizeRef = useRef<Modalize>();
+  const modalizeRef = useRef<BottomSheetModal>();
   return (
     <View className="px-4 py-3 gap-3 border-b border-gray-200">
       <View className="flex-row items-center justify-between pl-2 ">
@@ -50,7 +50,7 @@ export default function Feed() {
           number={999}
           svgComponent={<CommentSVG />}
           onPress={() => {
-            modalizeRef.current?.open();
+            modalizeRef.current?.expand();
           }}
         />
         <UnToggleableReactionButton
@@ -63,7 +63,10 @@ export default function Feed() {
           onPress={() => {}}
         />
       </View>
-      <Portal>
+      <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[600]}>
+        <FontText>Awesome 🎉</FontText>
+      </CustomBottomSheet>
+      {/* <Portal>
         <Modalize
           ref={modalizeRef}
           snapPoint={600}
@@ -80,7 +83,7 @@ export default function Feed() {
           adjustToContentHeight
           childrenStyle={{ height: 650 }}
         />
-      </Portal>
+      </Portal> */}
     </View>
   );
 }
