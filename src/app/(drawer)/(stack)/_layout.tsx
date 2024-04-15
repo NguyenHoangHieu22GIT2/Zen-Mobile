@@ -21,6 +21,7 @@ export default function StackLayout() {
           <Stack.Screen
             name="(nav-tabs)"
             options={{
+              headerBackVisible: false,
               headerTitle: () => (
                 <View>
                   <Text className="text-xl font-bold">Zen</Text>
@@ -39,11 +40,10 @@ export default function StackLayout() {
             name="(profile-tab)"
             options={{
               headerTitle: () => (
-                <View>
+                <View style={{ height: 300 }}>
                   <Text className="text-xl font-bold">Zen</Text>
                 </View>
-              ),
-              headerLeft: () => <DrawerOpenIcon source={IMAGES.fakeavatar} />
+              )
             }}
           />
           <Stack.Screen name="details" />
