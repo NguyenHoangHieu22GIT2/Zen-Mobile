@@ -50,7 +50,7 @@ export default function Feed() {
           number={999}
           svgComponent={<CommentSVG />}
           onPress={() => {
-            modalizeRef.current?.expand();
+            modalizeRef.current?.present();
           }}
         />
         <UnToggleableReactionButton

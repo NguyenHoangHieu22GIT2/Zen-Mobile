@@ -33,6 +33,7 @@ import SearchSVG from "./svg/SearchSVG";
 import PlusSVG from "./svg/PlusSVG";
 import DownArrowSVG from "./svg/DownArrowSVG";
 import CameraSVG from "./svg/CameraSVG";
+import RightArrowSVG from "./svg/RightArrowSVG";
 export {
   BigZenLogo,
   AuthTextInput,
@@ -64,5 +65,6 @@ export {
   SearchInput,
   PlusSVG,
   DownArrowSVG,
-  CameraSVG
+  CameraSVG,
+  RightArrowSVG
 };

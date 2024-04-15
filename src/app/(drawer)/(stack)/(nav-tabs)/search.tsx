@@ -6,9 +6,13 @@ import { useRef, useState } from "react";
 import { View } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
+import Selector, { SelectItem } from "@/components/common/input/Selector";
+
+export type SearchResultType = "people" | "group" | "post";
 
 export default function SearchPage() {
   const [input, setInput] = useState<string>();
+  const [resultType, setResultType] = useState<SearchResultType>("people");
   const modalizeRef = useRef<BottomSheetModal>();
   return (
     <TopWrapperView className="h-full">
@@ -26,6 +30,7 @@ export default function SearchPage() {
         />
       </View>
       <SearchResults
+        type={resultType}
         searchResultArray={[
           {
             imageSource: IMAGES.fakepostimage,
@@ -41,8 +46,21 @@ export default function SearchPage() {
           }
         ]}
       />
-      <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[200]}>
-        <FontText>Awesome 🎉</FontText>
+      <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[220]}>
+        <FontText className="border-b border-gray-300 w-full text-center py-3 text-lg font-bold">
+          Choose the category
+        </FontText>
+        <Selector
+          onValueChange={(value) => {
+            setResultType(value);
+            modalizeRef.current.close();
+          }}
+          defaultValue={resultType}
+        >
+          <SelectItem name="People" value="people" />
+          <SelectItem name="Group" value="group" />
+          <SelectItem name="Post" value="post" />
+        </Selector>
       </CustomBottomSheet>
     </TopWrapperView>
   );

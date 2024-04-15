@@ -2,13 +2,15 @@ import { View, Image, ImageSourcePropType, Pressable } from "react-native";
 import FontText from "../common/FontText";
 import { COLORS } from "@/constants";
 
-export type SearchResultItemProps = {
+export type PeopleSearchResultItemProps = {
   imageSource: ImageSourcePropType;
   name: string;
   description?: string;
 };
 
-export default function SearchResultItem(props: SearchResultItemProps) {
+export default function PeopleSearchResultItem(
+  props: PeopleSearchResultItemProps
+) {
   const { imageSource, name, description } = props;
   return (
     <Pressable
@@ -18,10 +20,10 @@ export default function SearchResultItem(props: SearchResultItemProps) {
         foreground: true
       }}
       onPress={() => {}}
-      className="rounded-xl overflow-hidden shadow-xl shadow-gray-400 bg-white my-2 mx-5 px-3 py-1"
+      className="overflow-hidden shadow-xl shadow-gray-400 bg-white my-1 mx-3 px-3 py-1"
     >
       <View className="flex-row items-center gap-4 bg-white my-2">
-        <Image source={imageSource} className="w-24 h-24 rounded-xl" />
+        <Image source={imageSource} className="w-16 h-16 rounded-full" />
         <View className="flex-1 gap-1">
           <FontText className="font-bold text-xl text-darkblack">
             {name}
@@ -29,7 +31,7 @@ export default function SearchResultItem(props: SearchResultItemProps) {
           {description && (
             <FontText
               className="font-bold text-sm text-gray-500 "
-              numberOfLines={2}
+              numberOfLines={1}
             >
               {description}
             </FontText>
