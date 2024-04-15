@@ -44,34 +44,6 @@ export default function SearchPage() {
       <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[200]}>
         <FontText>Awesome 🎉</FontText>
       </CustomBottomSheet>
-      {/* <BottomSheetModal
-        ref={modalizeRef}
-        backdropComponent={(props) => (
-          <BottomSheetBackdrop
-            {...props}
-            onPress={() => modalizeRef.current?.close()}
-            disappearsOnIndex={-1}
-          />
-        )}
-        snapPoints={[200]}
-        enablePanDownToClose
-        index={0}
-        style={{
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 7
-          },
-          shadowOpacity: 0.43,
-          shadowRadius: 9.51,
-
-          elevation: 15
-        }}
-      >
-        <BottomSheetView className="bg-red">
-          <FontText>Awesome 🎉</FontText>
-        </BottomSheetView>
-      </BottomSheetModal> */}
     </TopWrapperView>
   );
 }

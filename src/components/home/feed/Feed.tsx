@@ -66,24 +66,6 @@ export default function Feed() {
       <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[600]}>
         <FontText>Awesome 🎉</FontText>
       </CustomBottomSheet>
-      {/* <Portal>
-        <Modalize
-          ref={modalizeRef}
-          snapPoint={600}
-          flatListProps={{
-            data: ["a", "b"],
-            renderItem: ({ item }) => (
-              <View>
-                <FontText>{item}</FontText>
-              </View>
-            ),
-            keyExtractor: (item) => item,
-            showsVerticalScrollIndicator: true
-          }}
-          adjustToContentHeight
-          childrenStyle={{ height: 650 }}
-        />
-      </Portal> */}
     </View>
   );
 }
