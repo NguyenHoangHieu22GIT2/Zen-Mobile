@@ -1,8 +1,13 @@
 import { View, FlatList } from "react-native";
-import SearchResultItem, { SearchResultItemProps } from "./SearchResultItem";
+import { GroupSearchResultItemProps } from "./GroupSearchResultItem";
+import GroupSearchResultItem from "./GroupSearchResultItem";
+import { SearchResultType } from "@/app/(drawer)/(stack)/(nav-tabs)/search";
+import PeopleSearchResultItem from "./PeopleSearchResultItem";
+import Feed from "../home/feed/Feed";
 
 type SearchResultsProps = {
-  searchResultArray: SearchResultItemProps[];
+  searchResultArray: GroupSearchResultItemProps[];
+  type: SearchResultType;
 };
 
 export default function SearchResults(props: SearchResultsProps) {
@@ -11,13 +16,23 @@ export default function SearchResults(props: SearchResultsProps) {
       <FlatList
         contentContainerStyle={{ paddingBottom: 20 }}
         data={props.searchResultArray}
-        renderItem={({ item }) => (
-          <SearchResultItem
-            imageSource={item.imageSource}
-            name={item.name}
-            description={item.description}
-          />
-        )}
+        renderItem={({ item }) =>
+          props.type == "people" ? (
+            <PeopleSearchResultItem
+              imageSource={item.imageSource}
+              name={item.name}
+              description={item.description}
+            />
+          ) : props.type == "group" ? (
+            <GroupSearchResultItem
+              imageSource={item.imageSource}
+              name={item.name}
+              description={item.description}
+            />
+          ) : (
+            <Feed />
+          )
+        }
       />
     </View>
   );

@@ -10,12 +10,12 @@ import UnToggleableReactionButton from "./Buttons/UnToggleableReactionButton";
 import CommentSVG from "@/components/svg/CommentSVG";
 import ShareSVG from "@/components/svg/ShareSVG";
 import OptionMenuSVG from "@/components/svg/OptionMenuSVG";
-import { Modalize } from "react-native-modalize";
-import { useRef } from "react";
-import { Portal } from "react-native-portalize";
+import React, { useRef } from "react";
+import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
-export default function Feed() {
-  const modalizeRef = useRef<Modalize>();
+function Feed() {
+  const modalizeRef = useRef<BottomSheetModal>();
   return (
     <View className="px-4 py-3 gap-3 border-b border-gray-200">
       <View className="flex-row items-center justify-between pl-2 ">
@@ -48,9 +48,11 @@ export default function Feed() {
         />
         <UnToggleableReactionButton
           number={999}
-          svgComponent={<CommentSVG />}
+          svgComponent={
+            <CommentSVG width={20} height={19} strokeColor={"#BDBDBD"} />
+          }
           onPress={() => {
-            modalizeRef.current?.open();
+            modalizeRef.current?.present();
           }}
         />
         <UnToggleableReactionButton
@@ -63,24 +65,10 @@ export default function Feed() {
           onPress={() => {}}
         />
       </View>
-      <Portal>
-        <Modalize
-          ref={modalizeRef}
-          snapPoint={600}
-          flatListProps={{
-            data: ["a", "b"],
-            renderItem: ({ item }) => (
-              <View>
-                <FontText>{item}</FontText>
-              </View>
-            ),
-            keyExtractor: (item) => item,
-            showsVerticalScrollIndicator: true
-          }}
-          adjustToContentHeight
-          childrenStyle={{ height: 650 }}
-        />
-      </Portal>
+      <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[600]}>
+        <FontText>Awesome 🎉</FontText>
+      </CustomBottomSheet>
     </View>
   );
 }
+export default React.memo(Feed);

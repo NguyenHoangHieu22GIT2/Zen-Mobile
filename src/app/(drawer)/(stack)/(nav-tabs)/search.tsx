@@ -4,12 +4,16 @@ import SearchResults from "@/components/search/SearchResults";
 import { IMAGES } from "@/constants";
 import { useRef, useState } from "react";
 import { View } from "react-native";
-import { Modalize } from "react-native-modalize";
-import { Portal } from "react-native-portalize";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
+import Selector, { SelectItem } from "@/components/common/input/Selector";
+
+export type SearchResultType = "people" | "group" | "post";
 
 export default function SearchPage() {
   const [input, setInput] = useState<string>();
-  const modalizeRef = useRef<Modalize>();
+  const [resultType, setResultType] = useState<SearchResultType>("people");
+  const modalizeRef = useRef<BottomSheetModal>();
   return (
     <TopWrapperView className="h-full">
       <View className="flex-row items-center mx-2">
@@ -21,11 +25,12 @@ export default function SearchPage() {
         />
         <FilterButton
           onPress={() => {
-            modalizeRef.current?.open();
+            modalizeRef.current?.present();
           }}
         />
       </View>
       <SearchResults
+        type={resultType}
         searchResultArray={[
           {
             imageSource: IMAGES.fakepostimage,
@@ -41,23 +46,22 @@ export default function SearchPage() {
           }
         ]}
       />
-      <Portal>
-        <Modalize
-          ref={modalizeRef}
-          snapPoint={300}
-          flatListProps={{
-            data: ["asd", "asds", "asdasd", "zxc", "qweqwe", "jkjl", "fff"],
-            renderItem: ({ item }) => (
-              <View>
-                <FontText>{item}</FontText>
-              </View>
-            ),
-            keyExtractor: (item) => item,
-            showsVerticalScrollIndicator: false
+      <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[220]}>
+        <FontText className="border-b border-gray-300 w-full text-center py-3 text-lg font-bold">
+          Choose the category
+        </FontText>
+        <Selector
+          onValueChange={(value) => {
+            setResultType(value);
+            modalizeRef.current.close();
           }}
-          adjustToContentHeight
-        />
-      </Portal>
+          defaultValue={resultType}
+        >
+          <SelectItem name="People" value="people" />
+          <SelectItem name="Group" value="group" />
+          <SelectItem name="Post" value="post" />
+        </Selector>
+      </CustomBottomSheet>
     </TopWrapperView>
   );
 }
