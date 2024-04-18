@@ -10,6 +10,7 @@ import DrawerOpenIcon from "./layout/DrawerOpenIcon";
 import NavBarIcon from "./layout/NavBarIcon";
 
 import Feed from "./home/feed/Feed";
+import FloattingButton from "./home/feed/Buttons/FloattingButton";
 
 import SearchInput from "./search/SearchInput";
 
@@ -39,6 +40,7 @@ export {
   FontText,
   PressableText,
   RectangleButton,
+  FloattingButton,
   TopWrapperView,
   CustomDrawerItem,
   DrawerOpenIcon,
