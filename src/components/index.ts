@@ -13,6 +13,11 @@ import Feed from "./home/feed/Feed";
 
 import SearchInput from "./search/SearchInput";
 
+import ProfileAboutTab from "./profile/tabs/ProfileAboutTab";
+import ProfileLikeTab from "./profile/tabs/ProfileLikeTab";
+import ProfilePostTab from "./profile/tabs/ProfilePostTab";
+import ProfileAvatarImage from "./profile/images/ProfileAvatarImage";
+
 import EmailSVG from "./svg/EmailSVG";
 import FacebookSVG from "./svg/FacebookSVG";
 import GoogleSVG from "./svg/GoogleSVG";
@@ -34,6 +39,7 @@ import PlusSVG from "./svg/PlusSVG";
 import DownArrowSVG from "./svg/DownArrowSVG";
 import CameraSVG from "./svg/CameraSVG";
 import RightArrowSVG from "./svg/RightArrowSVG";
+import AddUserSVG from "./svg/AddUserSVG";
 export {
   BigZenLogo,
   AuthTextInput,
@@ -66,5 +72,10 @@ export {
   PlusSVG,
   DownArrowSVG,
   CameraSVG,
-  RightArrowSVG
+  RightArrowSVG,
+  AddUserSVG,
+  ProfileAboutTab,
+  ProfileAvatarImage,
+  ProfileLikeTab,
+  ProfilePostTab
 };

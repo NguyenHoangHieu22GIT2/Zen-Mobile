@@ -14,7 +14,7 @@ const CustomDrawerContent = (props) => {
   } else
     return (
       <DrawerContentScrollView {...props}>
-        <View className="flex-row p-4 pt-5 items-center gap-3">
+        <View className="flex-row p-4 py-6 items-center gap-3">
           <Image
             source={{ uri: "https://randomuser.me/api/portraits/women/26.jpg" }}
             style={{ width: 70, height: 70 }}
@@ -25,7 +25,7 @@ const CustomDrawerContent = (props) => {
             <FontText className="text-gray-500">john@email.com</FontText>
           </View>
         </View>
-        <View className="flex-row gap-3 px-4 mt-1 mb-4">
+        <View className="flex-row gap-3 px-4 mb-6">
           <View className="flex-row items-center gap-1">
             <FontText className="font-bold">80</FontText>
             <FontText className="text-gray-500">Following</FontText>
@@ -43,7 +43,7 @@ const CustomDrawerContent = (props) => {
         <CustomDrawerItem
           FontAwesomeIconName="user"
           label="Profile"
-          pathname="/about"
+          pathname={`/profile/${123}`}
         />
         <CustomDrawerItem
           FontAwesomeIconName="gear"

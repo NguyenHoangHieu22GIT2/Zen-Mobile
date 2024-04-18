@@ -10,11 +10,11 @@ import UnToggleableReactionButton from "./Buttons/UnToggleableReactionButton";
 import CommentSVG from "@/components/svg/CommentSVG";
 import ShareSVG from "@/components/svg/ShareSVG";
 import OptionMenuSVG from "@/components/svg/OptionMenuSVG";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
-export default function Feed() {
+function Feed() {
   const modalizeRef = useRef<BottomSheetModal>();
   return (
     <View className="px-4 py-3 gap-3 border-b border-gray-200">
@@ -48,7 +48,9 @@ export default function Feed() {
         />
         <UnToggleableReactionButton
           number={999}
-          svgComponent={<CommentSVG />}
+          svgComponent={
+            <CommentSVG width={20} height={19} strokeColor={"#BDBDBD"} />
+          }
           onPress={() => {
             modalizeRef.current?.present();
           }}
@@ -69,3 +71,4 @@ export default function Feed() {
     </View>
   );
 }
+export default React.memo(Feed);

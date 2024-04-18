@@ -36,16 +36,7 @@ export default function StackLayout() {
               headerShown: false
             }}
           />
-          <Stack.Screen
-            name="(profile-tab)"
-            options={{
-              headerTitle: () => (
-                <View style={{ height: 300 }}>
-                  <Text className="text-xl font-bold">Zen</Text>
-                </View>
-              )
-            }}
-          />
+          <Stack.Screen name="profile/[id]" options={{ headerShown: false }} />
           <Stack.Screen name="details" />
           <Stack.Screen name="favourites" />
           <Stack.Screen name="setting" />
