@@ -1,9 +1,10 @@
-import { View, Text } from "react-native";
+import { FontText } from "@/components";
+import { View } from "react-native";
 
-export default function chat() {
+export default function Chat() {
   return (
     <View>
-      <Text>chat</Text>
+      <FontText>Messages</FontText>
     </View>
   );
 }
