@@ -2,6 +2,7 @@ import {
   AddUserSVG,
   BackSvg,
   CommentSVG,
+  EditSVG,
   FontText,
   ProfileAboutTab,
   ProfileAvatarImage,
@@ -20,6 +21,7 @@ import { useMemo, useState } from "react";
 import { Pressable, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+import OptionMenu, { Option } from "@/components/common/popup/OptionMenu";
 
 // const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
 //   const paddingToBottom = 0;
@@ -73,18 +75,35 @@ export default function UserProfile() {
   return (
     <SafeAreaView className="h-full bg-white">
       <Animated.View style={[animatedStyles]}>
-        <Pressable
-          android_ripple={{
-            color: COLORS.lightgray,
-            borderless: false,
-            foreground: true
-          }}
-          className="px-4 py-4 mx-2  rounded-full overflow-hidden justify-start"
-          style={{ width: 50 }}
-          onPress={router.back}
-        >
-          <BackSvg />
-        </Pressable>
+        <View className="flex-row justify-between items-center">
+          <Pressable
+            android_ripple={{
+              color: COLORS.lightgray,
+              borderless: false,
+              foreground: true
+            }}
+            className="px-4 py-4 mx-2  rounded-full overflow-hidden justify-start"
+            style={{ width: 50 }}
+            onPress={router.back}
+          >
+            <BackSvg />
+          </Pressable>
+          <OptionMenu snapPoint={[125]}>
+            <Option
+              onPress={() => {
+                router.push("profile/edit");
+              }}
+              label="Edit Profile"
+              icon={
+                <EditSVG
+                  width={25}
+                  height={25}
+                  strokeColor={COLORS.lightblack}
+                />
+              }
+            />
+          </OptionMenu>
+        </View>
         <View className=" items-center gap-3">
           <ProfileAvatarImage source={IMAGES.fakeavatar} />
           <FontText className="font-bold text-2xl">David Sibia</FontText>

@@ -37,6 +37,10 @@ export default function StackLayout() {
             }}
           />
           <Stack.Screen name="profile/[id]" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="profile/edit"
+            options={{ title: "Edit Profile" }}
+          />
           <Stack.Screen name="details" />
           <Stack.Screen name="favourites" />
           <Stack.Screen name="setting" />

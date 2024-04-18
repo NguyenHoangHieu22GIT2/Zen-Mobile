@@ -40,6 +40,7 @@ import DownArrowSVG from "./svg/DownArrowSVG";
 import CameraSVG from "./svg/CameraSVG";
 import RightArrowSVG from "./svg/RightArrowSVG";
 import AddUserSVG from "./svg/AddUserSVG";
+import EditSVG from "./svg/EditSVG";
 export {
   BigZenLogo,
   AuthTextInput,
@@ -77,5 +78,6 @@ export {
   ProfileAboutTab,
   ProfileAvatarImage,
   ProfileLikeTab,
-  ProfilePostTab
+  ProfilePostTab,
+  EditSVG
 };
