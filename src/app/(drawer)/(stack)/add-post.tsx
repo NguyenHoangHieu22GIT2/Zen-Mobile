@@ -1,4 +1,4 @@
-import { FontText, PressableText, TopWrapperView } from "@/components";
+import { FontText, PressableText } from "@/components";
 import PostButton from "@/components/home/add-feed/Buttons/PostButton";
 import PrivacyPickerSelect from "@/components/home/add-feed/Buttons/PrivacyPickerSelect";
 import MultipleImagePicker from "@/components/home/add-feed/Images/MultipleImagePicker";

@@ -13,6 +13,7 @@ import OptionMenuSVG from "@/components/svg/OptionMenuSVG";
 import React, { useRef } from "react";
 import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import Comments from "../comment/Comments";
 
 function Feed() {
   const modalizeRef = useRef<BottomSheetModal>();
@@ -66,7 +67,7 @@ function Feed() {
         />
       </View>
       <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[600]}>
-        <FontText>Awesome 🎉</FontText>
+        <Comments />
       </CustomBottomSheet>
     </View>
   );

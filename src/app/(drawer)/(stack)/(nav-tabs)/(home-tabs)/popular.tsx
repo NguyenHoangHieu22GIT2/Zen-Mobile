@@ -1,4 +1,4 @@
-import { FlatList, Pressable, StatusBar } from "react-native";
+import { FlatList, StatusBar } from "react-native";
 import { Feed, FloattingButton, PlusSVG, TopWrapperView } from "@/components";
 import { router } from "expo-router";
 
