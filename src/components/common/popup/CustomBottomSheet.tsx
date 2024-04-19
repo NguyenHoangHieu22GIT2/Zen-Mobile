@@ -1,4 +1,8 @@
-import { BottomSheetBackdrop, BottomSheetModal } from "@gorhom/bottom-sheet";
+import {
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetModalProps
+} from "@gorhom/bottom-sheet";
 import { MutableRefObject, ReactNode } from "react";
 
 type CustomBottomSheetProps = {
@@ -7,8 +11,10 @@ type CustomBottomSheetProps = {
   snapPoint: (string | number)[];
 };
 
-export default function CustomBottomSheet(props: CustomBottomSheetProps) {
-  const { bottomsheetRef, children, snapPoint } = props;
+export default function CustomBottomSheet(
+  props: CustomBottomSheetProps & BottomSheetModalProps
+) {
+  const { bottomsheetRef, children, snapPoint, ...otherProps } = props;
   return (
     <BottomSheetModal
       ref={bottomsheetRef}
@@ -33,6 +39,7 @@ export default function CustomBottomSheet(props: CustomBottomSheetProps) {
 
         elevation: 15
       }}
+      {...otherProps}
     >
       {children}
     </BottomSheetModal>

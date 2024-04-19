@@ -7,10 +7,12 @@ type props = {
 } & TextInputProps;
 
 export default function AuthTextInput(props: props) {
-  const { SVGIconElement, label, ...otherProps } = props;
+  const { SVGIconElement, label, className, ...otherProps } = props;
 
   return (
-    <View className="flex-row gap-3 items-center border border-gray-300 rounded-xl px-4 py-3">
+    <View
+      className={`flex-row gap-3 items-center border border-gray-300 rounded-xl px-4 py-3 ${className}`}
+    >
       {SVGIconElement}
       <TextInput
         className="flex-1"

@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { View } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
-import Selector, { SelectItem } from "@/components/common/input/Selector";
+import Selector, { SelectItem } from "@/components/common/popup/Selector";
 
 export type SearchResultType = "people" | "group" | "post";
 
