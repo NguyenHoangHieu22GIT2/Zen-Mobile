@@ -6,7 +6,7 @@ export function useFetchRecommendationPost() {
   const { data, error, isLoading } = useSWR<PostJson[]>(
     process.env.EXPO_PUBLIC_HTTP_ENDPOINT_GET_RECOMMENDED_POST +
     "?limit=10&skip=0",
-    fetcher
+    fetcher,
   );
   return { data, error, isLoading };
 }

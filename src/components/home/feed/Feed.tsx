@@ -87,7 +87,7 @@ function Feed(props: props) {
         />
       </View>
       <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[600]}>
-        <Comments />
+        <Comments postId={post._id} />
       </CustomBottomSheet>
     </View>
   );
