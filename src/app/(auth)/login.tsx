@@ -12,7 +12,7 @@ import {
   GoogleSVG,
   PasswordSVG,
   PressableText,
-  RectangleButton
+  RectangleButton,
 } from "@/components";
 import AuthTextInputPassword from "@/components/auth/AuthTextInputPassword";
 import { useLogin } from "@/hook/auth/useLogin";
@@ -60,7 +60,6 @@ export default function SignInForm() {
           }
           onPress={() => {
             submitLogin();
-            router.push("/popular/");
           }}
         />
         <FontText className="text-center opacity-50">OR</FontText>

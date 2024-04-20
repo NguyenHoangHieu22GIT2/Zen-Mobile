@@ -4,6 +4,7 @@ import { zRegisterInputs, ztRegisterInputs } from "@/libs/zod";
 import { useState } from "react";
 import { router } from "expo-router";
 import toast from "@/utils/toast/toast";
+import { EndUser } from "@/types/enduser.type";
 export function useRegister() {
   const [inputs, setInputs] = useState<ztRegisterInputs>({
     username: "brangto",
@@ -31,7 +32,7 @@ export function useRegister() {
       return;
     }
     try {
-      const result = await http.post(
+      const result = await http.post<EndUser>(
         process.env.EXPO_PUBLIC_HTTP_ENDPOINT_REGISTER,
         inputs
       );

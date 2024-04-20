@@ -32,12 +32,13 @@ export default function AddPostForm() {
         <FontText className="text-xl font-bold text-gray-600">
           Create a Post
         </FontText>
-        <PostButton onPress={() => {}} />
+        <PostButton onPress={() => { }} />
       </View>
       <View className="flex-row gap-3 px-4 my-2 items-end">
         <MyAddPostAvatar source={IMAGES.fakeavatar} />
         <PrivacyPickerSelect onValueChange={(value) => setPostPrivacy(value)} />
       </View>
+
       <TextInput
         autoFocus
         multiline={true}

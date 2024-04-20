@@ -7,11 +7,11 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarLabelStyle: {
-          display: "none"
+          display: "none",
         },
         tabBarActiveTintColor: COLORS.primary,
         headerShown: false,
-        tabBarHideOnKeyboard: true
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tabs.Screen
@@ -24,7 +24,7 @@ export default function TabLayout() {
               name="home"
               color={color}
             />
-          )
+          ),
         }}
       />
       <Tabs.Screen
@@ -37,7 +37,7 @@ export default function TabLayout() {
               name="search"
               color={color}
             />
-          )
+          ),
         }}
       />
       <Tabs.Screen
@@ -50,7 +50,7 @@ export default function TabLayout() {
               name="group"
               color={color}
             />
-          )
+          ),
         }}
       />
       <Tabs.Screen
@@ -63,7 +63,7 @@ export default function TabLayout() {
               name="bell"
               color={color}
             />
-          )
+          ),
         }}
       />
       <Tabs.Screen
@@ -76,7 +76,7 @@ export default function TabLayout() {
               name="commenting"
               color={color}
             />
-          )
+          ),
         }}
       />
     </Tabs>

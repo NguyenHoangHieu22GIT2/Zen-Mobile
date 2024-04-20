@@ -1,9 +1,13 @@
 import http from "@/libs/axios.base";
 import { zLoginInputs, ztLoginInputs } from "@/libs/zod/auth/login.type";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
+import { EndUser } from "@/types/enduser.type";
 import toast from "@/utils/toast/toast";
+import { router } from "expo-router";
 import { useState } from "react";
 
 export function useLogin() {
+  const authStore = useAuthStore((state) => state);
   const [inputs, setInputs] = useState<ztLoginInputs>({
     email: "hoanghieufro@gmail.com",
     password: "SonGoku@1",
@@ -24,12 +28,23 @@ export function useLogin() {
       return;
     }
     try {
-      const result = await http.patch(
+      const result = await http.patch<EndUser>(
         process.env.EXPO_PUBLIC_HTTP_ENDPOIND_LOGIN,
         inputs
       );
-      console.log(result);
+      authStore.setEndUser(result.data);
+      toast.success({
+        message: "Login successfully!",
+        subMessage: "Redirecting to popular page...",
+        duration: 3000,
+      });
+      router.push("/popular/");
     } catch (error) {
+      toast.danger({
+        message: error.code,
+        subMessage: error.response.data.message || "Please check your inputs",
+        duration: 3000,
+      });
       console.log(error);
     }
   }
