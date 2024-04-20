@@ -14,6 +14,7 @@ const useAuthStore = create<AuthStore>()(
       email: "",
       password: "",
       avatar: "",
+      description: "",
     },
     setEndUser: (endUser) => set({ endUser }),
   }))

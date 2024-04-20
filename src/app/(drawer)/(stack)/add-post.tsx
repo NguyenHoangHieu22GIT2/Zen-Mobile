@@ -10,8 +10,10 @@ import { TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ImagesPickedFlatList from "@/components/home/add-feed/Images/ImagesPickedFlatList";
 import { router } from "expo-router";
+import { useAddPost } from "@/hook/feed/useAddPost";
 
 export default function AddPostForm() {
+  const { inputs, changeInputs, submitAddPost } = useAddPost();
   const [postPrivacy, setPostPrivacy] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
   function removeImage(removeItem) {
@@ -32,12 +34,26 @@ export default function AddPostForm() {
         <FontText className="text-xl font-bold text-gray-600">
           Create a Post
         </FontText>
-        <PostButton onPress={() => { }} />
+        <PostButton
+          onPress={() => {
+            submitAddPost();
+          }}
+        />
       </View>
       <View className="flex-row gap-3 px-4 my-2 items-end">
         <MyAddPostAvatar source={IMAGES.fakeavatar} />
         <PrivacyPickerSelect onValueChange={(value) => setPostPrivacy(value)} />
       </View>
+      <TextInput
+        autoFocus
+        multiline={true}
+        numberOfLines={2}
+        style={{ textAlignVertical: "top" }}
+        className="px-6 text-xl mt-3"
+        placeholder="A meaningful title"
+        onChangeText={(text) => changeInputs("title", text)}
+        value={inputs.title}
+      />
 
       <TextInput
         autoFocus
@@ -46,6 +62,8 @@ export default function AddPostForm() {
         style={{ textAlignVertical: "top" }}
         className="px-6 text-xl mt-3"
         placeholder="What's on your head?"
+        onChangeText={(text) => changeInputs("body", text)}
+        value={inputs.body}
       />
       <ImagesPickedFlatList
         selectedImages={selectedImages}

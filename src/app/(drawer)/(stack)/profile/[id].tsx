@@ -8,12 +8,12 @@ import {
   ProfileAvatarImage,
   ProfileLikeTab,
   ProfilePostTab,
-  RectangleButton
+  RectangleButton,
 } from "@/components";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withTiming
+  withTiming,
 } from "react-native-reanimated";
 import { COLORS, IMAGES } from "@/constants";
 import { router, useLocalSearchParams } from "expo-router";
@@ -22,6 +22,7 @@ import { Pressable, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import OptionMenu, { Option } from "@/components/common/popup/OptionMenu";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
 
 // const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
 //   const paddingToBottom = 0;
@@ -35,12 +36,13 @@ import OptionMenu, { Option } from "@/components/common/popup/OptionMenu";
 // };
 
 export default function UserProfile() {
+  const authStore = useAuthStore((state) => state);
   const { id } = useLocalSearchParams();
   const layout = useWindowDimensions();
   const headerHeight = useSharedValue(330 / 2);
 
   const animatedStyles = useAnimatedStyle(() => ({
-    height: withTiming(headerHeight.value * 2, { duration: 500 })
+    height: withTiming(headerHeight.value * 2, { duration: 500 }),
   }));
 
   const renderScene = useMemo(
@@ -48,7 +50,7 @@ export default function UserProfile() {
       SceneMap({
         about: () => <ProfileAboutTab headerHeight={headerHeight} />,
         like: () => <ProfileLikeTab headerHeight={headerHeight} />,
-        post: () => <ProfilePostTab headerHeight={headerHeight} />
+        post: () => <ProfilePostTab headerHeight={headerHeight} />,
       }),
     [headerHeight]
   );
@@ -57,7 +59,7 @@ export default function UserProfile() {
   const [routes] = useState([
     { key: "about", title: "About" },
     { key: "like", title: "Likes" },
-    { key: "post", title: "Posts" }
+    { key: "post", title: "Posts" },
   ]);
   const renderTabBar = (props) => (
     <TabBar
@@ -66,7 +68,7 @@ export default function UserProfile() {
       indicatorStyle={{
         backgroundColor: COLORS.primary,
         marginHorizontal: 10,
-        width: 100
+        width: 100,
       }}
       labelStyle={{ color: "#a8abc8" }}
       style={{ backgroundColor: "white" }}
@@ -80,7 +82,7 @@ export default function UserProfile() {
             android_ripple={{
               color: COLORS.lightgray,
               borderless: false,
-              foreground: true
+              foreground: true,
             }}
             className="px-4 py-4 mx-2  rounded-full overflow-hidden justify-start"
             style={{ width: 50 }}
@@ -106,22 +108,9 @@ export default function UserProfile() {
         </View>
         <View className=" items-center gap-3">
           <ProfileAvatarImage source={IMAGES.fakeavatar} />
-          <FontText className="font-bold text-2xl">David Sibia</FontText>
-          <View className="flex-row items-center gap-4 my-2">
-            <View className="gap-1.5">
-              <FontText className="text-center">100</FontText>
-              <FontText className="text-gray-500 text-center">
-                Following
-              </FontText>
-            </View>
-            <View className="w-0.5 h-10 rounded-xl bg-gray-300" />
-            <View className="gap-1.5">
-              <FontText className="text-center">100</FontText>
-              <FontText className="text-gray-500 text-center">
-                Followers
-              </FontText>
-            </View>
-          </View>
+          <FontText className="font-bold text-2xl">
+            {authStore.endUser.username}
+          </FontText>
           <View className="flex-row justify-center items-center gap-5 px-5 my-3">
             <RectangleButton
               text="Follow"

@@ -1,7 +1,25 @@
 import Feed from "@/components/home/feed/Feed";
-import { View, FlatList } from "react-native";
+import { useFetchRecommendationPost } from "@/hook/feed/useFetchRecommendationPost";
+import { View, FlatList, Text } from "react-native";
 
 export default function ProfileLikeTab({ headerHeight }) {
+  const { data, error, isLoading } = useFetchRecommendationPost();
+
+  if (isLoading) {
+    return (
+      <View>
+        <Text>isLoading</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View>
+        <Text>Error</Text>
+      </View>
+    );
+  }
   return (
     <View className="flex-1 bg-white">
       <FlatList
@@ -14,8 +32,8 @@ export default function ProfileLikeTab({ headerHeight }) {
             headerHeight.value = HEADER_HEIGHT / 2;
           }
         }}
-        data={[1, 2]}
-        renderItem={() => <Feed />}
+        data={data}
+        renderItem={({ item }) => <Feed post={item} />}
       />
     </View>
   );

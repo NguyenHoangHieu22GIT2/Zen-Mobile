@@ -6,7 +6,7 @@ import FeedAvatarImage from "./Images/FeedAvatarImage";
 import ToggleableReactionButton from "./Buttons/ToggleableReactionButton";
 import HeartSVG from "@/components/svg/HeartSVG";
 import BookmarkSVG from "@/components/svg/BookmarkSVG";
-import UnToggleableReactionButton from "./Buttons/UnToggleableReactionButton";
+import ToggleCommentsButton from "./Buttons/ToggleCommentsButton";
 import CommentSVG from "@/components/svg/CommentSVG";
 import ShareSVG from "@/components/svg/ShareSVG";
 import OptionMenuSVG from "@/components/svg/OptionMenuSVG";
@@ -14,41 +14,64 @@ import React, { useRef } from "react";
 import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import Comments from "../comment/Comments";
+import { Post, PostJson } from "@/types/post.type";
+import { timeAgo } from "@/utils/funcs/timeAgo";
+import { trycatchAxios } from "@/utils/funcs/trycatchAxios";
+import http from "@/libs/axios.base";
 
-function Feed() {
+type props = {
+  post: PostJson;
+};
+
+function Feed(props: props) {
+  const toggleLike = async () => {
+    trycatchAxios(async () => {
+      const result = await http.post(
+        process.env.EXPO_PUBLIC_HTTP_ENDPOINT_BASE_LIKE,
+        { postId: post._id }
+      );
+      return result;
+    });
+  };
+  const post: Post = {
+    ...props.post,
+    createdAt: new Date(props.post.createdAt),
+    updatedAt: new Date(props.post.updatedAt),
+  };
+  const time = timeAgo(post.createdAt);
   const modalizeRef = useRef<BottomSheetModal>();
   return (
     <View className="px-4 py-3 gap-3 border-b border-gray-200">
       <View className="flex-row items-center justify-between pl-2 ">
         <FeedAvatarImage source={IMAGES.fakeavatar} className="mr-2" />
-        <FontText className="font-bold">Thanh Pham</FontText>
-        <FontText className="flex-1 text-right text-gray-400">
-          1 hour ago
-        </FontText>
-        <UnToggleableReactionButton
+        <FontText className="font-bold">{post.endUser.username}</FontText>
+        <FontText className="flex-1 text-right text-gray-400">{time}</FontText>
+        <ToggleCommentsButton
           className="ml-2"
           svgComponent={<OptionMenuSVG />}
-          onPress={() => {}}
+          onPress={() => { }}
         />
       </View>
-      <FontText className="mx-2">I'm so handsome, leave likes for me!</FontText>
+      <FontText className="mx-2 text-2xl">{post.title}</FontText>
+      <FontText className="mx-2 text-lg">{post.body}</FontText>
       <FeedImage
         sources={[
           IMAGES.fakepostimage,
           IMAGES.fakepostimage,
           IMAGES.fakepostimage,
           IMAGES.fakepostimage,
-          IMAGES.fakepostimage
+          IMAGES.fakepostimage,
         ]}
       />
       <View className="flex-row gap-5 px-3 justify-between">
         <ToggleableReactionButton
-          number={5}
+          hasActivated={post.hasLiked!}
           canActiveSvgComponent={<HeartSVG />}
-          onPress={() => {}}
+          onPress={() => {
+            toggleLike();
+          }}
         />
-        <UnToggleableReactionButton
-          number={999}
+        <ToggleCommentsButton
           svgComponent={
             <CommentSVG width={20} height={19} strokeColor={"#BDBDBD"} />
           }
@@ -56,14 +79,11 @@ function Feed() {
             modalizeRef.current?.present();
           }}
         />
-        <UnToggleableReactionButton
-          svgComponent={<ShareSVG />}
-          onPress={() => {}}
-        />
+        <ToggleCommentsButton svgComponent={<ShareSVG />} onPress={() => { }} />
         <ToggleableReactionButton
           className="flex-1 flex-row justify-end"
           canActiveSvgComponent={<BookmarkSVG />}
-          onPress={() => {}}
+          onPress={() => { }}
         />
       </View>
       <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[600]}>

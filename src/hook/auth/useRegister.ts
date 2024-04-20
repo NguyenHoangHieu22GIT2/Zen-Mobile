@@ -18,10 +18,7 @@ export function useRegister() {
     setInputs((oldInputs) => ({ ...oldInputs, [type]: value }));
   }
 
-  // TODO: FINISH WITH NOTIFICATION
   async function submitRegister() {
-    // toast.success({ message: "Successfully signed up!" });
-    // router.push("/popular");
     const zodResult = zRegisterInputs.safeParse(inputs);
     if (!zodResult.success) {
       toast.danger({
@@ -43,7 +40,6 @@ export function useRegister() {
         router.push("/login");
       }
     } catch (error) {
-      console.log(error);
       toast.danger({
         message: error.message,
         subMessage: error.message,

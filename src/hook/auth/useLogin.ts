@@ -1,5 +1,5 @@
 import http from "@/libs/axios.base";
-import { zLoginInputs, ztLoginInputs } from "@/libs/zod/auth/login.type";
+import { zLoginInputs, ztLoginInputs } from "@/libs/zod/auth/login.zod";
 import { useAuthStore } from "@/libs/zustand/auth.zustand";
 import { EndUser } from "@/types/enduser.type";
 import toast from "@/utils/toast/toast";
@@ -32,6 +32,7 @@ export function useLogin() {
         process.env.EXPO_PUBLIC_HTTP_ENDPOIND_LOGIN,
         inputs
       );
+      console.log("cho nhat:", result.data);
       authStore.setEndUser(result.data);
       toast.success({
         message: "Login successfully!",

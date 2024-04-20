@@ -4,6 +4,9 @@ type EndUser = {
   email: string;
   password: string;
   avatar: string;
+  description: string;
 };
 
-export { EndUser };
+type EndUserMinimal = Pick<EndUser, "_id" | "username" | "avatar">;
+
+export { EndUser, EndUserMinimal };

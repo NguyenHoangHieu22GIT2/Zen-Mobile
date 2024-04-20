@@ -1,7 +1,9 @@
 import FontText from "@/components/common/FontText";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
 import { ScrollView, View } from "react-native";
 
 export default function ProfileAboutTab({ headerHeight }) {
+  const authStore = useAuthStore((state) => state);
   return (
     <View className="flex-1 bg-white">
       <ScrollView
@@ -17,9 +19,7 @@ export default function ProfileAboutTab({ headerHeight }) {
         }}
       >
         <FontText className="text-base">
-          Enjoy your favorite dishe and a lovely your friends and family and
-          have a great time. Food from local food trucks will be available for
-          purchase.
+          {authStore.endUser.description}
         </FontText>
       </ScrollView>
     </View>

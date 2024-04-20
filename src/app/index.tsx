@@ -3,7 +3,6 @@ import { IMAGES } from "@/constants";
 import { router } from "expo-router";
 import { useEffect } from "react";
 import { Image, View } from "react-native";
-
 export default function Page() {
   // const { top } = useSafeAreaInsets();
   useEffect(() => {
