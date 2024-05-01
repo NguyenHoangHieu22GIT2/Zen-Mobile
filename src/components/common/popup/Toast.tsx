@@ -80,14 +80,14 @@ const Toast = () => {
     <Animated.View
       exiting={FadeOutUp.delay(200).duration(1000).springify()}
       entering={FadeInUp.delay(200).duration(1000).springify()}
-      className="rounded-full absolute top-10 mx-auto bg-white self-center shadow-xl shadow-gray-600 z-1 px-2.5 py-2 overflow-hidden"
+      className="rounded-2xl absolute top-10 mx-auto bg-white self-center shadow-xl shadow-gray-600 z-1 px-2.5 py-2 overflow-hidden"
     >
       <TouchableOpacity
         onPress={closeToast}
-        className="flex-row items-center justify-center"
+        className="flex-row items-center justify-around"
       >
         {icons[messageType]}
-        <View className=" max-w-[80%] mx-2">
+        <View className=" max-w-[280] mx-2">
           <FontText className="font-bold">{message}</FontText>
           {subMessage && (
             <FontText className="font-bold text-gray-500">

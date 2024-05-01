@@ -10,8 +10,8 @@ const HeartSVG = ({ isActive = false }: HeartSVGProps) => {
   return (
     <View>
       <Svg
-        width={18}
-        height={17}
+        width={20}
+        height={19}
         viewBox="0 0 18 17"
         fill={isActive ? COLORS.primary : "none"}
       >

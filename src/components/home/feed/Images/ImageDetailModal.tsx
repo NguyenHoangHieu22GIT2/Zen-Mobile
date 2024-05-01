@@ -7,17 +7,17 @@ import {
   FlatList,
   Dimensions,
   Image,
-  ImageSourcePropType,
   StatusBar
 } from "react-native";
 
 export default function ImageDetailModal(props: {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  imageSources: ImageSourcePropType[];
+  imageSourceURIs: string[];
   initialShowingImageIndex: number;
 }) {
-  const { isOpen, setIsOpen, imageSources, initialShowingImageIndex } = props;
+  const { isOpen, setIsOpen, imageSourceURIs, initialShowingImageIndex } =
+    props;
   const flatListRef = useRef(null);
   const getItemLayout = (data, index) => {
     return {
@@ -58,7 +58,7 @@ export default function ImageDetailModal(props: {
         <View>
           <FlatList
             ref={flatListRef}
-            data={imageSources}
+            data={imageSourceURIs}
             initialScrollIndex={initialShowingImageIndex}
             getItemLayout={getItemLayout}
             onScrollToIndexFailed={(infor) => {
@@ -71,9 +71,9 @@ export default function ImageDetailModal(props: {
                   style={{ width: Dimensions.get("window").width }}
                 >
                   <Image
-                    source={item}
+                    source={{ uri: item }}
                     resizeMode="contain"
-                    style={{ width: "100%" }}
+                    style={{ width: "100%", height: "100%" }}
                   />
                 </View>
               );

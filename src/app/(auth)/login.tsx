@@ -12,13 +12,13 @@ import {
   GoogleSVG,
   PasswordSVG,
   PressableText,
-  RectangleButton,
+  RectangleButton
 } from "@/components";
 import AuthTextInputPassword from "@/components/auth/AuthTextInputPassword";
 import { useLogin } from "@/hook/auth/useLogin";
 
 export default function SignInForm() {
-  const { submitLogin, changeInputs, inputs } = useLogin();
+  const { submitLogin, changeInputs, inputs, isLoading } = useLogin();
   const [rememberMe, setRememberMe] = useState(false);
   return (
     <View className="flex-1 justify-center items-center ">
@@ -50,13 +50,15 @@ export default function SignInForm() {
           <PressableText className="text-right">Forgot Password?</PressableText>
         </View>
         <RectangleButton
-          text="SIGN IN"
+          text={isLoading ? "Processing.." : "SIGN IN"}
           iconRight={
-            <FontAwesome
-              name="arrow-right"
-              className="bg-black/15 py-2 px-2.5 rounded-full absolute right-3"
-              color="white"
-            />
+            !isLoading && (
+              <FontAwesome
+                name="arrow-right"
+                className="bg-black/15 py-2 px-2.5 rounded-full absolute right-3"
+                color="white"
+              />
+            )
           }
           onPress={() => {
             submitLogin();

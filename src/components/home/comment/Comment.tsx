@@ -7,13 +7,14 @@ import PressableText from "@/components/common/PressableText";
 import { Comment as CommentType } from "@/types/comment.type";
 
 type CommentProps = {
-  comment: CommentType; 
-  replies?: CommentType[];
+  comment: CommentType;
+  // replies?: CommentType[];
   onReply?: (commentId: string) => void;
 };
 
 export default function Comment({ comment, onReply }: CommentProps) {
   // const [repliesIsOpen, setRepliesIsOpen] = useState(false);
+  //TODO: A fetcher for replies of this COmment
   const createdAt = new Date(comment.createdAt).toLocaleDateString();
   return (
     <View className="mb-2">
@@ -21,10 +22,12 @@ export default function Comment({ comment, onReply }: CommentProps) {
         <FeedAvatarImage source={IMAGES.fakeavatar} />
         <View className="gap-1 py-2">
           <View className="flex-row">
-            <FontText className="font-bold">{comment.endUser.username || ""}</FontText> 
+            <FontText className="font-bold">
+              {comment.endUser.username || ""}
+            </FontText>
             <FontText> • {createdAt || ""}</FontText>
           </View>
-          <FontText>{comment.content|| ""}</FontText>
+          <FontText>{comment.content || ""}</FontText>
           <PressableText
             className="text-gray-400 text-sm"
             onPress={() => onReply(comment._id)}

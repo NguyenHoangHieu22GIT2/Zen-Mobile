@@ -15,9 +15,9 @@ export default function Comments(props: props) {
   const [comments, setComments] = useState<CommentType[]>([]);
   const { data } = useFetchComments({ postId: props.postId });
   const [replyingCommentId, setReplyingCommentId] = useState("");
-  // const handleReplying = (commentId) => {
-  //   setReplyingCommentId(commentId);
-  // };
+  const handleReplying = (commentId) => {
+    setReplyingCommentId(commentId);
+  };
 
   function onChangeComments(newComments: CommentType) {
     setComments([...comments, newComments]);
@@ -39,7 +39,9 @@ export default function Comments(props: props) {
         data={comments}
         keyExtractor={(i) => i._id}
         className="px-4 py-3"
-        renderItem={({ item }) => <Comment key={item._id} comment={item} />}
+        renderItem={({ item }) => (
+          <Comment key={item._id} comment={item} onReply={handleReplying} />
+        )}
       />
       <CommentInput
         replyingUser={getCommentFrom(replyingCommentId)}

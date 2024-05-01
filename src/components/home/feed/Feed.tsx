@@ -14,10 +14,10 @@ import React, { useRef } from "react";
 import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import Comments from "../comment/Comments";
-import { Post, PostJson } from "@/types/post.type";
-import { timeAgo } from "@/utils/funcs/timeAgo";
+import { PostJson } from "@/types/post.type";
 import { trycatchAxios } from "@/utils/funcs/trycatchAxios";
 import http from "@/libs/axios.base";
+import { convertPostDataToFeedfield } from "@/utils/funcs/convertPostDataToFeedfield";
 
 type props = {
   post: PostJson;
@@ -33,36 +33,29 @@ function Feed(props: props) {
       return result;
     });
   };
-  const post: Post = {
-    ...props.post,
-    createdAt: new Date(props.post.createdAt),
-    updatedAt: new Date(props.post.updatedAt),
-  };
-  const time = timeAgo(post.createdAt);
+  const post = convertPostDataToFeedfield(props.post);
+
   const modalizeRef = useRef<BottomSheetModal>();
   return (
-    <View className="px-4 py-3 gap-3 border-b border-gray-200">
+    <View className="px-5 py-3.5 gap-3 border rounded-3xl bg-white border-gray-200">
       <View className="flex-row items-center justify-between pl-2 ">
         <FeedAvatarImage source={IMAGES.fakeavatar} className="mr-2" />
         <FontText className="font-bold">{post.endUser.username}</FontText>
-        <FontText className="flex-1 text-right text-gray-400">{time}</FontText>
+        <FontText className="flex-1 text-right text-gray-400">
+          {post.postAge}
+        </FontText>
         <ToggleCommentsButton
           className="ml-2"
           svgComponent={<OptionMenuSVG />}
-          onPress={() => { }}
+          onPress={() => {}}
         />
       </View>
-      <FontText className="mx-2 text-2xl">{post.title}</FontText>
-      <FontText className="mx-2 text-lg">{post.body}</FontText>
-      <FeedImage
-        sources={[
-          IMAGES.fakepostimage,
-          IMAGES.fakepostimage,
-          IMAGES.fakepostimage,
-          IMAGES.fakepostimage,
-          IMAGES.fakepostimage,
-        ]}
-      />
+      <FontText className="mx-2 mt-2.5 text-xl font-bold">
+        {post.title}
+      </FontText>
+      <FontText className="mx-2 mb-3 text-lg ">{post.body}</FontText>
+      <FeedImage sourceURIs={post.images} />
+
       <View className="flex-row gap-5 px-3 justify-between">
         <ToggleableReactionButton
           hasActivated={post.hasLiked!}
@@ -79,11 +72,11 @@ function Feed(props: props) {
             modalizeRef.current?.present();
           }}
         />
-        <ToggleCommentsButton svgComponent={<ShareSVG />} onPress={() => { }} />
+        <ToggleCommentsButton svgComponent={<ShareSVG />} onPress={() => {}} />
         <ToggleableReactionButton
           className="flex-1 flex-row justify-end"
           canActiveSvgComponent={<BookmarkSVG />}
-          onPress={() => { }}
+          onPress={() => {}}
         />
       </View>
       <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[600]}>

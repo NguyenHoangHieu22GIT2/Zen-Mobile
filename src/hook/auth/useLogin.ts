@@ -10,20 +10,22 @@ export function useLogin() {
   const authStore = useAuthStore((state) => state);
   const [inputs, setInputs] = useState<ztLoginInputs>({
     email: "hoanghieufro@gmail.com",
-    password: "SonGoku@1",
+    password: "SonGoku@1"
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   function changeInputs(type: keyof ztLoginInputs, value: string) {
     setInputs((oldInputs) => ({ ...oldInputs, [type]: value }));
   }
 
   async function submitLogin() {
+    setIsLoading(true);
     const zodResult = zLoginInputs.safeParse(inputs);
     if (!zodResult.success) {
       toast.danger({
         message: "Invalid inputs",
         subMessage: "Please check your inputs",
-        duration: 3000,
+        duration: 3000
       });
       return;
     }
@@ -37,22 +39,25 @@ export function useLogin() {
       toast.success({
         message: "Login successfully!",
         subMessage: "Redirecting to popular page...",
-        duration: 3000,
+        duration: 3000
       });
       router.push("/popular/");
     } catch (error) {
       toast.danger({
         message: error.code,
         subMessage: error.response.data.message || "Please check your inputs",
-        duration: 3000,
+        duration: 3000
       });
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return {
     changeInputs,
     inputs,
-    submitLogin,
+    isLoading,
+    submitLogin
   };
 }

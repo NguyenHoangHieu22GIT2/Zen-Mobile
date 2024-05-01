@@ -9,11 +9,15 @@ type PrivacyPickerSelect = {
 
 export default function PrivacyPickerSelect(props: PrivacyPickerSelect) {
   return (
-    <View className="flex-row items-center gap-2">
+    <View className="flex-row items-center gap-2 border rounded-xl border-gray-500 px-2.5">
       <RNPickerSelect
         onValueChange={props.onValueChange}
         useNativeAndroidPickerStyle={false}
         placeholder={{}}
+        style={{
+          inputAndroid: { color: COLORS.lightblack },
+          inputIOS: { color: COLORS.gray }
+        }}
         items={[
           {
             label: "Public (anyone can see your post)",
