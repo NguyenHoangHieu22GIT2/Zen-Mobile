@@ -36,6 +36,7 @@ function Feed(props: props) {
   const post = convertPostDataToFeedfield(props.post);
 
   const modalizeRef = useRef<BottomSheetModal>();
+
   return (
     <View className="px-5 py-3.5 gap-3 border rounded-3xl bg-white border-gray-200">
       <View className="flex-row items-center justify-between pl-2 ">
@@ -62,6 +63,7 @@ function Feed(props: props) {
           canActiveSvgComponent={<HeartSVG />}
           onPress={() => {
             toggleLike();
+            console.log(post.images);
           }}
         />
         <ToggleCommentsButton

@@ -1,4 +1,10 @@
-import { FlatList, RefreshControl, StatusBar, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  StatusBar,
+  View
+} from "react-native";
 import {
   Feed,
   FloattingButton,
@@ -9,12 +15,16 @@ import {
 import { router } from "expo-router";
 import { useFetchRecommendationPost } from "@/hook/feed/useFetchRecommendationPost";
 import { COLORS } from "@/constants";
-import { useState } from "react";
 
 export default function Popular() {
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const { posts, fetchMorePosts, error, refreshPosts } =
-    useFetchRecommendationPost();
+  const {
+    posts,
+    fetchMorePosts,
+    error,
+    refreshPosts,
+    isRefreshing,
+    isLoadingMore
+  } = useFetchRecommendationPost();
 
   if (error) {
     console.log(error);
@@ -34,10 +44,21 @@ export default function Popular() {
       <View className="w-full h-full bg-gray-100">
         <FlatList
           ItemSeparatorComponent={() => <View className="h-3 " />}
-          showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={true}
           data={posts}
           renderItem={({ item }) => <Feed post={item} />}
           keyExtractor={(item) => item._id}
+          ListFooterComponent={() =>
+            isLoadingMore ? (
+              <ActivityIndicator size="small" color={COLORS.primary} />
+            ) : (
+              <View className="items-center h-10">
+                <FontText className="text-gray-400 text-xl font-bold">
+                  .
+                </FontText>
+              </View>
+            )
+          }
           onEndReached={fetchMorePosts}
           onEndReachedThreshold={0.7}
           extraData={posts}
@@ -46,9 +67,7 @@ export default function Popular() {
               colors={[COLORS.primary]}
               refreshing={isRefreshing}
               onRefresh={() => {
-                setIsRefreshing(true);
                 refreshPosts();
-                setIsRefreshing(false);
               }}
             />
           }

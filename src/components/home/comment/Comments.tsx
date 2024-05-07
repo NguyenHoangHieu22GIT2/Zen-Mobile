@@ -1,54 +1,96 @@
 import FontText from "@/components/common/FontText";
 import { BottomSheetFlatList, BottomSheetView } from "@gorhom/bottom-sheet";
 import CommentInput from "./CommentInput";
-import { useEffect, useState } from "react";
-import { getCommentFrom } from "@/hook/comment/useDummyCommentDB";
 import { useFetchComments } from "@/hook/comment/useFetchComments";
-import { Comment as CommentType } from "@/types/comment.type";
 import Comment from "./Comment";
+import { useCreateComments } from "@/hook/comment/useCreateComments";
+import { RefreshControl } from "react-native";
+import { COLORS } from "@/constants";
+import { useRef } from "react";
+import { useFetchReplies } from "@/hook/comment/useFetchReplies";
+import PressableText from "@/components/common/PressableText";
 
 type props = {
   postId: string;
 };
 
 export default function Comments(props: props) {
-  const [comments, setComments] = useState<CommentType[]>([]);
-  const { data } = useFetchComments({ postId: props.postId });
-  const [replyingCommentId, setReplyingCommentId] = useState("");
-  const handleReplying = (commentId) => {
-    setReplyingCommentId(commentId);
-  };
+  const {
+    comments,
+    fetchMoreComments,
+    refreshComments,
+    isRefreshing,
+    addComment
+  } = useFetchComments({
+    postId: props.postId
+  });
 
-  function onChangeComments(newComments: CommentType) {
-    setComments([...comments, newComments]);
-  }
+  const { replyLists, fetchReplies, addReply } = useFetchReplies();
 
-  useEffect(() => {
-    setComments(data);
-  }, [data]);
+  const {
+    createComment,
+    replyingComment,
+    handleChangeReplyingComment,
+    input,
+    changeInput
+  } = useCreateComments({
+    postId: props.postId,
+    addComment: addComment,
+    addReply: addReply
+  });
+
+  const flatlistRef = useRef(null);
+
   return (
     <>
       <BottomSheetView
         style={{ paddingBottom: 15 }}
-        className="flex-row items-center gap-3 border-b border-gray-300 px-5 pt-2 "
+        className="flex-row items-center justify-start gap-3 border-b border-gray-300 px-5 pt-2 "
       >
         <FontText className="font-bold text-xl">Comments</FontText>
         <FontText>(37)</FontText>
+        <PressableText className="ml-40 " onPress={refreshComments}>
+          re-
+        </PressableText>
       </BottomSheetView>
+
       <BottomSheetFlatList
+        ref={flatlistRef}
         data={comments}
         keyExtractor={(i) => i._id}
         className="px-4 py-3"
-        renderItem={({ item }) => (
-          <Comment key={item._id} comment={item} onReply={handleReplying} />
-        )}
+        renderItem={({ item }) => {
+          if (!item.parentCommentId)
+            return (
+              <Comment
+                replyLists={replyLists}
+                key={item._id}
+                comment={item}
+                replyingComment={replyingComment}
+                onReply={(comment) => handleChangeReplyingComment(comment)}
+                onShowReplies={(comment) => {
+                  fetchReplies(comment);
+                }}
+              />
+            );
+        }}
+        onEndReached={fetchMoreComments}
+        onEndReachedThreshold={0.2}
+        refreshControl={
+          <RefreshControl
+            colors={[COLORS.primary]}
+            refreshing={isRefreshing}
+            onRefresh={refreshComments}
+          />
+        }
       />
       <CommentInput
-        replyingUser={getCommentFrom(replyingCommentId)}
-        onCancelReplying={() => setReplyingCommentId("")}
-        //onSend need to check whether replying to someone or not
-        postId={props.postId}
-        onChangeComments={onChangeComments}
+        replyingUsername={replyingComment?.endUser.username}
+        onCancelReplying={() => handleChangeReplyingComment(null)}
+        onChangeInput={(value) => changeInput(value)}
+        onCreateComment={() => {
+          createComment(replyingComment?._id, input);
+        }}
       />
     </>
   );
