@@ -75,7 +75,7 @@ export default function Popular() {
 
         <FloattingButton
           onPress={() => {
-            router.push("/add-post");
+            router.push("/post/create");
           }}
           icon={<PlusSVG width={25} height={25} />}
         />

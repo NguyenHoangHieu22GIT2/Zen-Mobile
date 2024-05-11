@@ -3,9 +3,9 @@ import { useFetchRecommendationPost } from "@/hook/feed/useFetchRecommendationPo
 import { View, FlatList, Text } from "react-native";
 
 export default function ProfileLikeTab({ headerHeight }) {
-  const { data, error, isLoading } = useFetchRecommendationPost();
+  const { posts, error, isLoadingMore } = useFetchRecommendationPost();
 
-  if (isLoading) {
+  if (isLoadingMore) {
     return (
       <View>
         <Text>isLoading</Text>
@@ -32,7 +32,7 @@ export default function ProfileLikeTab({ headerHeight }) {
             headerHeight.value = HEADER_HEIGHT / 2;
           }
         }}
-        data={data}
+        data={posts}
         renderItem={({ item }) => <Feed post={item} />}
       />
     </View>

@@ -5,6 +5,7 @@ export function convertPostDataToFeedfield(post: Post) {
   const { createdAt, updatedAt, images, ...otherPostField } = post;
   const newCreatedAt = new Date(createdAt);
   const newUpdatedAt = new Date(updatedAt);
+  console.log(process.env.EXPO_PUBLIC_HTTP_UPLOADS);
 
   const postAge = timeAgo(newCreatedAt);
   const imageSources = images.map(

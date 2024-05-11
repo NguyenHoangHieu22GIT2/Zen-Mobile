@@ -29,6 +29,7 @@ export default function SignUpForm() {
         <FontText className="text-2xl mb-1 ">Sign up</FontText>
 
         <AuthTextInput
+          clearTextOnFocus
           value={inputs.username}
           onChangeText={(value) => changeInputs("username", value)}
           SVGIconElement={<ProfileSvg />}

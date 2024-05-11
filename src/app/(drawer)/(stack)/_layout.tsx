@@ -5,8 +5,6 @@ import { IMAGES } from "@/constants";
 import { Host } from "react-native-portalize";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
-//the reason why i use stack here is base on twitter navigation's feeling
-//all the feed details, settings, favourites,.. will be seperate from the nav-tab
 export default function StackLayout() {
   return (
     <Host>
@@ -31,7 +29,7 @@ export default function StackLayout() {
             }}
           />
           <Stack.Screen
-            name="add-post"
+            name="post/create"
             options={{
               headerShown: false
             }}
@@ -41,7 +39,23 @@ export default function StackLayout() {
             name="profile/edit"
             options={{ title: "Edit Profile" }}
           />
-          <Stack.Screen name="details" />
+          <Stack.Screen
+            name="conversation/[id]"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="group/[id]/index"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="group/[id]/members"
+            options={{ headerShown: true, title: "Members" }}
+          />
+          <Stack.Screen
+            name="group/[id]/create-post"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="group/create" options={{ headerShown: false }} />
           <Stack.Screen name="favourites" />
           <Stack.Screen name="setting" />
         </Stack>

@@ -13,6 +13,7 @@ type SelectorProps = {
 type SelectItemProps = {
   name: string;
   value: string;
+  description?: string;
   onPress?: () => void;
   isSelected?: boolean;
 };
@@ -39,7 +40,12 @@ export default function Selector(props: SelectorProps) {
   );
 }
 
-export const SelectItem = ({ onPress, name, isSelected }: SelectItemProps) => {
+export const SelectItem = ({
+  onPress,
+  name,
+  isSelected,
+  description
+}: SelectItemProps) => {
   return (
     <Pressable
       android_ripple={{
@@ -48,10 +54,15 @@ export const SelectItem = ({ onPress, name, isSelected }: SelectItemProps) => {
         foreground: true
       }}
       onPress={onPress}
-      className="flex-row items-center gap-2 px-5 py-3 overflow-hidden"
+      className="flex-row gap-2 px-5 py-3 overflow-hidden"
     >
       <RadioButton isSelected={isSelected} />
-      <FontText className=" text-lg">{name}</FontText>
+      <View className="">
+        <FontText className=" text-lg">{name}</FontText>
+        {description && (
+          <FontText className=" text-gray-400">{description}</FontText>
+        )}
+      </View>
     </Pressable>
   );
 };

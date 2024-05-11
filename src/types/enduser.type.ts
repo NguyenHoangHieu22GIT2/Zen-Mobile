@@ -8,5 +8,9 @@ type EndUser = {
 };
 
 type EndUserMinimal = Pick<EndUser, "_id" | "username" | "avatar">;
+type EndUserSearchMinimal = Pick<
+  EndUser,
+  "_id" | "username" | "avatar" | "description"
+>;
 
-export { EndUser, EndUserMinimal };
+export { EndUser, EndUserMinimal, EndUserSearchMinimal };

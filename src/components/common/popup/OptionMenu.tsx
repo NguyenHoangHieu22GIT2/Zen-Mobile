@@ -45,7 +45,11 @@ export default function OptionMenu(props: OptionMenuProps) {
         <BottomSheetView>
           {Array.isArray(props.children) ? (
             props.children.map((child) => (
-              <Option onCloseModal={closeModal} {...child.props} />
+              <Option
+                key={Math.random()}
+                onCloseModal={closeModal}
+                {...child.props}
+              />
             ))
           ) : (
             <Option onCloseModal={closeModal} {...props.children.props} />

@@ -20,6 +20,7 @@ export function useLogin() {
 
   async function submitLogin() {
     setIsLoading(true);
+    console.log(process.env.EXPO_PUBLIC_BASE_URL, inputs);
     const zodResult = zLoginInputs.safeParse(inputs);
     if (!zodResult.success) {
       toast.danger({
