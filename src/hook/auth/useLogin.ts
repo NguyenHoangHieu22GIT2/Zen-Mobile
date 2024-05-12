@@ -46,7 +46,7 @@ export function useLogin() {
     } catch (error) {
       toast.danger({
         message: error.code,
-        subMessage: error.response.data.message || "Please check your inputs",
+        subMessage: error.response?.data.message || "Please check your inputs",
         duration: 3000
       });
       console.log(error);
