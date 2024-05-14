@@ -1,10 +1,10 @@
 import FontText from "@/components/common/FontText";
 import { COLORS, IMAGES } from "@/constants";
-import { Group } from "@/types/group.type";
+import { GroupMinimal } from "@/types/group.type";
 import { View, Pressable, Image } from "react-native";
 
 type Props = {
-  group: Group;
+  group: GroupMinimal;
   onPress?: () => void;
 };
 
@@ -22,7 +22,9 @@ export default function YourGroupItem({ onPress, group }: Props) {
       <Image className="rounded-2xl h-14 w-14" source={IMAGES.fakepostimage} />
       <View>
         <FontText className="font-bold text-lg">{group.name}</FontText>
-        <FontText className="">{group.members} members</FontText>
+        <FontText className="">
+          {group.isVisible ? "Public" : "Private"}
+        </FontText>
       </View>
     </Pressable>
   );

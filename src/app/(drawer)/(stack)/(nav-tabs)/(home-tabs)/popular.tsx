@@ -13,7 +13,7 @@ import {
   TopWrapperView
 } from "@/components";
 import { router } from "expo-router";
-import { useFetchRecommendationPost } from "@/hook/feed/useFetchRecommendationPost";
+import { useFetchRecommendationPosts } from "@/hook/feed/useFetchRecommendationPosts";
 import { COLORS } from "@/constants";
 
 export default function Popular() {
@@ -24,7 +24,7 @@ export default function Popular() {
     refreshPosts,
     isRefreshing,
     isLoadingMore
-  } = useFetchRecommendationPost();
+  } = useFetchRecommendationPosts();
 
   if (error) {
     console.log(error);

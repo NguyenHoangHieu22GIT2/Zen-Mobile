@@ -27,12 +27,13 @@ export default function GroupDiscoveryItem({ group, onPress, onJoin }: props) {
           {group.name}
         </FontText>
         <FontText>Public group</FontText>
-        <FontText>{group.members} members</FontText>
+        <FontText>{group.numberOfMembers} members</FontText>
         <RectangleButton
-          text="Join"
+          text={!group.isMember ? "Join" : "Joined"}
           textStyle="font-bold"
           className="mt-2"
-          onPress={onJoin}
+          onPress={!group.isMember ? onJoin : () => {}}
+          secondary={group.isMember}
         />
       </View>
     </Pressable>

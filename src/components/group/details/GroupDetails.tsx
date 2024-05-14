@@ -2,30 +2,34 @@ import FontText from "@/components/common/FontText";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { View } from "react-native";
 import GroupMemberAvatars from "./GroupMemberAvatars";
+import { GroupDetail } from "@/types/group.type";
 
 type Props = {
+  group: GroupDetail;
   onShowMembers: () => void;
 };
 
-export default function GroupDetails({ onShowMembers }: Props) {
+export default function GroupDetails({ group, onShowMembers }: Props) {
   return (
     <View>
       <FontText className="font-bold text-2xl">About </FontText>
-      <FontText className="my-2 text-lg">This is a group </FontText>
+      <FontText className="my-2 text-lg">{group.description} </FontText>
       <View className="flex-row items-center gap-2">
         <FontAwesome size={26} className="" name="globe" />
-        <FontText className="my-2 font-bold text-lg">Public</FontText>
+        <FontText className="my-2 font-bold text-lg">
+          {group.isVisible ? "Public" : "Private"}
+        </FontText>
       </View>
       <View className="flex-row items-center gap-3">
         <FontAwesome size={26} className="" name="user" />
         <FontText className="my-2 font-bold text-lg">
-          33K total members
+          {group.numberOfMembers} total members
         </FontText>
       </View>
       <View className="flex-row items-center gap-2">
         <FontAwesome size={26} className="" name="plus-circle" />
         <FontText className="my-2 font-bold text-lg">
-          Created on August 4, 2021
+          Created on {group.createdAt}
         </FontText>
       </View>
       <View className="border-b border-gray-200 my-4" />

@@ -1,5 +1,5 @@
 import Feed from "@/components/home/feed/Feed";
-import { useFetchRecommendationPost } from "@/hook/feed/useFetchRecommendationPost";
+import { useFetchRecommendationPost } from "@/hook/feed/useFetchRecommendationPosts";
 import { View, FlatList, Text } from "react-native";
 
 export default function ProfilePostTab({ headerHeight }) {

@@ -2,12 +2,12 @@ import FontText from "@/components/common/FontText";
 import OptionMenu, { Option } from "@/components/common/popup/OptionMenu";
 import BackSvg from "@/components/svg/BackSvg";
 import { COLORS } from "@/constants";
-import { Group } from "@/types/group.type";
+import { GroupDetail } from "@/types/group.type";
 import { router } from "expo-router";
 import { View, Pressable } from "react-native";
 
 type props = {
-  group: Group;
+  group: GroupDetail;
 };
 
 export default function GroupHeader({ group }: props) {

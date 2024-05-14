@@ -4,7 +4,7 @@ import useSWRInfinite from "swr/infinite";
 
 const POSTS_PER_FETCH = 8;
 
-export function useFetchRecommendationPost() {
+export function useFetchRecommendationPosts() {
   const getKey = (pageIndex, previousPageData) => {
     console.log(pageIndex);
     //end of page?

@@ -9,9 +9,9 @@ export async function trycatchAxios<T>(
   } catch (error) {
     console.log(error);
     toast.danger({
-      message: error.message,
-      subMessage: error.message,
-      duration: 3000,
+      message: error.code,
+      subMessage: error.response?.data.message || "Please check your inputs",
+      duration: 3000
     });
   }
 }
