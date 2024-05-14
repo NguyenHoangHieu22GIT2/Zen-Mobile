@@ -1,32 +1,41 @@
 import { FontText, TopWrapperView } from "@/components";
 import NoNotification from "@/components/notification/NoNotification";
-import NotificationItem, {
-  NotificationItemProps
-} from "@/components/notification/NotificationItem";
-import { IMAGES } from "@/constants";
+import NotificationItemAction from "@/components/notification/NotificationItemAction";
+import NotificationItemAnnounce from "@/components/notification/NotificationItemAnnounce";
+import { Notification } from "@/types/notification.type";
 import { FlatList } from "react-native";
 
-const notifications: NotificationItemProps[] = [
+const notifications: Notification[] = [
   {
-    message: "liked your post",
-    time: "1 hr ago",
-    imageSource: IMAGES.fakeavatar,
-    username: "John Wick"
+    _id: "1",
+    userSent: {
+      _id: "1",
+      username: "John Wick",
+      avatar: "asd"
+    },
+    title: "liked your post",
+    description: "liked your post",
+    typeOfNotification: "announce",
+    link: "",
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
-    message: "liked your post",
-    time: "1 hr ago",
-    imageSource: IMAGES.fakeavatar,
-    username: "John Wick"
-  },
-  {
-    message: "liked your post",
-    time: "1 hr ago",
-    imageSource: IMAGES.fakeavatar,
-    username: "John Wick"
+    _id: "2",
+    userSent: {
+      _id: "2",
+      username: "John Wick",
+      avatar: "asd"
+    },
+    title: "send you a friend request",
+    description: "send you a friend request",
+    typeOfNotification: "action",
+    link: "",
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
 ];
-export default function Notification() {
+export default function Notifications() {
   return (
     <TopWrapperView className="h-full mb-3">
       <FontText className="font-bold text-2xl mx-3 mt-2 mb-5">
@@ -37,14 +46,18 @@ export default function Notification() {
       ) : (
         <FlatList
           data={notifications}
-          renderItem={({ item }) => (
-            <NotificationItem
-              imageSource={item.imageSource}
-              message={item.message}
-              time={item.time}
-              username={item.username}
-            />
-          )}
+          keyExtractor={(i) => i._id}
+          renderItem={({ item }) => {
+            return item.typeOfNotification === "announce" ? (
+              <NotificationItemAnnounce notification={item} />
+            ) : (
+              <NotificationItemAction
+                notification={item}
+                onAccept={() => {}}
+                onReject={() => {}}
+              />
+            );
+          }}
         />
       )}
     </TopWrapperView>

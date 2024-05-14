@@ -4,7 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import { TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
 
 type MultipleImagePickerProps = {
-  setSelectedImages: React.Dispatch<React.SetStateAction<string[]>>;
+  onAddImages: (images: string[]) => void;
 };
 
 export default function MultipleImagePicker(props: MultipleImagePickerProps) {
@@ -17,7 +17,7 @@ export default function MultipleImagePicker(props: MultipleImagePickerProps) {
 
     if (!result.canceled) {
       const selectedImageUris = result.assets.map((asset) => asset.uri);
-      props.setSelectedImages((prev) => [...prev, ...selectedImageUris]);
+      props.onAddImages(selectedImageUris);
     }
   }
   return (

@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  TouchableOpacity,
-  Image,
-  ImageSourcePropType,
-  View
-} from "react-native";
+import { TouchableOpacity, Image, View } from "react-native";
 import PlaceholderSmallImage from "./PlaceholderSmallImage";
 import useFeedImageWidthandHeightCalculator from "@/hook/feed/useFeedImageWidthandHeightCalculator";
 import ImageDetailModal from "./ImageDetailModal";
@@ -12,7 +7,7 @@ import ImageDetailModal from "./ImageDetailModal";
 const MAX_IMAGE_NUMBER_TO_RENDER = 4;
 const CONTAINER_HEIGHT = 250;
 
-export default function FeedImage(props: { sources: ImageSourcePropType[] }) {
+export default function FeedImage({ sourceURIs }: { sourceURIs: string[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [initialShowingImageIndex, setInitialShowingImageIndex] = useState(0);
   const {
@@ -20,12 +15,9 @@ export default function FeedImage(props: { sources: ImageSourcePropType[] }) {
     heightOfImage,
     isLoading,
     findImageWidthAndHeightusingContainerWidth
-  } = useFeedImageWidthandHeightCalculator(
-    props.sources.length,
-    CONTAINER_HEIGHT
-  );
+  } = useFeedImageWidthandHeightCalculator(sourceURIs.length, CONTAINER_HEIGHT);
 
-  const smallImagesTobeRender = props.sources.map((source, index) => {
+  const smallImagesTobeRender = sourceURIs.map((source, index) => {
     if (index + 1 > MAX_IMAGE_NUMBER_TO_RENDER) return;
     return (
       <TouchableOpacity
@@ -38,7 +30,7 @@ export default function FeedImage(props: { sources: ImageSourcePropType[] }) {
       >
         <Image
           key={index}
-          source={source}
+          source={{ uri: source }}
           resizeMode="cover"
           style={{
             width: widthOfImage,
@@ -46,11 +38,11 @@ export default function FeedImage(props: { sources: ImageSourcePropType[] }) {
           }}
         />
         {index + 1 == MAX_IMAGE_NUMBER_TO_RENDER &&
-          props.sources.length > MAX_IMAGE_NUMBER_TO_RENDER && (
+          sourceURIs.length > MAX_IMAGE_NUMBER_TO_RENDER && (
             <PlaceholderSmallImage
               width={widthOfImage}
               height={heightOfImage}
-              numberOfImageLeft={props.sources.length - 3}
+              numberOfImageLeft={sourceURIs.length - 3}
             />
           )}
       </TouchableOpacity>
@@ -61,7 +53,7 @@ export default function FeedImage(props: { sources: ImageSourcePropType[] }) {
     <View>
       <View
         onLayout={(event) => findImageWidthAndHeightusingContainerWidth(event)}
-        style={props.sources.length != 0 && { height: CONTAINER_HEIGHT }}
+        style={sourceURIs.length != 0 && { height: CONTAINER_HEIGHT }}
         className="w-full bg-gray-100 rounded-2xl gap-1 flex-row flex-wrap overflow-hidden relative"
       >
         {!isLoading && smallImagesTobeRender}
@@ -70,7 +62,7 @@ export default function FeedImage(props: { sources: ImageSourcePropType[] }) {
       <ImageDetailModal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        imageSources={props.sources}
+        imageSourceURIs={sourceURIs}
         initialShowingImageIndex={initialShowingImageIndex}
       />
     </View>

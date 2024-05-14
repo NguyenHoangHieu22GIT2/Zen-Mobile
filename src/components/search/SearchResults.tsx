@@ -1,38 +1,40 @@
 import { View, FlatList } from "react-native";
-import { GroupSearchResultItemProps } from "./GroupSearchResultItem";
-import GroupSearchResultItem from "./GroupSearchResultItem";
-import { SearchResultType } from "@/app/(drawer)/(stack)/(nav-tabs)/search";
 import PeopleSearchResultItem from "./PeopleSearchResultItem";
 import Feed from "../home/feed/Feed";
+import { EndUserSearchMinimal } from "@/types/enduser.type";
+import { PostJson } from "@/types/post.type";
+import { router } from "expo-router";
 
 type SearchResultsProps = {
-  searchResultArray: GroupSearchResultItemProps[];
-  type: SearchResultType;
+  searchResultArray: (EndUserSearchMinimal | PostJson)[];
 };
 
-export default function SearchResults(props: SearchResultsProps) {
+function isPost(obj): obj is PostJson {
+  return obj.endUser !== undefined;
+}
+
+export default function SearchResults({
+  searchResultArray
+}: SearchResultsProps) {
   return (
     <View className="mt-5">
       <FlatList
         contentContainerStyle={{ paddingBottom: 20 }}
-        data={props.searchResultArray}
+        data={searchResultArray}
         renderItem={({ item }) =>
-          props.type == "people" ? (
-            <PeopleSearchResultItem
-              imageSource={item.imageSource}
-              name={item.name}
-              description={item.description}
-            />
-          ) : props.type == "group" ? (
-            <GroupSearchResultItem
-              imageSource={item.imageSource}
-              name={item.name}
-              description={item.description}
-            />
+          isPost(item) ? (
+            <Feed post={item} />
           ) : (
-            <Feed />
+            <PeopleSearchResultItem
+              endUser={item}
+              onAddFriend={() => {}}
+              onPress={() => router.push("/profile/1")}
+            />
           )
         }
+        ItemSeparatorComponent={() => (
+          <View className="my-2 border-b border-gray-300" />
+        )}
       />
     </View>
   );

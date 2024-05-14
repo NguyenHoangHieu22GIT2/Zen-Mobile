@@ -19,7 +19,7 @@ export default function useFeedImageWidthandHeightCalculator(
         : numberOfImageToDisplay;
     setWidthOfImage(
       width / numberOfColforImagecontainer -
-        (numberOfImageToDisplay != 1 && GAP_LENGTH)
+      (numberOfImageToDisplay != 1 && GAP_LENGTH)
     );
 
     const MAX_ROW_NUMBER = 2;
@@ -34,6 +34,6 @@ export default function useFeedImageWidthandHeightCalculator(
     widthOfImage,
     heightOfImage,
     findImageWidthAndHeightusingContainerWidth,
-    isLoading
+    isLoading,
   };
 }

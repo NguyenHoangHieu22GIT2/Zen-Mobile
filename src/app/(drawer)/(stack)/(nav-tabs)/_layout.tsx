@@ -1,6 +1,10 @@
 import { Tabs } from "expo-router";
-import NavBarIcon from "@/components/layout/NavBarIcon";
 import { COLORS } from "@/constants";
+import HomeSVG from "@/components/svg/HomeSVG";
+import MagnifyingGlassSVG from "@/components/svg/MagnifyingGlassSVG";
+import GroupSVG from "@/components/svg/GroupSVG";
+import BellSVG from "@/components/svg/BellSVG";
+import InboxSVG from "@/components/svg/InboxSVG";
 
 export default function TabLayout() {
   return (
@@ -9,20 +13,28 @@ export default function TabLayout() {
         tabBarLabelStyle: {
           display: "none"
         },
-        tabBarActiveTintColor: COLORS.primary,
+        tabBarActiveTintColor: COLORS.secondary,
         headerShown: false,
-        tabBarHideOnKeyboard: true
+        tabBarHideOnKeyboard: true,
+        tabBarStyle: {
+          borderTopRightRadius: 10,
+          borderTopLeftRadius: 10,
+          borderLeftWidth: 0.5,
+          borderRightWidth: 0.5,
+          borderTopWidth: 0,
+          borderColor: COLORS.gray2
+        }
       }}
     >
       <Tabs.Screen
         name="(home-tabs)"
         options={{
           tabBarIcon: ({ color, focused }) => (
-            <NavBarIcon
-              focused={focused}
-              label="Home"
-              name="home"
-              color={color}
+            <HomeSVG
+              width={32}
+              height={32}
+              isActive={focused}
+              fillColor={color}
             />
           )
         }}
@@ -31,11 +43,11 @@ export default function TabLayout() {
         name="search"
         options={{
           tabBarIcon: ({ color, focused }) => (
-            <NavBarIcon
-              focused={focused}
-              label="Search"
-              name="search"
-              color={color}
+            <MagnifyingGlassSVG
+              width={35}
+              height={35}
+              isActive={focused}
+              fillColor={color}
             />
           )
         }}
@@ -44,11 +56,11 @@ export default function TabLayout() {
         name="group"
         options={{
           tabBarIcon: ({ color, focused }) => (
-            <NavBarIcon
-              focused={focused}
-              label="Group"
-              name="group"
-              color={color}
+            <GroupSVG
+              width={40}
+              height={40}
+              isActive={focused}
+              fillColor={color}
             />
           )
         }}
@@ -57,11 +69,11 @@ export default function TabLayout() {
         name="notification"
         options={{
           tabBarIcon: ({ color, focused }) => (
-            <NavBarIcon
-              focused={focused}
-              label="Notifications"
-              name="bell"
-              color={color}
+            <BellSVG
+              width={35}
+              height={35}
+              isActive={focused}
+              fillColor={color}
             />
           )
         }}
@@ -70,11 +82,11 @@ export default function TabLayout() {
         name="chat"
         options={{
           tabBarIcon: ({ color, focused }) => (
-            <NavBarIcon
-              focused={focused}
-              label="Chat"
-              name="commenting"
-              color={color}
+            <InboxSVG
+              width={35}
+              height={35}
+              isActive={focused}
+              fillColor={color}
             />
           )
         }}

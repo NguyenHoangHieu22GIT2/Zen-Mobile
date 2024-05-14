@@ -2,13 +2,16 @@ import FontText from "@/components/common/FontText";
 import React, { ReactElement, useState } from "react";
 import { TouchableOpacity } from "react-native";
 
-export default function ToggleableReactionButton(props: {
+type props = {
+  hasActivated?: boolean;
   number?: number;
   className?: string;
   canActiveSvgComponent: ReactElement;
   onPress: () => void;
-}) {
-  const [isActive, setIsActive] = useState(false);
+};
+
+export default function ToggleableReactionButton(props: props) {
+  const [isActive, setIsActive] = useState(props.hasActivated || false);
 
   return (
     <TouchableOpacity

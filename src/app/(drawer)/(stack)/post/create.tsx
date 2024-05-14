@@ -10,12 +10,21 @@ import { TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ImagesPickedFlatList from "@/components/home/add-feed/Images/ImagesPickedFlatList";
 import { router } from "expo-router";
+import { useAddPost } from "@/hook/feed/useAddPost";
 
 export default function AddPostForm() {
+  const { inputs, changeInputs, submitAddPost } = useAddPost();
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [postPrivacy, setPostPrivacy] = useState("");
-  const [selectedImages, setSelectedImages] = useState([]);
-  function removeImage(removeItem) {
-    setSelectedImages((prev) => prev.filter((item) => item != removeItem));
+  function removeImage(removeItem: string) {
+    changeInputs(
+      "images",
+      inputs.images.filter((item) => item != removeItem)
+    );
+  }
+  function addImages(images: string[]) {
+    changeInputs("images", inputs.images.concat(images));
   }
   return (
     <SafeAreaView className="h-full bg-white">
@@ -32,7 +41,11 @@ export default function AddPostForm() {
         <FontText className="text-xl font-bold text-gray-600">
           Create a Post
         </FontText>
-        <PostButton onPress={() => {}} />
+        <PostButton
+          onPress={() => {
+            submitAddPost();
+          }}
+        />
       </View>
       <View className="flex-row gap-3 px-4 my-2 items-end">
         <MyAddPostAvatar source={IMAGES.fakeavatar} />
@@ -41,16 +54,33 @@ export default function AddPostForm() {
       <TextInput
         autoFocus
         multiline={true}
+        numberOfLines={2}
+        style={{ textAlignVertical: "top" }}
+        className="px-6 text-xl mt-4 font-bold"
+        placeholder="Post's title.."
+        onChangeText={(text) => changeInputs("title", text)}
+        value={inputs.title}
+      />
+
+      <TextInput
+        autoFocus
+        multiline={true}
         numberOfLines={4}
         style={{ textAlignVertical: "top" }}
-        className="px-6 text-xl mt-3"
+        className="px-6 text-xl mt-1"
         placeholder="What's on your head?"
+        onChangeText={(text) => changeInputs("body", text)}
+        value={inputs.body}
       />
       <ImagesPickedFlatList
-        selectedImages={selectedImages}
+        selectedImages={inputs.images}
         removeImage={removeImage}
       />
-      <MultipleImagePicker setSelectedImages={setSelectedImages} />
+      <MultipleImagePicker
+        onAddImages={(images) => {
+          addImages(images);
+        }}
+      />
     </SafeAreaView>
   );
 }

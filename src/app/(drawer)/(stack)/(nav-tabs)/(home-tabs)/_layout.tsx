@@ -32,7 +32,11 @@ export default function FeedLayout() {
           borderRadius: 100,
           marginLeft: 15
         },
-        tabBarLabelStyle: { textTransform: "capitalize", fontWeight: "bold" }
+        tabBarLabelStyle: {
+          textTransform: "capitalize",
+          fontWeight: "bold",
+          fontSize: 15
+        }
       }}
     >
       <MaterialTopTabs.Screen name="popular" />

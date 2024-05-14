@@ -1,17 +1,19 @@
-import { View, Image, ImageSourcePropType, Pressable } from "react-native";
+import { View, Image, Pressable } from "react-native";
 import FontText from "../common/FontText";
-import { COLORS } from "@/constants";
+import { COLORS, IMAGES } from "@/constants";
+import { EndUserSearchMinimal } from "@/types/enduser.type";
 
 export type PeopleSearchResultItemProps = {
-  imageSource: ImageSourcePropType;
-  name: string;
-  description?: string;
+  endUser: EndUserSearchMinimal;
+  onPress: () => void;
+  onAddFriend: () => void;
 };
 
-export default function PeopleSearchResultItem(
-  props: PeopleSearchResultItemProps
-) {
-  const { imageSource, name, description } = props;
+export default function PeopleSearchResultItem({
+  endUser: { description, username },
+  onPress,
+  onAddFriend
+}: PeopleSearchResultItemProps) {
   return (
     <Pressable
       android_ripple={{
@@ -19,25 +21,31 @@ export default function PeopleSearchResultItem(
         borderless: false,
         foreground: true
       }}
-      onPress={() => {}}
-      className="overflow-hidden shadow-xl shadow-gray-400 bg-white my-1 mx-3 px-3 py-1"
+      onPress={onPress}
+      className="overflow-hidden shadow-gray-400 bg-white px-3 py-2 flex-row items-center gap-4 "
     >
-      <View className="flex-row items-center gap-4 bg-white my-2">
-        <Image source={imageSource} className="w-16 h-16 rounded-full" />
-        <View className="flex-1 gap-1">
-          <FontText className="font-bold text-xl text-darkblack">
-            {name}
+      <Image source={IMAGES.fakeavatar} className="w-14 h-14 rounded-full" />
+      <View className="flex-1">
+        <FontText className="font-bold text-xl text-darkblack">
+          {username}
+        </FontText>
+        {description && (
+          <FontText className="font-bold text-gray-400 " numberOfLines={2}>
+            {description}
           </FontText>
-          {description && (
-            <FontText
-              className="font-bold text-sm text-gray-500 "
-              numberOfLines={1}
-            >
-              {description}
-            </FontText>
-          )}
-        </View>
+        )}
       </View>
+      <Pressable
+        android_ripple={{
+          color: COLORS.lightgray,
+          borderless: false,
+          foreground: true
+        }}
+        className="overflow-hidden bg-darkblack px-4 py-2 rounded-xl"
+        onPress={onAddFriend}
+      >
+        <FontText className="text-white font-bold">Add friend</FontText>
+      </Pressable>
     </Pressable>
   );
 }

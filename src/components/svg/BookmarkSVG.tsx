@@ -7,8 +7,8 @@ interface BookmarkSVGProps {
 
 const BookmarkSVG = ({ isActive = false }: BookmarkSVGProps) => (
   <Svg
-    width={18}
-    height={20}
+    width={20}
+    height={22}
     viewBox="0 0 24 24"
     fill={isActive ? COLORS.primary : COLORS.gray2}
   >

@@ -2,7 +2,7 @@ import FontText from "@/components/common/FontText";
 import { ReactElement } from "react";
 import { TouchableOpacity } from "react-native";
 
-export default function UnToggleableReactionButton(props: {
+export default function ToggleCommentsButton(props: {
   number?: number;
   className?: string;
   svgComponent: ReactElement;

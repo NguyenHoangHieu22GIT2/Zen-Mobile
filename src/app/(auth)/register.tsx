@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ImageBackground, View } from "react-native";
 import { router } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
@@ -11,16 +11,17 @@ import {
   PasswordSVG,
   PressableText,
   ProfileSvg,
-  BackSvg,
-  TopWrapperView
+  BackSvg
 } from "@/components";
 import AuthTextInputPassword from "@/components/auth/AuthTextInputPassword";
 import { useRegister } from "@/hook/auth/useRegister";
+import { IMAGES } from "@/constants";
 export default function SignUpForm() {
-  const { changeInputs, submitRegister, inputs } = useRegister();
+  const { changeInputs, submitRegister, inputs, isLoading } = useRegister();
 
   return (
-    <TopWrapperView className="mt-8">
+    <ImageBackground className="h-full" source={IMAGES.appbackground}>
+      <View className="h-16" />
       <View className="w-full px-8 mb-10">
         <BackSvg />
       </View>
@@ -28,6 +29,7 @@ export default function SignUpForm() {
         <FontText className="text-2xl mb-1 ">Sign up</FontText>
 
         <AuthTextInput
+          clearTextOnFocus
           value={inputs.username}
           onChangeText={(value) => changeInputs("username", value)}
           SVGIconElement={<ProfileSvg />}
@@ -52,14 +54,17 @@ export default function SignUpForm() {
           label="Confirm password"
         />
         <RectangleButton
+          disabled={isLoading}
           className="mt-5"
-          text="SIGN UP"
+          text={isLoading ? "Processing.." : "SIGN UP"}
           iconRight={
-            <FontAwesome
-              name="arrow-right"
-              className="bg-black/15 py-2 px-2.5 rounded-full absolute right-3"
-              color="white"
-            />
+            !isLoading && (
+              <FontAwesome
+                name="arrow-right"
+                className="bg-black/15 py-2 px-2.5 rounded-full absolute right-3"
+                color="white"
+              />
+            )
           }
           onPress={submitRegister}
         />
@@ -85,9 +90,9 @@ export default function SignUpForm() {
           className="text-primary"
           onPress={() => router.push("/login/")}
         >
-          Signin
+          Sign in
         </PressableText>
       </View>
-    </TopWrapperView>
+    </ImageBackground>
   );
 }
