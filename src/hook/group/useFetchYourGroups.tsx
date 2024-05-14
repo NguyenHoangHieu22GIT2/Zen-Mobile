@@ -10,7 +10,7 @@ export default function useFetchYourGroups() {
     //end of page?
     if (pageIndex && !previousPageData.length) return null;
     return (
-      process.env.EXPO_PUBLIC_HTTP_ENDPOINT_GET_RECOMMENDED_POST +
+      "yourgroup..." +
       `?limit=${pageIndex * GROUP_PER_FETCH + GROUP_PER_FETCH}&skip=${
         pageIndex * GROUP_PER_FETCH
       }`
