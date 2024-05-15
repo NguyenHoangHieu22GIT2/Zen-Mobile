@@ -42,8 +42,8 @@ export default function useEditGroup(groupId: string) {
       type: `image/${fileType}`
     });
     return trycatchAxios(async () => {
-      const result = await http.post(
-        process.env.EXPO_PUBLIC_HTTP_ENDPOINT_BASE_GROUP,
+      const result = await http.patch(
+        process.env.EXPO_PUBLIC_HTTP_ENDPOINT_BASE_GROUP + `/${groupId}`,
         formData,
         {
           headers: {
@@ -52,7 +52,7 @@ export default function useEditGroup(groupId: string) {
         }
       );
       toast.success({
-        message: "Post adited",
+        message: "Post edited",
         subMessage: "Your post has been edited",
         duration: 3000
       });

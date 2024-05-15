@@ -21,7 +21,7 @@ export default function YourGroups() {
           <YourGroupItem
             group={item}
             onPress={() => {
-              router.push(`group/1`);
+              router.push(`group/${item._id}`);
             }}
           />
         )}

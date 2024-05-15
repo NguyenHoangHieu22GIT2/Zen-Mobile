@@ -33,12 +33,17 @@ export default function GroupDetails({ group, onShowMembers }: Props) {
         </FontText>
       </View>
       <View className="border-b border-gray-200 my-4" />
-      <FontText className="font-bold text-2xl">Members </FontText>
-      <GroupMemberAvatars
-        avatars={["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"]}
-        className="my-2"
-        onPress={onShowMembers}
-      />
+      {(group.isMember || group.isVisible) && (
+        <>
+          <FontText className="font-bold text-2xl">Members </FontText>
+          <GroupMemberAvatars
+            memberLength={group.numberOfMembers}
+            avatars={["a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"]}
+            className="my-2"
+            onPress={onShowMembers}
+          />
+        </>
+      )}
       <View className="border-b border-gray-200 my-4" />
     </View>
   );

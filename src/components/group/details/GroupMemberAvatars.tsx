@@ -3,16 +3,17 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 
 type props = {
   avatars: string[];
+  memberLength: number;
   className?: string;
   onPress?: () => void;
 };
-const MAX_AVATAR_DISPLAY = 8;
+const MAX_AVATAR_DISPLAY = 4;
 export default function GroupMemberAvatars({
   avatars,
   className,
+  memberLength,
   onPress
 }: props) {
-  const memberLength = avatars.length;
   return (
     <TouchableOpacity
       onPress={onPress}
