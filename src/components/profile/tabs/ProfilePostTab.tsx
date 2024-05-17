@@ -1,11 +1,11 @@
 import Feed from "@/components/home/feed/Feed";
-import { useFetchRecommendationPost } from "@/hook/feed/useFetchRecommendationPosts";
+import { useFetchRecommendationPosts } from "@/hook/feed/useFetchRecommendationPosts";
 import { View, FlatList, Text } from "react-native";
 
 export default function ProfilePostTab({ headerHeight }) {
-  const { data, error, isLoading } = useFetchRecommendationPost();
+  const { posts, error, isLoadingMore } = useFetchRecommendationPosts();
 
-  if (isLoading) {
+  if (isLoadingMore) {
     return (
       <View>
         <Text>isLoading</Text>
@@ -33,7 +33,7 @@ export default function ProfilePostTab({ headerHeight }) {
             headerHeight.value = HEADER_HEIGHT / 2;
           }
         }}
-        data={data}
+        data={posts}
         renderItem={({ item }) => <Feed post={item} />}
         keyExtractor={(item, index) => index.toString()}
         removeClippedSubviews={true}

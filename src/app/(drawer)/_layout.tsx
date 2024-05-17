@@ -4,8 +4,10 @@ import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { Redirect } from "expo-router";
 import CustomDrawerItem from "@/components/layout/CustomDrawerItem";
 import { FontText } from "@/components";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
 
 const CustomDrawerContent = (props) => {
+  const endUserId = useAuthStore((state) => state.endUser._id);
   const isAuth = true;
 
   if (!isAuth) {
@@ -42,7 +44,7 @@ const CustomDrawerContent = (props) => {
         <CustomDrawerItem
           FontAwesomeIconName="user"
           label="Profile"
-          pathname={`/profile/${123}`}
+          pathname={`/profile/${endUserId}`}
         />
         <CustomDrawerItem
           FontAwesomeIconName="gear"

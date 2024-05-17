@@ -1,7 +1,7 @@
 import { COLORS } from "@/constants";
 import { Pressable, Image, ImageProps } from "react-native";
 
-export default function ChatItemAvatarImage(
+export default function ConversationItemAvatarImage(
   props: { onPress?: () => void } & ImageProps
 ) {
   const { className, source, onPress, ...otherProps } = props;

@@ -1,13 +1,12 @@
-import { EndUserMinimal } from "./enduser.type";
-
 type Notification = {
   _id: string;
-  userSent: EndUserMinimal;
-  title: string;
-  description: string;
-  typeOfNotification: "action" | "announce";
-  link: string;
+  subjectId: string;
+  verb: string;
+  directObjectId: string;
+  indirectObjectId: string;
+  prepObjectId: string;
+  referenceLink: string;
+  read: boolean;
   createdAt: Date;
-  updatedAt: Date;
 };
 export { Notification };

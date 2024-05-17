@@ -1,5 +1,5 @@
 import { fetcher } from "@/libs/swr/fetcher";
-import { GroupMinimal } from "@/types/group.type";
+import { Group } from "@/types/group.type";
 import useSWRInfinite from "swr/dist/infinite";
 
 const GROUP_PER_FETCH = 8;
@@ -10,7 +10,7 @@ export default function useFetchYourGroups() {
     //end of page?
     if (pageIndex && !previousPageData.length) return null;
     return (
-      "yourgroup..." +
+      process.env.EXPO_PUBLIC_HTTP_ENDPOINT_GET_YOUR_GROUP +
       `?limit=${pageIndex * GROUP_PER_FETCH + GROUP_PER_FETCH}&skip=${
         pageIndex * GROUP_PER_FETCH
       }`
@@ -22,7 +22,7 @@ export default function useFetchYourGroups() {
     useSWRInfinite(getKey, fetcher, { initialSize: 1 });
 
   //concat all the pages together
-  const groups: GroupMinimal[] = data ? [].concat(...data) : [];
+  const groups: Group[] = data ? [].concat(...data) : [];
   //joined? isMembber? isOwner?
   const isLoadingMore = isLoading;
   const isEmpty = data?.[0]?.length === 0;

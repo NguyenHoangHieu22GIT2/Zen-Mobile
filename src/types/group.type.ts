@@ -1,19 +1,18 @@
 import { EndUserMinimal } from "./enduser.type";
 
-//for lists
 type Group = {
   _id: string;
   name: string;
   description: string;
   avatar: string;
   isVisible: boolean;
-  numberOfMembers: number;
-  isMember: boolean;
   createdAt: string;
 };
 type GroupMinimal = Pick<Group, "_id" | "name" | "avatar" | "isVisible">;
-type GroupDetail = Group & {
-  members: EndUserMinimal[];
+type GroupExtraIsmember = Group & { isMember: boolean };
+type GroupDetail = GroupExtraIsmember & {
   isOwner: boolean;
+  numberOfMembers: number;
 };
-export { Group, GroupDetail, GroupMinimal };
+type GroupMember = EndUserMinimal & { isOwner: boolean };
+export { Group, GroupDetail, GroupExtraIsmember, GroupMinimal, GroupMember };

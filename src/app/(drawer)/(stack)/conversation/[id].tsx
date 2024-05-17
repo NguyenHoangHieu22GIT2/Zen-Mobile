@@ -1,45 +1,47 @@
-import { FontText } from "@/components";
-import ConversationHeader from "@/components/chat/ConversationHeader";
-import Message from "@/components/chat/Message";
-import MessageInput from "@/components/chat/MessageInput";
-import { IMAGES } from "@/constants";
-import { Message as MessageType } from "@/types/message.type";
-import { useState } from "react";
-import { View, FlatList, ImageBackground } from "react-native";
+import { PressableText } from "@/components";
+import ConversationHeader from "@/components/conversation/details/ConversationRoomHeader";
+import Message from "@/components/conversation/items/Message";
+import MessageInput from "@/components/conversation/inputs/MessageInput";
+import { COLORS, IMAGES } from "@/constants";
+import { useMemo } from "react";
+import {
+  View,
+  FlatList,
+  ImageBackground,
+  ActivityIndicator
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import useSocketChat from "@/hook/chat/useSocketChat";
+import { useLocalSearchParams } from "expo-router";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
+import { io } from "socket.io-client";
+import useFetchMessages from "@/hook/chat/useFetchMessages";
 
-const messages: MessageType[] = [
-  {
-    _id: "id1",
-    message: "asd",
-    endUser: { _id: "1", username: "username", avatar: "" },
-    visibility: "normal",
-    createdAt: new Date()
-  },
-  {
-    _id: "id2",
-    message: "asd",
-    endUser: { _id: "2", username: "username", avatar: "" },
-    visibility: "normal",
-    createdAt: new Date()
-  },
-  {
-    _id: "id3",
-    message: "asd",
-    endUser: { _id: "2", username: "username", avatar: "" },
-    visibility: "normal",
-    createdAt: new Date()
-  }
-];
+const clientSocket = io(process.env.EXPO_PUBLIC_SOCKETIO_BASE_URL);
 
 export default function Conversation() {
-  //eslint-disable-next-line
-  const [inputs, setInputs] = useState("");
+  //conversationId
+  const { id } = useLocalSearchParams();
+  const enduserId = useAuthStore((state) => state.endUser._id);
+  const { addMessage, messages, fetchMoreMessages, isReachEnd, isLoading } =
+    useFetchMessages(id as string);
+  const { emitMessage } = useMemo(
+    () => useSocketChat(id as string, addMessage, clientSocket),
+    [id]
+  );
 
   return (
     <SafeAreaView>
       <ImageBackground className="w-full h-full" source={IMAGES.appbackground}>
-        <ConversationHeader conversation={{ _id: "1", endUsers: [] }} />
+        <ConversationHeader
+          conversation={{
+            _id: "1",
+            endUserIds: [],
+            createdAt: "",
+            name: "",
+            updatedAt: ""
+          }}
+        />
         <FlatList
           data={messages}
           keyExtractor={(i) => i._id}
@@ -48,17 +50,27 @@ export default function Conversation() {
           )}
           ListHeaderComponent={
             <View className="justify-center py-5 pt-8">
-              <FontText className="font-bold text-gray-400 text-center text-xl">
-                Beginning of the conversation
-              </FontText>
-              <FontText className="font-bold text-gray-400 text-center text-xl">
-                ...
-              </FontText>
+              {isLoading ? (
+                <ActivityIndicator size="large" color={COLORS.primary} />
+              ) : (
+                !isReachEnd && (
+                  <PressableText
+                    className="font-bold text-center"
+                    onPress={fetchMoreMessages}
+                  >
+                    Load More
+                  </PressableText>
+                )
+              )}
             </View>
           }
           ItemSeparatorComponent={() => <View className="h-2" />}
         />
-        <MessageInput onChangeInput={(text) => setInputs(text)} />
+        <MessageInput
+          onSubmit={(text) => {
+            emitMessage(text, enduserId);
+          }}
+        />
       </ImageBackground>
     </SafeAreaView>
   );

@@ -48,6 +48,10 @@ export default function StackLayout() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="group/[id]/edit"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="group/[id]/members"
             options={{ headerShown: true, title: "Members" }}
           />

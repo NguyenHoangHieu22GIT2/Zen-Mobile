@@ -1,11 +1,11 @@
 import FontText from "@/components/common/FontText";
 import RectangleButton from "@/components/common/RectangleButton";
 import { COLORS, IMAGES } from "@/constants";
-import { Group } from "@/types/group.type";
+import { GroupExtraIsmember } from "@/types/group.type";
 import { View, Image, Pressable } from "react-native";
 
 type props = {
-  group: Group;
+  group: GroupExtraIsmember;
   onPress: () => void;
   onJoin: () => void;
 };
@@ -27,7 +27,6 @@ export default function GroupDiscoveryItem({ group, onPress, onJoin }: props) {
           {group.name}
         </FontText>
         <FontText>Public group</FontText>
-        <FontText>{group.numberOfMembers} members</FontText>
         <RectangleButton
           text={!group.isMember ? "Join" : "Joined"}
           textStyle="font-bold"

@@ -42,15 +42,11 @@ export default function useAddGroupPost(groupId: string) {
     });
 
     return trycatchAxios(async () => {
-      const result = await http.post(
-        process.env.EXPO_PUBLIC_HTTP_ENDPOINT_BASE_POST + `/${groupId}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
+      const result = await http.post("..." + `/${groupId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
         }
-      );
+      });
       toast.success({
         message: "Post added",
         subMessage: "Your post has been added",

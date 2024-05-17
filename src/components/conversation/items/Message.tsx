@@ -1,9 +1,10 @@
 import { Pressable, View } from "react-native";
-import FontText from "../common/FontText";
+import FontText from "../../common/FontText";
 import { Message as MessageType } from "@/types/message.type";
 import { Image } from "react-native";
 import { IMAGES } from "@/constants";
 import { useState } from "react";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
 
 type props = {
   message: MessageType;
@@ -12,8 +13,9 @@ type props = {
 
 export default function Message({ message, previousMessage }: props) {
   const [openTimeSent, setOpenTimeSent] = useState(false);
-  const isMe = message.endUser._id === "1";
-  const isSameUser = previousMessage?.endUser._id === message.endUser._id;
+  const myEndUserId = useAuthStore((state) => state.endUser._id);
+  const isMe = message.endUserId === myEndUserId;
+  const isSameUser = previousMessage?.endUserId === message.endUserId;
   return (
     <View className="px-3 flex-row items-center gap-2 font-bold">
       {!isMe && (
@@ -26,7 +28,7 @@ export default function Message({ message, previousMessage }: props) {
       <View className="flex-1">
         {!isSameUser && (
           <FontText className={` self-start ${isMe && "ml-auto"}`}>
-            {message.endUser.username}
+            "Username"
           </FontText>
         )}
 
@@ -39,14 +41,14 @@ export default function Message({ message, previousMessage }: props) {
           <FontText
             className={`text-xl ${isMe ? "text-white" : "text-lightblack"}`}
           >
-            {message.message}
+            {message.content}
           </FontText>
         </Pressable>
         {openTimeSent && (
           <FontText
             className={` self-start text-gray-400 ${isMe && "ml-auto"}`}
           >
-            {message.createdAt.toLocaleTimeString()}
+            {new Date(message.createdAt).toLocaleTimeString()}
           </FontText>
         )}
       </View>

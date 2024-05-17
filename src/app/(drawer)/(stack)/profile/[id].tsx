@@ -13,9 +13,12 @@ import { TabView } from "react-native-tab-view";
 import { useAuthStore } from "@/libs/zustand/auth.zustand";
 import ProfileHeader from "@/components/profile/details/ProfileHeader";
 import useProfileTabView from "@/hook/profile/useProfileTabView";
+import useCreateConversation from "@/hook/profile/useCreateConversation";
+import { useLocalSearchParams } from "expo-router";
 
 export default function UserProfile() {
   const authStore = useAuthStore((state) => state);
+  const { id } = useLocalSearchParams();
   const {
     animatedStyles,
     renderScene,
@@ -25,6 +28,7 @@ export default function UserProfile() {
     routes,
     layout
   } = useProfileTabView();
+  const { createConversation } = useCreateConversation();
 
   return (
     <SafeAreaView className="h-full bg-white">
@@ -56,6 +60,9 @@ export default function UserProfile() {
               }
               textStyle="font-bold ml-2"
               className="bg-white border border-primary text-primary flex-1"
+              onPress={() => {
+                createConversation(id as string);
+              }}
             />
           </View>
         </View>

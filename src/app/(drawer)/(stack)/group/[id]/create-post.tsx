@@ -1,7 +1,7 @@
 import { View, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontText, PressableText } from "@/components";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import XSVG from "@/components/svg/XSGV";
 import { COLORS } from "@/constants";
 import PostButton from "@/components/home/add-feed/Buttons/PostButton";
@@ -10,7 +10,10 @@ import MultipleImagePicker from "@/components/home/add-feed/Images/MultipleImage
 import useAddGroupPost from "@/hook/group/useAddGroupPost";
 
 export default function CreateGroupPost() {
-  const { inputs, changeInputs } = useAddGroupPost();
+  const { id } = useLocalSearchParams();
+  const { inputs, changeInputs, submitAddGroupPost } = useAddGroupPost(
+    id as string
+  );
   function removeImage(removeItem: string) {
     changeInputs(
       "images",
@@ -37,7 +40,7 @@ export default function CreateGroupPost() {
         </FontText>
         <PostButton
           onPress={() => {
-            // submitAddPost();
+            submitAddGroupPost();
           }}
         />
       </View>

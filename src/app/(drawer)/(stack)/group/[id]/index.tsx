@@ -9,17 +9,20 @@ import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
 import { IMAGES } from "@/constants";
 import { BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { useRef } from "react";
-import { View, FlatList, Image } from "react-native";
+import { View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
 import GroupHeader from "@/components/group/details/GroupHeader";
 import GroupDetails from "@/components/group/details/GroupDetails";
 import useFetchGroupDetail from "@/hook/group/useFetchGroupDetail";
+import useGroupEntryActions from "@/hook/group/useGroupEntryActions";
+import GroupPosts from "@/components/group/details/GroupPosts";
 
 export default function GroupDetail() {
   const bottomsheetRef = useRef<BottomSheetModal>();
   const { id } = useLocalSearchParams();
-  const { data, isLoading } = useFetchGroupDetail(id as string);
+  const { data, isLoading, error } = useFetchGroupDetail(id as string);
+  const { joinGroup, leaveGroup } = useGroupEntryActions();
 
   if (isLoading) {
     return (
@@ -28,8 +31,15 @@ export default function GroupDetail() {
       </View>
     );
   }
+  if (error) {
+    return (
+      <View>
+        <FontText>{error.message}</FontText>
+      </View>
+    );
+  }
 
-  const GroupMinimalInfor = () => (
+  const GroupInforAbovePosts = () => (
     <View className="bg-white gap-2">
       <Image source={IMAGES.fakepostimage} className="w-full h-56" />
       <View className="px-3 py-1 gap-2">
@@ -48,10 +58,14 @@ export default function GroupDetail() {
         </FontText>
         <View className="flex-row gap-3">
           <RectangleButton
-            text="Joined"
+            text={data.isMember ? "Joined" : "Join"}
             textStyle="font-bold"
             className="w-full border border-gray-300"
-            secondary
+            disabled={data.isMember}
+            secondary={data.isMember}
+            onPress={() => {
+              joinGroup(data._id);
+            }}
           />
         </View>
       </View>
@@ -62,13 +76,16 @@ export default function GroupDetail() {
   );
   return (
     <SafeAreaView className="h-full">
-      <GroupHeader group={data} />
+      <GroupHeader
+        group={data}
+        onLeaveGroup={() => {
+          leaveGroup(data._id);
+        }}
+      />
       {data.isMember || data.isVisible ? (
-        <FlatList
-          ListHeaderComponent={<GroupMinimalInfor />}
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-          keyExtractor={(i) => i.toString()}
-          renderItem={({ item }) => <View></View>}
+        <GroupPosts
+          groupId={data._id}
+          ListHeaderComponent={<GroupInforAbovePosts />}
         />
       ) : (
         <FontText>You are not a member of this group to see the posts</FontText>
