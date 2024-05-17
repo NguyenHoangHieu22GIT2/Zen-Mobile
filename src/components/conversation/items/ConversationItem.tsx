@@ -1,10 +1,15 @@
 import { Pressable, View } from "react-native";
-import FontText from "../common/FontText";
+import FontText from "../../common/FontText";
 import { COLORS, IMAGES } from "@/constants";
-import ChatItemAvatarImage from "./ChatItemAvatarImage";
-import { router } from "expo-router";
+import ConversationItemAvatarImage from "../details/ConversationItemAvatarImage";
+import { Conversation } from "@/types/conversation.type";
 
-export default function ChatItem() {
+type props = {
+  item: Conversation;
+  onPress: () => void;
+};
+
+export default function ConversationItem({ onPress, item }: props) {
   return (
     <Pressable
       android_ripple={{
@@ -13,14 +18,14 @@ export default function ChatItem() {
         foreground: true
       }}
       onPress={() => {
-        router.push("conversation/1");
+        onPress();
       }}
       className="flex-row gap-3 px-4 py-3"
     >
-      <ChatItemAvatarImage source={IMAGES.fakeavatar} />
+      <ConversationItemAvatarImage source={IMAGES.fakeavatar} />
 
       <View className="flex">
-        <FontText className="text-xl font-bold">Username</FontText>
+        <FontText className="text-xl font-bold">{item._id}</FontText>
         <View className="flex-row ">
           <FontText className="text-lg text-gray-400" numberOfLines={1}>
             Message

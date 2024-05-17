@@ -1,10 +1,10 @@
 import { View, TextInput, ViewProps } from "react-native";
-import MagnifyingGlassSVG from "../svg/MagnifyingGlassSVG";
+import MagnifyingGlassSVG from "../../svg/MagnifyingGlassSVG";
 import { COLORS } from "@/constants";
 type props = {
   onType: (text: string) => void;
 };
-export default function ChatSearchBar({
+export default function ConversationSearchBar({
   className,
   onType
 }: ViewProps & props) {

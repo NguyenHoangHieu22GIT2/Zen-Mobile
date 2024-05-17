@@ -1,4 +1,4 @@
-import ChatSearchBar from "@/components/chat/ChatSearchBar";
+import ChatSearchBar from "@/components/conversation/inputs/ConverationSearchBar";
 import GroupMemberItem from "@/components/group/items/GroupMemberItem";
 import useFetchGroupMembers from "@/hook/group/useFetchGroupMembers";
 import useGroupOwnerMemberActions from "@/hook/group/useGroupOwnerMemberActions";

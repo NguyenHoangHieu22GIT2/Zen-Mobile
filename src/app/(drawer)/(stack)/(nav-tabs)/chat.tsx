@@ -1,19 +1,20 @@
-import ChatSearchBar from "@/components/chat/ChatSearchBar";
-import Chats from "@/components/chat/Chats";
+import ConversationSearchBar from "@/components/conversation/inputs/ConverationSearchBar";
+import Conversations from "@/components/conversation/lists/Conversations";
 import { IMAGES } from "@/constants";
 import { useState } from "react";
 import { ImageBackground, View } from "react-native";
 
 export default function chat() {
   const [search, setSearch] = useState("");
+
   return (
     <ImageBackground source={IMAGES.appbackground} className="h-full">
-      <ChatSearchBar
+      <ConversationSearchBar
         onType={(text) => setSearch(text)}
         className="w-full px-3 mt-2"
       />
       <View className="h-2 " />
-      <Chats />
+      <Conversations />
     </ImageBackground>
   );
 }

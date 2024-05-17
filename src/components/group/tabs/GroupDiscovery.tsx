@@ -2,7 +2,7 @@ import { FlatList, ImageBackground, RefreshControl } from "react-native";
 import GroupDiscoveryItem from "../items/GroupDiscoveryItem";
 import { COLORS, IMAGES } from "@/constants";
 import { View } from "react-native";
-import ChatSearchBar from "@/components/chat/ChatSearchBar";
+import ChatSearchBar from "@/components/conversation/inputs/ConverationSearchBar";
 import { useState } from "react";
 import { router } from "expo-router";
 import useFetchRecommendGroups from "@/hook/group/useFetchRecommendGroups";
