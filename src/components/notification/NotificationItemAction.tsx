@@ -13,12 +13,15 @@ type NotificationItemProps = {
 };
 
 export default function NotificationItemAction({
-  notification: { userSent, title, createdAt },
+  notification: { subject, verb, createdAt },
   onAccept,
   onReject,
   onPress
 }: NotificationItemProps) {
-  const avatar = userSent.avatar;
+  const userSent = subject;
+  const message = `${verb} you`;
+
+  const avatar = "asd";
 
   return (
     <Pressable
@@ -27,7 +30,7 @@ export default function NotificationItemAction({
         borderless: false,
         foreground: true
       }}
-      className="flex-row gap-2 px-4 my-2 py-2 overflow-hidden"
+      className="flex-row gap-2 px-4 py-2 overflow-hidden"
       onPress={onPress}
     >
       {avatar && (
@@ -46,9 +49,9 @@ export default function NotificationItemAction({
               }}
               className="font-extrabold text-darkblack"
             >
-              {userSent.username + " "}
+              {userSent.name + " "}
             </FontText>
-            {title}
+            {message}
           </FontText>
           <FontText className="font-bold text-gray-500 ml-3">
             {new Date(createdAt).toDateString()}

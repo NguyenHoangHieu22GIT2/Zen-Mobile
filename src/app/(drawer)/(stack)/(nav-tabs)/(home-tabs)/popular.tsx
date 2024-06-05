@@ -23,7 +23,8 @@ export default function Popular() {
     error,
     refreshPosts,
     isRefreshing,
-    isLoadingMore
+    isLoadingMore,
+    isReachingEnd
   } = useFetchRecommendationPosts();
 
   if (error) {
@@ -48,17 +49,20 @@ export default function Popular() {
           data={posts}
           renderItem={({ item }) => <Feed post={item} />}
           keyExtractor={(item) => item._id}
-          ListFooterComponent={() =>
-            isLoadingMore ? (
-              <ActivityIndicator size="small" color={COLORS.primary} />
-            ) : (
-              <View className="items-center h-10">
-                <FontText className="text-gray-400 text-xl font-bold">
-                  .
-                </FontText>
-              </View>
-            )
-          }
+          ListFooterComponent={() => (
+            <>
+              {isLoadingMore && !isReachingEnd && (
+                <ActivityIndicator size="small" color={COLORS.primary} />
+              )}
+              {isReachingEnd && (
+                <View className="items-center h-10">
+                  <FontText className="text-gray-400 text-xl font-bold">
+                    .
+                  </FontText>
+                </View>
+              )}
+            </>
+          )}
           onEndReached={fetchMorePosts}
           onEndReachedThreshold={0.7}
           extraData={posts}

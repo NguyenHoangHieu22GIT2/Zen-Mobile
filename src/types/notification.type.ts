@@ -1,12 +1,20 @@
+type NotificationNoun = {
+  _id: string;
+  name: string;
+  type: "enduser" | "post" | "comment" | "group";
+  image?: string;
+};
+
 type Notification = {
   _id: string;
-  subjectId: string;
-  verb: string;
-  directObjectId: string;
-  indirectObjectId: string;
-  prepObjectId: string;
+  subject: NotificationNoun;
+  verb: "comment" | "like" | "friend_request";
+  directObject: NotificationNoun;
+  indirectObject: NotificationNoun;
+  prepObject?: NotificationNoun;
   referenceLink: string;
   read: boolean;
   createdAt: Date;
+  updatedAt: Date;
 };
 export { Notification };

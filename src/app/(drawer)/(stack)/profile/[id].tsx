@@ -2,42 +2,66 @@ import {
   AddUserSVG,
   CommentSVG,
   FontText,
+  ProfileAboutTab,
   ProfileAvatarImage,
+  ProfileLikeTab,
+  ProfilePostTab,
   RectangleButton
 } from "@/components";
 import Animated from "react-native-reanimated";
 import { COLORS, IMAGES } from "@/constants";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { TabView } from "react-native-tab-view";
-import { useAuthStore } from "@/libs/zustand/auth.zustand";
+import { SceneMap, TabView } from "react-native-tab-view";
 import ProfileHeader from "@/components/profile/details/ProfileHeader";
 import useProfileTabView from "@/hook/profile/useProfileTabView";
 import useCreateConversation from "@/hook/profile/useCreateConversation";
 import { useLocalSearchParams } from "expo-router";
+import useFetchEndUser from "@/hook/profile/useFetchEndUser";
+import { useMemo } from "react";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
 
 export default function UserProfile() {
-  const authStore = useAuthStore((state) => state);
   const { id } = useLocalSearchParams();
+  const myEndUser = useAuthStore((state) => state.endUser);
   const {
     animatedStyles,
-    renderScene,
     renderTabBar,
     index,
     setIndex,
     routes,
-    layout
+    layout,
+    headerHeight
   } = useProfileTabView();
+  let endUser;
+  if (id !== myEndUser._id) {
+    const { endUser: a } = useFetchEndUser(id as string);
+    endUser = a;
+  } else {
+    endUser = myEndUser;
+  }
   const { createConversation } = useCreateConversation();
+
+  const renderScene = useMemo(
+    () =>
+      SceneMap({
+        about: () => (
+          <ProfileAboutTab endUser={endUser} headerHeight={headerHeight} />
+        ),
+        like: () => <ProfileLikeTab headerHeight={headerHeight} />,
+        post: () => <ProfilePostTab headerHeight={headerHeight} />
+      }),
+    [headerHeight]
+  );
 
   return (
     <SafeAreaView className="h-full bg-white">
       <Animated.View style={[animatedStyles]}>
-        <ProfileHeader />
+        <ProfileHeader endUser={endUser} />
         <View className=" items-center gap-3">
           <ProfileAvatarImage source={IMAGES.fakeavatar} />
           <FontText className="font-bold text-2xl">
-            {authStore.endUser.username}
+            {endUser?.username}
           </FontText>
           <View className="flex-row justify-center items-center gap-5 px-5 my-3">
             <RectangleButton

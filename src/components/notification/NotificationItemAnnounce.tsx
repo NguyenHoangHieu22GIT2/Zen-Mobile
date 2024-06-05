@@ -2,6 +2,7 @@ import { Image, Pressable } from "react-native";
 import FontText from "../common/FontText";
 import { Notification } from "@/types/notification.type";
 import { COLORS, IMAGES } from "@/constants";
+import { getPastTense, minimizeString } from "@/utils/funcs/string_helper";
 
 type NotificationItemProps = {
   notification: Notification;
@@ -9,10 +10,16 @@ type NotificationItemProps = {
 };
 
 export default function NotificationItemAnnounce({
-  notification: { userSent, title, createdAt },
+  notification: { subject, verb, directObject, prepObject, createdAt },
   onPress
 }: NotificationItemProps) {
-  const avatar = userSent.avatar;
+  const userSent = subject;
+  const message = `${getPastTense(verb)} your ${
+    directObject.type
+  } "${minimizeString(directObject.name, 20)}" ${
+    prepObject ? "in " + prepObject.name : ""
+  }`;
+  const avatar = "asd";
   return (
     <Pressable
       android_ripple={{
@@ -20,7 +27,7 @@ export default function NotificationItemAnnounce({
         borderless: false,
         foreground: true
       }}
-      className="flex-row gap-2 items-center px-4 my-2 py-2 overflow-hidden"
+      className="flex-row gap-2 items-center px-4 py-4 rounded-xl overflow-hidden"
       onPress={onPress}
     >
       {avatar && (
@@ -32,9 +39,9 @@ export default function NotificationItemAnnounce({
 
       <FontText className="flex-1 font-bold text-gray-500">
         <FontText className="font-extrabold text-darkblack">
-          {userSent.username + " "}
+          {userSent.name + " "}
         </FontText>
-        {title}
+        {message}
       </FontText>
       <FontText className="font-bold text-gray-500 ml-3">
         {new Date(createdAt).toDateString()}
