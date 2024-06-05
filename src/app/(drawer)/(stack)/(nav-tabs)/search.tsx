@@ -1,39 +1,26 @@
 import { FontText, SearchInput, TopWrapperView } from "@/components";
 import FilterButton from "@/components/search/FilterButton";
 import SearchResults from "@/components/search/SearchResults";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { View } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
 import Selector, { SelectItem } from "@/components/common/popup/Selector";
-import { EndUserSearchMinimal } from "@/types/enduser.type";
-import { PostJson } from "@/types/post.type";
-
-export type SearchResultType = "people" | "post";
-
-const searchResults: EndUserSearchMinimal[] | PostJson[] = [
-  {
-    _id: "1",
-    avatar: "asd",
-    username: "username",
-    description:
-      "description description description description description description description"
-  }
-];
+import useSearchUserAndPost from "@/hook/search/useSearchUserAndPost";
 
 export default function SearchPage() {
-  const [input, setInput] = useState<string>();
-  const [resultType, setResultType] = useState<SearchResultType>("people");
   const modalizeRef = useRef<BottomSheetModal>();
+  const { results, changeInput, changeSearchType, searchInput, searchType } =
+    useSearchUserAndPost();
   return (
     <TopWrapperView className="h-full">
       <View className="bg-white h-full">
         <View className="flex-row items-center mx-2">
           <SearchInput
             onChangeText={(value) => {
-              setInput(value);
+              changeInput(value);
             }}
-            value={input}
+            value={searchInput}
           />
           <FilterButton
             onPress={() => {
@@ -41,7 +28,7 @@ export default function SearchPage() {
             }}
           />
         </View>
-        <SearchResults searchResultArray={searchResults} />
+        <SearchResults searchResultArray={results} />
       </View>
 
       <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[220]}>
@@ -50,10 +37,10 @@ export default function SearchPage() {
         </FontText>
         <Selector
           onValueChange={(value) => {
-            setResultType(value);
+            changeSearchType(value);
             modalizeRef.current.close();
           }}
-          defaultValue={resultType}
+          defaultValue={searchType}
         >
           <SelectItem name="People" value="people" />
           <SelectItem name="Post" value="post" />

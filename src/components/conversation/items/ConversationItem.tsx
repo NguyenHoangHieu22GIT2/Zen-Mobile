@@ -25,7 +25,7 @@ export default function ConversationItem({ onPress, item }: props) {
       <ConversationItemAvatarImage source={IMAGES.fakeavatar} />
 
       <View className="flex">
-        <FontText className="text-xl font-bold">{item._id}</FontText>
+        <FontText className="text-xl font-bold">{item.name}</FontText>
         <View className="flex-row ">
           <FontText className="text-lg text-gray-400" numberOfLines={1}>
             Message

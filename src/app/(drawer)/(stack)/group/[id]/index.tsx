@@ -18,30 +18,41 @@ import useFetchGroupDetail from "@/hook/group/useFetchGroupDetail";
 import useGroupEntryActions from "@/hook/group/useGroupEntryActions";
 import GroupPosts from "@/components/group/details/GroupPosts";
 
+const data = {
+  _id: "12",
+  name: "Lop hoc thuong binh",
+  description: "Lop hoc giau tinh thuong danh cho nguoi ngheo",
+  avatar: "asd",
+  isVisible: true,
+  createdAt: "",
+  isOwner: true,
+  numberOfMembers: 130,
+  isMember: true
+};
 export default function GroupDetail() {
   const bottomsheetRef = useRef<BottomSheetModal>();
   const { id } = useLocalSearchParams();
-  const { data, isLoading, error } = useFetchGroupDetail(id as string);
+  // const { data, isLoading, error } = useFetchGroupDetail(id as "");
   const { joinGroup, leaveGroup } = useGroupEntryActions();
 
-  if (isLoading) {
-    return (
-      <View>
-        <FontText>Loading...</FontText>
-      </View>
-    );
-  }
-  if (error) {
-    return (
-      <View>
-        <FontText>{error.message}</FontText>
-      </View>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <View>
+  //       <FontText>Loading...</FontText>
+  //     </View>
+  //   );
+  // }
+  // if (error) {
+  //   return (
+  //     <View>
+  //       <FontText>{error.message}</FontText>
+  //     </View>
+  //   );
+  // }
 
   const GroupInforAbovePosts = () => (
     <View className="bg-white gap-2">
-      <Image source={IMAGES.fakepostimage} className="w-full h-56" />
+      <Image source={IMAGES.groupbackground} className="w-full h-56" />
       <View className="px-3 py-1 gap-2">
         <FontText
           onPress={() => {
@@ -52,7 +63,7 @@ export default function GroupDetail() {
           {data?.name}
           <RightArrowSVG height={15} width={20} strokeColor={"black"} />
         </FontText>
-        <FontText className="text-gray-400">
+        <FontText className="text-gray-600 text-lg">
           {data.isVisible ? "Public" : "Private"} •{" "}
           <FontText>{data.numberOfMembers}</FontText> members
         </FontText>

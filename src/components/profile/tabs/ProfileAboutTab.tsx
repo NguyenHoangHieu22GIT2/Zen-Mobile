@@ -1,9 +1,14 @@
 import FontText from "@/components/common/FontText";
-import { useAuthStore } from "@/libs/zustand/auth.zustand";
+import { EndUser } from "@/types/enduser.type";
 import { ScrollView, View } from "react-native";
+import { SharedValue } from "react-native-reanimated";
 
-export default function ProfileAboutTab({ headerHeight }) {
-  const authStore = useAuthStore((state) => state);
+type props = {
+  headerHeight: SharedValue<number>;
+  endUser: EndUser;
+};
+
+export default function ProfileAboutTab({ headerHeight, endUser }: props) {
   return (
     <View className="flex-1 bg-white">
       <ScrollView
@@ -18,9 +23,7 @@ export default function ProfileAboutTab({ headerHeight }) {
           }
         }}
       >
-        <FontText className="text-base">
-          {authStore.endUser.description}
-        </FontText>
+        <FontText className="text-base">{endUser?.description}</FontText>
       </ScrollView>
     </View>
   );

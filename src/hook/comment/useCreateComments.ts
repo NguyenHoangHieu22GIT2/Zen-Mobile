@@ -46,6 +46,7 @@ export function useCreateComments(props: PropsType) {
           parentCommentId: replyingCommentId
         });
         props.addReply({ ...result.data, endUser, hasReplies: false });
+        // props.addComment(null);
       } else {
         console.log(props.postId);
         result = await http.post("comment/", { postId, content: input });

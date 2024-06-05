@@ -1,13 +1,12 @@
-import { ProfileAboutTab, ProfileLikeTab, ProfilePostTab } from "@/components";
 import { COLORS } from "@/constants";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useWindowDimensions } from "react-native";
 import {
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from "react-native-reanimated";
-import { SceneMap, TabBar } from "react-native-tab-view";
+import { TabBar } from "react-native-tab-view";
 
 export default function useProfileTabView() {
   const layout = useWindowDimensions();
@@ -16,16 +15,6 @@ export default function useProfileTabView() {
   const animatedStyles = useAnimatedStyle(() => ({
     height: withTiming(headerHeight.value * 2, { duration: 500 })
   }));
-
-  const renderScene = useMemo(
-    () =>
-      SceneMap({
-        about: () => <ProfileAboutTab headerHeight={headerHeight} />,
-        like: () => <ProfileLikeTab headerHeight={headerHeight} />,
-        post: () => <ProfilePostTab headerHeight={headerHeight} />
-      }),
-    [headerHeight]
-  );
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -50,7 +39,6 @@ export default function useProfileTabView() {
     layout,
     headerHeight,
     animatedStyles,
-    renderScene,
     index,
     setIndex,
     routes,

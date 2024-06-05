@@ -28,7 +28,7 @@ export default function Message({ message, previousMessage }: props) {
       <View className="flex-1">
         {!isSameUser && (
           <FontText className={` self-start ${isMe && "ml-auto"}`}>
-            "Username"
+            Username
           </FontText>
         )}
 

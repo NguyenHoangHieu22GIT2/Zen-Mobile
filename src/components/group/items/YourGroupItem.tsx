@@ -19,10 +19,13 @@ export default function YourGroupItem({ onPress, group }: Props) {
       className="overflow-hidden flex-row gap-2 py-2 px-4 bg-white rounded-xl"
       onPress={onPress}
     >
-      <Image className="rounded-2xl h-14 w-14" source={IMAGES.fakepostimage} />
+      <Image
+        className="rounded-2xl h-16 w-16"
+        source={IMAGES.groupbackground}
+      />
       <View>
-        <FontText className="font-bold text-lg">{group.name}</FontText>
-        <FontText className="">
+        <FontText className="font-bold text-xl">{group.name}</FontText>
+        <FontText className="text-lg">
           {group.isVisible ? "Public" : "Private"}
         </FontText>
       </View>
