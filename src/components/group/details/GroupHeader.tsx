@@ -7,11 +7,12 @@ import { router } from "expo-router";
 import { View, Pressable } from "react-native";
 
 type props = {
-  group: GroupDetail;
+  data: GroupDetail;
   onLeaveGroup: () => void;
+  isOwner: boolean;
 };
 
-export default function GroupHeader({ group, onLeaveGroup }: props) {
+export default function GroupHeader({ data, onLeaveGroup, isOwner }: props) {
   return (
     <View className="flex-row gap-2 bg-white items-center py-1 px-2">
       <Pressable
@@ -28,16 +29,16 @@ export default function GroupHeader({ group, onLeaveGroup }: props) {
         <BackSvg />
       </Pressable>
       <FontText className="font-bold text-lg flex-1" numberOfLines={1}>
-        {group.name}
+        {data.group.name}
       </FontText>
-      {group.isMember && (
-        <OptionMenu snapPoint={[250]}>
-          {group.isOwner && (
+      {data.isJoined && (
+        <OptionMenu snapPoint={[150]}>
+          {isOwner && (
             <Option icon={<></>} label="Edit group" onPress={() => {}} />
           )}
-          {!group.isOwner && (
+          {/* {!isOwner && (
             <Option icon={<></>} label="Leave group" onPress={onLeaveGroup} />
-          )}
+          )} */}
         </OptionMenu>
       )}
     </View>

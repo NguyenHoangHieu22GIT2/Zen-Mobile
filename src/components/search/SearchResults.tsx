@@ -28,12 +28,12 @@ export default function SearchResults({
             <PeopleSearchResultItem
               endUser={item}
               onAddFriend={() => {}}
-              onPress={() => router.push("/profile/1")}
+              onPress={() => router.push(`/profile/${item._id}`)}
             />
           )
         }
         ItemSeparatorComponent={() => (
-          <View className="my-2 border-b border-gray-300" />
+          <View className=" border-b border-gray-300" />
         )}
       />
     </View>

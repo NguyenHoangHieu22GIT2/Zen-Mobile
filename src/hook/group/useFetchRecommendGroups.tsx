@@ -1,5 +1,6 @@
 import { fetcher } from "@/libs/swr/fetcher";
 import { GroupExtraIsmember } from "@/types/group.type";
+import { useEffect } from "react";
 import useSWRInfinite from "swr/dist/infinite";
 
 const GROUP_PER_FETCH = 6;
@@ -35,6 +36,12 @@ export default function useFetchRecommendGroups() {
   const refreshGroups = () => {
     mutate();
   };
+  useEffect(() => {
+    console.log(
+      process.env.EXPO_PUBLIC_HTTP_ENDPOINT_GET_RECOMMENDED_GROUP,
+      groups
+    );
+  }, [groups]);
 
   return {
     groups,

@@ -2,7 +2,7 @@ import {
   AuthTextInput,
   FontText,
   RectangleButton,
-  TopWrapperView,
+  TopWrapperView
 } from "@/components";
 import ChangableProfileAvatarImage from "@/components/profile/images/ChangableProfileAvatarImage";
 import { COLORS, IMAGES } from "@/constants";
@@ -11,7 +11,7 @@ import { useAuthStore } from "@/libs/zustand/auth.zustand";
 import { useState } from "react";
 
 export default function edit() {
-  const authStore = useAuthStore((state) => state);
+  const endUser = useAuthStore((state) => state.endUser);
   const [selectedImage, setSelectedImage] = useState(IMAGES.fakeavatar);
   const { inputs, changeInputs, submitEditProfile } = useEditProfile();
   return (
@@ -24,14 +24,11 @@ export default function edit() {
             : { uri: selectedImage }
         }
       />
-      <FontText className="font-bold text-xl text-center my-2">
-        {authStore.endUser.username}
-      </FontText>
       <AuthTextInput
         SVGIconElement={<></>}
         label="Username"
         selectionColor={COLORS.primary}
-        className="mb-3"
+        className="mb-3 mt-10"
         value={inputs.username}
         onChangeText={(text) => {
           changeInputs("username", text);

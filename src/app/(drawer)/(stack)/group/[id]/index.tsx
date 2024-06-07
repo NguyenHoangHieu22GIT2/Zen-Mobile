@@ -32,27 +32,20 @@ const data = {
 export default function GroupDetail() {
   const bottomsheetRef = useRef<BottomSheetModal>();
   const { id } = useLocalSearchParams();
-  // const { data, isLoading, error } = useFetchGroupDetail(id as "");
+  const { data, isOwner, isLoading } = useFetchGroupDetail(id as string);
   const { joinGroup, leaveGroup } = useGroupEntryActions();
-
-  // if (isLoading) {
-  //   return (
-  //     <View>
-  //       <FontText>Loading...</FontText>
-  //     </View>
-  //   );
-  // }
-  // if (error) {
-  //   return (
-  //     <View>
-  //       <FontText>{error.message}</FontText>
-  //     </View>
-  //   );
-  // }
+  console.log("detail2", id, typeof id, data);
 
   const GroupInforAbovePosts = () => (
     <View className="bg-white gap-2">
-      <Image source={IMAGES.groupbackground} className="w-full h-56" />
+      <Image
+        source={
+          data.group.avatar.length < 10
+            ? IMAGES.fakepostimage
+            : { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + data.group.avatar }
+        }
+        className="w-full h-56"
+      />
       <View className="px-3 py-1 gap-2">
         <FontText
           onPress={() => {
@@ -60,22 +53,22 @@ export default function GroupDetail() {
           }}
           className="font-bold text-2xl"
         >
-          {data?.name}
+          {data?.group?.name}
           <RightArrowSVG height={15} width={20} strokeColor={"black"} />
         </FontText>
         <FontText className="text-gray-600 text-lg">
-          {data.isVisible ? "Public" : "Private"} •{" "}
-          <FontText>{data.numberOfMembers}</FontText> members
+          {data.group.isVisible ? "Public" : "Private"} •{" "}
+          <FontText>{data.numOfMembers}</FontText> members
         </FontText>
         <View className="flex-row gap-3">
           <RectangleButton
-            text={data.isMember ? "Joined" : "Join"}
+            text={data?.isJoined ? "Joined" : "Join"}
             textStyle="font-bold"
             className="w-full border border-gray-300"
-            disabled={data.isMember}
-            secondary={data.isMember}
+            disabled={data?.isJoined}
+            secondary={data?.isJoined}
             onPress={() => {
-              joinGroup(data._id);
+              joinGroup(data.group._id);
             }}
           />
         </View>
@@ -85,17 +78,19 @@ export default function GroupDetail() {
       </View>
     </View>
   );
+  if (isLoading) return <></>;
   return (
     <SafeAreaView className="h-full">
       <GroupHeader
-        group={data}
+        data={data}
         onLeaveGroup={() => {
-          leaveGroup(data._id);
+          leaveGroup(data.group._id);
         }}
+        isOwner={isOwner}
       />
-      {data.isMember || data.isVisible ? (
+      {data?.isJoined || data.group.isVisible ? (
         <GroupPosts
-          groupId={data._id}
+          groupId={data.group._id}
           ListHeaderComponent={<GroupInforAbovePosts />}
         />
       ) : (
@@ -110,9 +105,9 @@ export default function GroupDetail() {
       <CustomBottomSheet bottomsheetRef={bottomsheetRef} snapPoint={[700]}>
         <BottomSheetScrollView className="px-3 pt-5">
           <GroupDetails
-            group={data}
+            data={data}
             onShowMembers={() => {
-              router.push("group/1/members");
+              router.push(`group/${data.group._id}/members`);
               bottomsheetRef?.current.dismiss();
             }}
           />

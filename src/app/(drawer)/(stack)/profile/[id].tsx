@@ -19,11 +19,10 @@ import useCreateConversation from "@/hook/profile/useCreateConversation";
 import { useLocalSearchParams } from "expo-router";
 import useFetchEndUser from "@/hook/profile/useFetchEndUser";
 import { useMemo } from "react";
-import { useAuthStore } from "@/libs/zustand/auth.zustand";
+import useAddFriend from "@/hook/profile/useAddFriend";
 
 export default function UserProfile() {
   const { id } = useLocalSearchParams();
-  const myEndUser = useAuthStore((state) => state.endUser);
   const {
     animatedStyles,
     renderTabBar,
@@ -33,14 +32,16 @@ export default function UserProfile() {
     layout,
     headerHeight
   } = useProfileTabView();
-  let endUser;
-  if (id !== myEndUser._id) {
-    const { endUser: a } = useFetchEndUser(id as string);
-    endUser = a;
-  } else {
-    endUser = myEndUser;
-  }
+  // let endUser;
+  // if (id !== myEndUser._id) {
+  //   const { endUser: a } = useFetchEndUser(id as string);
+  //   endUser = a;
+  // } else {
+  //   endUser = myEndUser;
+  // }
+  const { endUser, isMyProfile, mutate } = useFetchEndUser(id as string);
   const { createConversation } = useCreateConversation();
+  const { addFriend } = useAddFriend();
 
   const renderScene = useMemo(
     () =>
@@ -64,30 +65,38 @@ export default function UserProfile() {
             {endUser?.username}
           </FontText>
           <View className="flex-row justify-center items-center gap-5 px-5 my-3">
-            <RectangleButton
-              text="Add friend"
-              className="flex-1"
-              iconLeft={
-                <AddUserSVG height={22} width={22} strokeColor={"white"} />
-              }
-              textStyle="font-bold ml-2"
-            />
-            <RectangleButton
-              text="Message"
-              textColor={COLORS.primary}
-              iconLeft={
-                <CommentSVG
-                  width={20}
-                  height={20}
-                  strokeColor={COLORS.primary}
+            {!isMyProfile && (
+              <>
+                <RectangleButton
+                  text="Add friend"
+                  className="flex-1"
+                  iconLeft={
+                    <AddUserSVG height={22} width={22} strokeColor={"white"} />
+                  }
+                  textStyle="font-bold ml-2"
+                  onPress={async () => {
+                    await addFriend(id as string);
+                    mutate();
+                  }}
                 />
-              }
-              textStyle="font-bold ml-2"
-              className="bg-white border border-primary text-primary flex-1"
-              onPress={() => {
-                createConversation(id as string);
-              }}
-            />
+                <RectangleButton
+                  text="Message"
+                  textColor={COLORS.primary}
+                  iconLeft={
+                    <CommentSVG
+                      width={20}
+                      height={20}
+                      strokeColor={COLORS.primary}
+                    />
+                  }
+                  textStyle="font-bold ml-2"
+                  className="bg-white border border-primary text-primary flex-1"
+                  onPress={() => {
+                    createConversation(id as string);
+                  }}
+                />
+              </>
+            )}
           </View>
         </View>
       </Animated.View>

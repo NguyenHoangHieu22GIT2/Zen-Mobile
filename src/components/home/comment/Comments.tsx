@@ -35,8 +35,9 @@ export default function Comments(props: props) {
     changeInput
   } = useCreateComments({
     postId: props.postId,
-    addComment: addComment,
-    addReply: addReply
+    addComment,
+    addReply,
+    refreshComments
   });
 
   const flatlistRef = useRef(null);

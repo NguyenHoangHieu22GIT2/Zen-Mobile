@@ -2,16 +2,24 @@ import { FontText, SearchInput, TopWrapperView } from "@/components";
 import FilterButton from "@/components/search/FilterButton";
 import SearchResults from "@/components/search/SearchResults";
 import { useRef } from "react";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
 import Selector, { SelectItem } from "@/components/common/popup/Selector";
 import useSearchUserAndPost from "@/hook/search/useSearchUserAndPost";
 
+import { COLORS } from "@/constants";
+
 export default function SearchPage() {
   const modalizeRef = useRef<BottomSheetModal>();
-  const { results, changeInput, changeSearchType, searchInput, searchType } =
-    useSearchUserAndPost();
+  const {
+    results,
+    isLoading,
+    changeInput,
+    changeSearchType,
+    searchInput,
+    searchType
+  } = useSearchUserAndPost();
   return (
     <TopWrapperView className="h-full">
       <View className="bg-white h-full">
@@ -28,6 +36,7 @@ export default function SearchPage() {
             }}
           />
         </View>
+        {isLoading && <ActivityIndicator size="large" color={COLORS.primary} />}
         <SearchResults searchResultArray={results} />
       </View>
 

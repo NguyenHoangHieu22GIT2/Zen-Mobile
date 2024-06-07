@@ -1,7 +1,7 @@
 import http from "@/libs/axios.base";
 import {
   zEditProfileInputs,
-  ztEditProfileInputs,
+  ztEditProfileInputs
 } from "@/libs/zod/profile/edit-profile.zod";
 import { useAuthStore } from "@/libs/zustand/auth.zustand";
 import { trycatchAxios } from "@/utils/funcs/trycatchAxios";
@@ -13,8 +13,8 @@ export function useEditProfile() {
   const authStore = useAuthStore((state) => state);
 
   const [inputs, setInputs] = useState<ztEditProfileInputs>({
-    username: "",
-    description: "",
+    username: authStore.endUser.username,
+    description: authStore.endUser.description
   });
 
   function changeInputs(type: keyof ztEditProfileInputs, value: string) {
@@ -28,7 +28,7 @@ export function useEditProfile() {
       toast.danger({
         message: "Invalid inputs",
         subMessage: "Please check your inputs",
-        duration: 3000,
+        duration: 3000
       });
     }
 
@@ -37,7 +37,7 @@ export function useEditProfile() {
       toast.success({
         message: "Profile updated",
         subMessage: "Your profile has been updated",
-        duration: 3000,
+        duration: 3000
       });
 
       authStore.setEndUser(result.data);
@@ -51,6 +51,6 @@ export function useEditProfile() {
   return {
     inputs,
     changeInputs,
-    submitEditProfile,
+    submitEditProfile
   };
 }

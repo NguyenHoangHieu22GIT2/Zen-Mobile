@@ -6,9 +6,6 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 export default function useSearchUserAndPost() {
-  const [results, setResults] = useState<EndUserSearchMinimal[] | PostJson[]>(
-    []
-  );
   const [searchInput, setSearchInput] = useState<string>("");
   const [searchType, setSearchType] = useState<SearchResultType>("people");
   const changeInput = (newInput: string) => {
@@ -17,21 +14,20 @@ export default function useSearchUserAndPost() {
   const changeSearchType = (newType: SearchResultType) => {
     setSearchType(newType);
   };
-  const { data, isLoading, error } = useSWR<
+  const { data, isLoading, error, mutate } = useSWR<
     EndUserSearchMinimal[] | PostJson[]
   >(
-    `${searchType == "people" ? "/endusers" : "/posts"}?search=${searchInput}`,
+    `${
+      searchType == "people" ? "/endusers/search" : "/posts"
+    }?search=${searchInput}&limit=100&skip=0`,
     fetcher
   );
   useEffect(() => {
-    if (searchInput == "") {
-      setResults([]);
-      return;
-    }
-    setResults(data);
-  }, [data]);
+    console.log(data);
+    mutate();
+  }, [searchInput]);
   return {
-    results,
+    results: data,
     isLoading,
     error,
     searchInput,

@@ -4,7 +4,7 @@ import useSWR from "swr";
 
 export default function useFetchGroupMembers(groupId: string) {
   const { data, isLoading } = useSWR<GroupMember[]>(
-    process.env.EXPO_PUBLIC_HTTP_ENDPOINT_BASE_GROUPMEMBER + `/${groupId}`,
+    "/group-members" + `/${groupId}`,
     fetcher
   );
   return { data, isLoading };

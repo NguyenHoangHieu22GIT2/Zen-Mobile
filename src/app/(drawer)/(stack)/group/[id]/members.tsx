@@ -14,7 +14,7 @@ export default function members() {
   const { kickMember } = useGroupOwnerMemberActions(id as string);
 
   if (isLoading) {
-    return <View>Loading...</View>;
+    return <View></View>;
   }
   return (
     <View className="bg-white h-full">

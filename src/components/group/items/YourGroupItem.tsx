@@ -21,7 +21,11 @@ export default function YourGroupItem({ onPress, group }: Props) {
     >
       <Image
         className="rounded-2xl h-16 w-16"
-        source={IMAGES.groupbackground}
+        source={
+          group.avatar.length < 10
+            ? IMAGES.fakepostimage
+            : { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + group.avatar }
+        }
       />
       <View>
         <FontText className="font-bold text-xl">{group.name}</FontText>

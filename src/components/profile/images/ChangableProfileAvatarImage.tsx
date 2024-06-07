@@ -1,5 +1,9 @@
-import { View, TouchableOpacity, ImageSourcePropType } from "react-native";
-import ProfileAvatarImage from "./ProfileAvatarImage";
+import {
+  View,
+  TouchableOpacity,
+  ImageSourcePropType,
+  Image
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import EditSVG from "@/components/svg/EditSVG";
 
@@ -28,11 +32,11 @@ export default function ChangableProfileAvatarImage({
 
   return (
     <TouchableOpacity
-      style={{ width: 86, height: 86 }}
+      style={{ width: 100, height: 100 }}
       onPress={pickImage}
       className="relative rounded-full border-2 border-gray-300"
     >
-      <ProfileAvatarImage source={source} />
+      <Image source={source} className={`rounded-full h-full w-full `} />
       <View className="rounded-full p-2 self-start items-center justify-center bg-darkblack/30 absosute bottom-8 left-full -translate-x-full">
         <EditSVG width={15} height={15} strokeColor="white" />
       </View>

@@ -18,21 +18,28 @@ export default function GroupDiscoveryItem({ group, onPress, onJoin }: props) {
         borderless: false,
         foreground: true
       }}
-      className="rounded-2xl pb-2 bg-white border flex-1 border-gray-300 overflow-hidden"
+      className="rounded-2xl pb-2 bg-white border shadow-lg flex-1 border-gray-300 overflow-hidden"
       onPress={onPress}
     >
-      <Image source={IMAGES.fakepostimage} className="w-full h-40" />
+      <Image
+        source={
+          group.avatar.length < 10
+            ? IMAGES.fakepostimage
+            : { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + group.avatar }
+        }
+        className="w-full h-40"
+      />
       <View className="px-3 py-1.5">
-        <FontText className="font-bold text-lg" numberOfLines={2}>
+        <FontText className="font-bold text-lg h-14" numberOfLines={2}>
           {group.name}
         </FontText>
-        <FontText>Public group</FontText>
+        <FontText className="flex-1">Public group</FontText>
         <RectangleButton
-          text={!group.isMember ? "Join" : "Joined"}
+          text={!group.isJoined ? "Join" : "Joined"}
           textStyle="font-bold"
-          className="mt-2"
-          onPress={!group.isMember ? onJoin : () => {}}
-          secondary={group.isMember}
+          className={`mt-2 ${group.isJoined && "border border-primary "}`}
+          onPress={!group.isJoined ? onJoin : () => {}}
+          secondary={group.isJoined}
         />
       </View>
     </Pressable>

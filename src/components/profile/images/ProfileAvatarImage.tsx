@@ -8,7 +8,7 @@ export default function ProfileAvatarImage({
   return (
     <Image
       source={source}
-      className={`rounded-full h-24 w-24 ${className}`}
+      className={`rounded-full h-36 w-36 ${className}`}
       {...otherProps}
     />
   );

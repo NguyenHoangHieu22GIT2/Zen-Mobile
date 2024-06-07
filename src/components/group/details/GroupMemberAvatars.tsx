@@ -22,11 +22,14 @@ export default function GroupMemberAvatars({
       {avatars.map((avatar, index) => {
         if (index < MAX_AVATAR_DISPLAY) {
           return <Avatar key={index} />;
-        } else if (index === MAX_AVATAR_DISPLAY) {
+        } else if (
+          index === MAX_AVATAR_DISPLAY &&
+          memberLength - MAX_AVATAR_DISPLAY > 0
+        ) {
           return (
             <View
               key={index}
-              className="-mr-2 rounded-full h-10 w-10 items-center justify-center bg-gray-400"
+              className="-mr-2 rounded-full h-10 w-10 items-center justify-center bg-gray-300"
             >
               <Text className="text-sm font-bold">
                 +{memberLength - MAX_AVATAR_DISPLAY}

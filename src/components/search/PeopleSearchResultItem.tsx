@@ -22,7 +22,7 @@ export default function PeopleSearchResultItem({
         foreground: true
       }}
       onPress={onPress}
-      className="overflow-hidden shadow-gray-400 bg-white px-3 py-2 flex-row items-center gap-4 "
+      className="overflow-hidden shadow-gray-400 rounded-xl bg-white px-3 py-4 flex-row items-center gap-4 "
     >
       <Image source={IMAGES.fakeavatar} className="w-14 h-14 rounded-full" />
       <View className="flex-1">
@@ -41,7 +41,7 @@ export default function PeopleSearchResultItem({
           borderless: false,
           foreground: true
         }}
-        className="overflow-hidden bg-darkblack px-4 py-2 rounded-xl"
+        className="overflow-hidden bg-lightblack px-4 py-3 border-gray-200 border rounded-xl"
         onPress={onAddFriend}
       >
         <FontText className="text-white font-bold">Add friend</FontText>

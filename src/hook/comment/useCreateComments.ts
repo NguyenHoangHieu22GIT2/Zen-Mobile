@@ -10,6 +10,7 @@ type PropsType = {
   postId: string;
   addComment: (newComment: Comment) => void;
   addReply: (newReply: Comment) => void;
+  refreshComments: () => void;
 };
 
 export function useCreateComments(props: PropsType) {
@@ -46,7 +47,7 @@ export function useCreateComments(props: PropsType) {
           parentCommentId: replyingCommentId
         });
         props.addReply({ ...result.data, endUser, hasReplies: false });
-        // props.addComment(null);
+        props.refreshComments();
       } else {
         console.log(props.postId);
         result = await http.post("comment/", { postId, content: input });
