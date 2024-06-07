@@ -1,77 +1,91 @@
-import {
-  BookmarkSVG,
-  FontText,
-  HeartSVG,
-  OptionMenuSVG,
-  ShareSVG
-} from "@/components";
-import Comments from "@/components/home/comment/Comments";
-import ToggleCommentsButton from "@/components/home/feed/Buttons/ToggleCommentsButton";
-import ToggleableReactionButton from "@/components/home/feed/Buttons/ToggleableReactionButton";
-import FeedAvatarImage from "@/components/home/feed/Images/FeedAvatarImage";
-import FeedImage from "@/components/home/feed/Images/FeedImage";
-import { IMAGES } from "@/constants";
-import http from "@/libs/axios.base";
-import { Post } from "@/types/post.type";
-import { convertPostDataToFeedfield } from "@/utils/funcs/convertPostDataToFeedfield";
-import { trycatchAxios } from "@/utils/funcs/trycatchAxios";
-import { View } from "react-native";
+import { FontText, PressableText } from "@/components";
+import PostButton from "@/components/home/add-feed/Buttons/PostButton";
+import PrivacyPickerSelect from "@/components/home/add-feed/Buttons/PrivacyPickerSelect";
+import MultipleImagePicker from "@/components/home/add-feed/Images/MultipleImagePicker";
+import MyAddPostAvatar from "@/components/home/add-feed/Images/MyAddPostAvatar";
+import XSVG from "@/components/svg/XSGV";
+import { COLORS, IMAGES } from "@/constants";
+import { useState } from "react";
+import { TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import ImagesPickedFlatList from "@/components/home/add-feed/Images/ImagesPickedFlatList";
+import { router, useLocalSearchParams } from "expo-router";
+import { useEditPost } from "@/hook/feed/useEditPost";
+import useSWR from "swr";
+import { fetcher } from "@/libs/swr/fetcher";
+import { PostJson } from "@/types/post.type";
 
-type props = {
-  post: Post;
-};
+export default function AddPostForm() {
+  const { id } = useLocalSearchParams();
+  const { data: post } = useSWR<PostJson>(`/posts/${id as string}`, fetcher);
+  const { inputs, changeInputs, submitEditPost } = useEditPost(post);
 
-export default function PostEdit(props: props) {
-  const toggleLike = async () => {
-    trycatchAxios(async () => {
-      const result = await http.post(
-        process.env.EXPO_PUBLIC_HTTP_ENDPOINT_BASE_LIKE,
-        { postId: post._id }
-      );
-      return result;
-    });
-  };
-  const post = convertPostDataToFeedfield(props.post);
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [postPrivacy, setPostPrivacy] = useState("");
+  function removeImage(removeItem: string) {
+    changeInputs(
+      "images",
+      inputs.images.filter((item) => item != removeItem)
+    );
+  }
+  function addImages(images: string[]) {
+    changeInputs("images", inputs.images.concat(images));
+  }
   return (
-    <View className="px-5 py-3.5 gap-3 border rounded-3xl bg-white border-gray-200">
-      <View className="flex-row items-center justify-between pl-2 ">
-        <FeedAvatarImage source={IMAGES.fakeavatar} className="mr-2" />
-        <FontText className="font-bold">{post.endUser.username}</FontText>
-        <FontText className="flex-1 text-right text-gray-400">
-          {post.postAge}
-        </FontText>
-        <ToggleCommentsButton
-          className="ml-2"
-          svgComponent={<OptionMenuSVG />}
-          onPress={() => {}}
-        />
-      </View>
-      <FontText className="mx-2 mt-2.5 text-xl font-bold">
-        {post.title}
-      </FontText>
-      <FontText className="mx-2 mb-3 text-lg ">{post.body}</FontText>
-      <FeedImage sourceURIs={post.images} />
+    <SafeAreaView className="h-full bg-white">
+      <View className="flex-row items-center justify-between px-4 my-2">
+        <PressableText onPress={() => router.back()}>
+          <XSVG
+            width={25}
+            height={25}
+            strokeColor={COLORS.gray}
+            strokeWidth={1.5}
+          />
+        </PressableText>
 
-      <View className="flex-row gap-5 px-3 justify-between">
-        <ToggleableReactionButton
-          hasActivated={post.hasLiked!}
-          canActiveSvgComponent={<HeartSVG />}
+        <FontText className="text-xl font-bold text-gray-600">
+          Edit a Post
+        </FontText>
+        <PostButton
           onPress={() => {
-            toggleLike();
-            console.log(post.images);
+            submitEditPost();
           }}
         />
-        <ToggleCommentsButton svgComponent={<ShareSVG />} onPress={() => {}} />
-
-        <ToggleableReactionButton
-          className="flex-1 flex-row justify-end"
-          canActiveSvgComponent={<BookmarkSVG />}
-          onPress={() => {}}
-        />
       </View>
+      <View className="flex-row gap-3 px-4 my-2 items-end">
+        <MyAddPostAvatar source={IMAGES.fakeavatar} />
+        <PrivacyPickerSelect onValueChange={(value) => setPostPrivacy(value)} />
+      </View>
+      <TextInput
+        autoFocus
+        multiline={true}
+        numberOfLines={2}
+        style={{ textAlignVertical: "top" }}
+        className="px-6 text-xl mt-4 font-bold"
+        placeholder="Post's title.."
+        onChangeText={(text) => changeInputs("title", text)}
+        value={inputs.title}
+      />
 
-      <Comments postId={post._id} />
-    </View>
+      <TextInput
+        autoFocus
+        multiline={true}
+        numberOfLines={4}
+        style={{ textAlignVertical: "top" }}
+        className="px-6 text-xl mt-1"
+        placeholder="What's on your head?"
+        onChangeText={(text) => changeInputs("body", text)}
+        value={inputs.body}
+      />
+      <ImagesPickedFlatList
+        selectedImages={inputs.images}
+        removeImage={removeImage}
+      />
+      <MultipleImagePicker
+        onAddImages={(images) => {
+          addImages(images);
+        }}
+      />
+    </SafeAreaView>
   );
 }

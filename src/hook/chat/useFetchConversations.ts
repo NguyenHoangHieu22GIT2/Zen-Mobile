@@ -6,10 +6,7 @@ import useSWR from "swr";
 export default function useFetchConversations() {
   const { data, isLoading, error, mutate, isValidating } = useSWR<
     Conversation[]
-  >(
-    process.env.EXPO_PUBLIC_BASE_URL + "/conversation?limit=10&skip=0",
-    fetcher
-  );
+  >("/conversation?limit=10&skip=0", fetcher);
   const refreshConversation = () => {
     mutate();
   };

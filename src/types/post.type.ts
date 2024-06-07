@@ -10,7 +10,8 @@ type Post = {
   createdAt: Date;
   updatedAt: Date;
   endUser: EndUserMinimal;
-  hasLiked?: boolean;
+  hasLiked: boolean;
+  numOfLikes: number;
 };
 
 type PostJson = Post & {

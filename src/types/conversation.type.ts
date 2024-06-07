@@ -2,7 +2,7 @@ import { EndUserMinimal } from "./enduser.type";
 
 type Conversation = {
   _id: string;
-  endUserIds: string[];
+  endUserIds: EndUserMinimal[];
   name: string;
   createdAt: string;
   updatedAt: string;

@@ -47,7 +47,9 @@ export default function Popular() {
           ItemSeparatorComponent={() => <View className="h-3 " />}
           showsVerticalScrollIndicator={true}
           data={posts}
-          renderItem={({ item }) => <Feed post={item} />}
+          renderItem={({ item }) => (
+            <Feed post={item} onDelete={refreshPosts} />
+          )}
           keyExtractor={(item) => item._id}
           ListFooterComponent={() => (
             <>

@@ -7,7 +7,7 @@ type Props = {
   group: GroupMinimal;
   onPress?: () => void;
 };
-
+console.log(process.env.EXPO_PUBLIC_HTTP_UPLOADS);
 export default function YourGroupItem({ onPress, group }: Props) {
   return (
     <Pressable

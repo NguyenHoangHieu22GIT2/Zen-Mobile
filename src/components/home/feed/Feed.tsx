@@ -9,7 +9,6 @@ import BookmarkSVG from "@/components/svg/BookmarkSVG";
 import ToggleCommentsButton from "./Buttons/ToggleCommentsButton";
 import CommentSVG from "@/components/svg/CommentSVG";
 import ShareSVG from "@/components/svg/ShareSVG";
-import OptionMenuSVG from "@/components/svg/OptionMenuSVG";
 import React, { useRef } from "react";
 import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
@@ -18,9 +17,14 @@ import { PostJson } from "@/types/post.type";
 import { trycatchAxios } from "@/utils/funcs/trycatchAxios";
 import http from "@/libs/axios.base";
 import { convertPostDataToFeedfield } from "@/utils/funcs/convertPostDataToFeedfield";
+import OptionMenu, { Option } from "@/components/common/popup/OptionMenu";
+import { router } from "expo-router";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
+import toast from "@/utils/toast/toast";
 
 type props = {
   post: PostJson;
+  onDelete?: () => void;
 };
 
 function Feed(props: props) {
@@ -34,6 +38,7 @@ function Feed(props: props) {
     });
   };
   const post = convertPostDataToFeedfield(props.post);
+  const myEndUser = useAuthStore((state) => state.endUser);
 
   const modalizeRef = useRef<BottomSheetModal>();
 
@@ -45,11 +50,37 @@ function Feed(props: props) {
         <FontText className="flex-1 text-right text-gray-400">
           {post.postAge}
         </FontText>
-        <ToggleCommentsButton
+        {/* <ToggleCommentsButton
           className="ml-2"
           svgComponent={<OptionMenuSVG />}
-          onPress={() => {}}
-        />
+          onPress={() => {
+            if (post.endUser._id == myEndUser._id)
+              editmodalizeRef.current?.present();
+          }}
+        /> */}
+        {post.endUser._id == myEndUser._id && (
+          <OptionMenu snapPoint={[200]}>
+            <Option
+              icon={<></>}
+              label="Edit post"
+              onPress={() => {
+                router.push(`/post/${post._id}/edit`);
+              }}
+            />
+            <Option
+              icon={<></>}
+              label="Delete post"
+              onPress={async () => {
+                return trycatchAxios(async () => {
+                  const result = await http.delete("/posts/" + post._id);
+                  toast.success({ message: "Delete successfully" });
+                  props.onDelete();
+                  return result;
+                });
+              }}
+            />
+          </OptionMenu>
+        )}
       </View>
       <FontText className="mx-2 mt-2.5 text-xl font-bold">
         {post.title}
@@ -59,7 +90,8 @@ function Feed(props: props) {
 
       <View className="flex-row gap-5 px-3 justify-between">
         <ToggleableReactionButton
-          hasActivated={post.hasLiked!}
+          hasActivated={post.hasLiked}
+          number={post.numOfLikes}
           canActiveSvgComponent={<HeartSVG />}
           onPress={() => {
             toggleLike();

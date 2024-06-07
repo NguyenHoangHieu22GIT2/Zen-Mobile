@@ -51,6 +51,13 @@ const CustomDrawerContent = (props) => {
           label="Setting"
           pathname="/setting"
         />
+        <View className="h-32"></View>
+
+        <CustomDrawerItem
+          FontAwesomeIconName="star"
+          label="Upgrade Plan"
+          pathname="/upgrade-plan"
+        />
       </DrawerContentScrollView>
     );
 };

@@ -80,7 +80,7 @@ export default function edit() {
       </ScrollView>
       <View className="">
         <RectangleButton
-          text="Create Group"
+          text="Submit"
           textStyle="font-bold"
           onPress={() => {
             submitEditGroup();

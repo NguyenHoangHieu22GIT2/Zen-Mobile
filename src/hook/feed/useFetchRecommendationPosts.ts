@@ -10,7 +10,7 @@ export function useFetchRecommendationPosts() {
     //end of page?
     if (pageIndex && !previousPageData.length) return null;
     return (
-      process.env.EXPO_PUBLIC_HTTP_ENDPOINT_GET_RECOMMENDED_POST +
+      "/posts" +
       `?limit=${pageIndex * POSTS_PER_FETCH + POSTS_PER_FETCH}&skip=${
         pageIndex * POSTS_PER_FETCH
       }`

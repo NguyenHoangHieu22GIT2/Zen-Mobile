@@ -34,6 +34,12 @@ export default function StackLayout() {
               headerShown: false
             }}
           />
+          <Stack.Screen
+            name="post/[id]/edit"
+            options={{
+              headerShown: false
+            }}
+          />
           <Stack.Screen name="profile/[id]" options={{ headerShown: false }} />
           <Stack.Screen
             name="profile/edit"
@@ -60,6 +66,7 @@ export default function StackLayout() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="group/create" options={{ headerShown: false }} />
+          <Stack.Screen name="upgrade-plan" options={{ headerShown: true }} />
           <Stack.Screen name="favourites" />
           <Stack.Screen name="setting" />
         </Stack>

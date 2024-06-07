@@ -3,6 +3,7 @@ import FontText from "../../common/FontText";
 import { COLORS, IMAGES } from "@/constants";
 import ConversationItemAvatarImage from "../details/ConversationItemAvatarImage";
 import { Conversation } from "@/types/conversation.type";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
 
 type props = {
   item: Conversation;
@@ -10,6 +11,12 @@ type props = {
 };
 
 export default function ConversationItem({ onPress, item }: props) {
+  const myEndUser = useAuthStore((state) => state.endUser);
+  const aitenamae =
+    item.endUserIds[0]?._id == myEndUser._id
+      ? item.endUserIds[1]?.username
+      : item.endUserIds[0]?.username;
+
   return (
     <Pressable
       android_ripple={{
@@ -25,7 +32,7 @@ export default function ConversationItem({ onPress, item }: props) {
       <ConversationItemAvatarImage source={IMAGES.fakeavatar} />
 
       <View className="flex">
-        <FontText className="text-xl font-bold">{item.name}</FontText>
+        <FontText className="text-xl font-bold">{aitenamae}</FontText>
         <View className="flex-row ">
           <FontText className="text-lg text-gray-400" numberOfLines={1}>
             Message

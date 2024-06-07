@@ -20,9 +20,11 @@ import { useLocalSearchParams } from "expo-router";
 import useFetchEndUser from "@/hook/profile/useFetchEndUser";
 import { useMemo } from "react";
 import useAddFriend from "@/hook/profile/useAddFriend";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
 
 export default function UserProfile() {
   const { id } = useLocalSearchParams();
+  const myEndUser = useAuthStore((state) => state.endUser);
   const {
     animatedStyles,
     renderTabBar,
@@ -32,14 +34,15 @@ export default function UserProfile() {
     layout,
     headerHeight
   } = useProfileTabView();
-  // let endUser;
-  // if (id !== myEndUser._id) {
-  //   const { endUser: a } = useFetchEndUser(id as string);
-  //   endUser = a;
-  // } else {
-  //   endUser = myEndUser;
-  // }
-  const { endUser, isMyProfile, mutate } = useFetchEndUser(id as string);
+  let endUser;
+  const isMyProfile = id === myEndUser._id;
+  if (!isMyProfile) {
+    const { endUser: a } = useFetchEndUser(id as string);
+    endUser = a;
+  } else {
+    endUser = myEndUser;
+  }
+  // const { endUser, isMyProfile, mutate } = useFetchEndUser(id as string);
   const { createConversation } = useCreateConversation();
   const { addFriend } = useAddFriend();
 
@@ -76,7 +79,7 @@ export default function UserProfile() {
                   textStyle="font-bold ml-2"
                   onPress={async () => {
                     await addFriend(id as string);
-                    mutate();
+                    // mutate();
                   }}
                 />
                 <RectangleButton
