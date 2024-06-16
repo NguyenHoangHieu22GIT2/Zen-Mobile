@@ -9,9 +9,14 @@ import { useAuthStore } from "@/libs/zustand/auth.zustand";
 type props = {
   message: MessageType;
   previousMessage: MessageType;
+  aiteavatar: string;
 };
 
-export default function Message({ message, previousMessage }: props) {
+export default function Message({
+  message,
+  previousMessage,
+  aiteavatar
+}: props) {
   const [openTimeSent, setOpenTimeSent] = useState(false);
   const myEndUserId = useAuthStore((state) => state.endUser._id);
   const isMe = message.endUserId === myEndUserId;
@@ -21,7 +26,11 @@ export default function Message({ message, previousMessage }: props) {
       {!isMe && (
         <Image
           className="w-10 h-10"
-          source={!isSameUser && IMAGES.fakeavatar}
+          source={
+            !isSameUser && aiteavatar
+              ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + aiteavatar }
+              : IMAGES.fakeavatar
+          }
         />
       )}
 

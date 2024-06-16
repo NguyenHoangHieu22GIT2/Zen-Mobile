@@ -29,7 +29,7 @@ export default function ConversationRoomHeader({
       </Pressable>
       <ChatItemAvatarImage
         source={
-          aiteavatar.length > 8
+          aiteavatar?.length > 8
             ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + aiteavatar }
             : IMAGES.fakeavatar
         }

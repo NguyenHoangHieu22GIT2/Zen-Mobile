@@ -46,7 +46,7 @@ export function useRegister() {
       console.log(error);
       toast.danger({
         message: error.message,
-        subMessage: error.message,
+        subMessage: error.response?.data.message || "Please check your inputs",
         duration: 3000
       });
     } finally {

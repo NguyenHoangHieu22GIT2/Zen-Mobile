@@ -41,7 +41,11 @@ export default function Conversation() {
           data={messages}
           keyExtractor={(i) => i._id}
           renderItem={({ item, index }) => (
-            <Message previousMessage={messages[index - 1]} message={item} />
+            <Message
+              previousMessage={messages[index - 1]}
+              message={item}
+              aiteavatar={aiteavatar as string}
+            />
           )}
           ListHeaderComponent={
             <View className="justify-center py-5 pt-8">

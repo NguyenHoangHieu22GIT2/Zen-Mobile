@@ -1,6 +1,6 @@
 import { Pressable, View } from "react-native";
 import FontText from "../../common/FontText";
-import { COLORS } from "@/constants";
+import { COLORS, IMAGES } from "@/constants";
 import ConversationItemAvatarImage from "../details/ConversationItemAvatarImage";
 import { Conversation } from "@/types/conversation.type";
 import { useAuthStore } from "@/libs/zustand/auth.zustand";
@@ -32,20 +32,24 @@ export default function ConversationItem({ onPress, item }: props) {
       <ConversationItemAvatarImage
         source={
           item.endUserIds[0].username == aitenamae
+            ? item.endUserIds[0].avatar
+              ? {
+                  uri:
+                    process.env.EXPO_PUBLIC_HTTP_UPLOADS +
+                    item.endUserIds[0].avatar
+                }
+              : IMAGES.fakeavatar
+            : item.endUserIds[1].avatar
             ? {
-                uri:
-                  process.env.EXPO_PUBLIC_HTTP_UPLOADS +
-                  item.endUserIds[0].avatar
-              }
-            : {
                 uri:
                   process.env.EXPO_PUBLIC_HTTP_UPLOADS +
                   item.endUserIds[1].avatar
               }
+            : IMAGES.fakeavatar
         }
       />
 
-      <View className="flex">
+      <View className="flex items-center justify-center">
         <FontText className="text-xl font-bold">{aitenamae}</FontText>
         {/* <View className="flex-row ">
           <FontText className="text-lg text-gray-400" numberOfLines={1}>
