@@ -1,9 +1,9 @@
 import Feed from "@/components/home/feed/Feed";
-import { useFetchRecommendationPosts } from "@/hook/feed/useFetchRecommendationPosts";
+import useFetchLikedPosts from "@/hook/profile/useFetchLikedPosts";
 import { View, FlatList, Text } from "react-native";
 
-export default function ProfileLikeTab({ headerHeight }) {
-  const { posts, error, isLoadingMore } = useFetchRecommendationPosts();
+export default function ProfileLikeTab({ headerHeight, endUserId }) {
+  const { posts, error, isLoadingMore } = useFetchLikedPosts(endUserId);
 
   if (isLoadingMore) {
     return (

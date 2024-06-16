@@ -59,8 +59,18 @@ export default function UserProfile() {
         about: () => (
           <ProfileAboutTab endUser={endUser} headerHeight={headerHeight} />
         ),
-        like: () => <ProfileLikeTab headerHeight={headerHeight} />,
-        post: () => <ProfilePostTab headerHeight={headerHeight} />
+        like: () => (
+          <ProfileLikeTab
+            headerHeight={headerHeight}
+            endUserId={id as string}
+          />
+        ),
+        post: () => (
+          <ProfilePostTab
+            headerHeight={headerHeight}
+            endUserId={id as string}
+          />
+        )
       }),
     [headerHeight]
   );
