@@ -45,6 +45,7 @@ export default function GroupDetails({ data, onShowMembers }: Props) {
             Members ({data.numOfMembers})
           </FontText>
           <GroupMemberAvatars
+            maxAvatarDisplay={4}
             memberLength={data.numOfMembers}
             avatars={new Array(data.numOfMembers).fill("a")}
             className="my-2"

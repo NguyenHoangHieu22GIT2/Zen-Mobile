@@ -18,8 +18,10 @@ export default function useSearchUserAndPost() {
     EndUserSearchMinimal[] | PostJson[]
   >(
     `${
-      searchType == "people" ? "/endusers/search" : "/posts"
-    }?search=${searchInput}&limit=100&skip=0`,
+      searchType == "people"
+        ? "/endusers/search?search="
+        : "/posts/search?searchKeyWords="
+    }${searchInput}&limit=100&skip=0`,
     fetcher
   );
   useEffect(() => {

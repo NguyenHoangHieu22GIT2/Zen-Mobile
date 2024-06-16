@@ -25,7 +25,7 @@ export default function ProfileLikeTab({ headerHeight }) {
       <FlatList
         onScroll={({ nativeEvent }) => {
           const visibleContentY = nativeEvent.contentOffset.y;
-          const HEADER_HEIGHT = 330;
+          const HEADER_HEIGHT = 360;
           if (visibleContentY >= 200) {
             headerHeight.value = 0;
           } else if (visibleContentY == 0) {

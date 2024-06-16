@@ -4,6 +4,7 @@ import Feed from "../home/feed/Feed";
 import { EndUserSearchMinimal } from "@/types/enduser.type";
 import { PostJson } from "@/types/post.type";
 import { router } from "expo-router";
+import useAddFriend from "@/hook/profile/useAddFriend";
 
 type SearchResultsProps = {
   searchResultArray: (EndUserSearchMinimal | PostJson)[];

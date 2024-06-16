@@ -9,6 +9,7 @@ type props = {
 };
 
 export default function ProfileAboutTab({ headerHeight, endUser }: props) {
+  if (!endUser) return <></>;
   return (
     <View className="flex-1 bg-white">
       <ScrollView

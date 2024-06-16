@@ -1,7 +1,7 @@
 import ChatSearchBar from "@/components/conversation/inputs/ConverationSearchBar";
 import GroupMemberItem from "@/components/group/items/GroupMemberItem";
 import useFetchGroupMembers from "@/hook/group/useFetchGroupMembers";
-import useGroupOwnerMemberActions from "@/hook/group/useGroupOwnerMemberActions";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
@@ -9,10 +9,12 @@ import { FlatList } from "react-native-gesture-handler";
 
 export default function members() {
   const [search, setSearch] = useState("");
-  const { id } = useLocalSearchParams();
-  const { data, isLoading } = useFetchGroupMembers(id as string);
-  const { kickMember } = useGroupOwnerMemberActions(id as string);
-
+  const { id, ownerId } = useLocalSearchParams();
+  const myEnduserId = useAuthStore((state) => state.endUser._id);
+  const { data, isLoading, deleteGroupMember, mutate } = useFetchGroupMembers(
+    id as string
+  );
+  console.log(ownerId, "***");
   if (isLoading) {
     return <View></View>;
   }
@@ -27,8 +29,10 @@ export default function members() {
         renderItem={({ item }) => (
           <GroupMemberItem
             member={item}
-            onRemoveMember={() => {
-              kickMember(item._id);
+            isOwner={myEnduserId === ownerId}
+            onRemoveMember={async () => {
+              await deleteGroupMember(item.endUser._id);
+              mutate();
             }}
           />
         )}

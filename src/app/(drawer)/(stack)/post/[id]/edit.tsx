@@ -17,7 +17,7 @@ import { PostJson } from "@/types/post.type";
 
 export default function AddPostForm() {
   const { id } = useLocalSearchParams();
-  const { data: post } = useSWR<PostJson>(`/posts/${id as string}`, fetcher);
+  const { data: post } = useSWR<PostJson>(`/post/${id as string}`, fetcher);
   const { inputs, changeInputs, submitEditPost } = useEditPost(post);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

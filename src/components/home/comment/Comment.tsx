@@ -36,7 +36,17 @@ export default function Comment({
           isBeingReplied && "bg-lightblack/10 rounded-xl p-1"
         }`}
       >
-        <FeedAvatarImage source={IMAGES.fakeavatar} />
+        <FeedAvatarImage
+          source={
+            comment.endUser.avatar.length > 8
+              ? {
+                  uri:
+                    process.env.EXPO_PUBLIC_HTTP_UPLOADS +
+                    comment.endUser.avatar
+                }
+              : IMAGES.fakeavatar
+          }
+        />
         <View className="gap-1 py-2">
           <View className="flex-row">
             <FontText className="font-bold">

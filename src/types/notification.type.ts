@@ -8,8 +8,8 @@ type NotificationNoun = {
 type Notification = {
   _id: string;
   subject: NotificationNoun;
-  verb: "comment" | "like" | "friend_request";
-  directObject: NotificationNoun;
+  verb: "comment" | "like" | "friend-request" | "group-member-request";
+  directObject?: NotificationNoun;
   indirectObject: NotificationNoun;
   prepObject?: NotificationNoun;
   referenceLink: string;

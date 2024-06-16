@@ -12,6 +12,7 @@ type Post = {
   endUser: EndUserMinimal;
   hasLiked: boolean;
   numOfLikes: number;
+  groupId?: string;
 };
 
 type PostJson = Post & {

@@ -5,6 +5,7 @@ import SendSVG from "@/components/svg/SendSVG";
 import FontText from "@/components/common/FontText";
 import PressableText from "@/components/common/PressableText";
 import { useEffect, useRef } from "react";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
 
 type CommentInputProps = {
   replyingUsername: string;
@@ -20,6 +21,7 @@ export default function CommentInput({
   onCreateComment
 }: CommentInputProps) {
   const textInputRef = useRef<TextInput>();
+  const myEndUser = useAuthStore((state) => state.endUser);
 
   useEffect(() => {
     if (replyingUsername) textInputRef.current?.focus();
@@ -41,7 +43,15 @@ export default function CommentInput({
       )}
 
       <View className="flex-row items-center gap-3 px-2 pb-2">
-        <FeedAvatarImage source={IMAGES.fakeavatar} />
+        <FeedAvatarImage
+          source={
+            myEndUser.avatar.length > 8
+              ? {
+                  uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + myEndUser.avatar
+                }
+              : IMAGES.fakeavatar
+          }
+        />
         <TextInput
           ref={textInputRef}
           className="flex-1  text-lg placeholder:text-gray-300"

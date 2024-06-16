@@ -4,9 +4,11 @@ import { router } from "expo-router";
 import ConversationItem from "../items/ConversationItem";
 import useFetchConversations from "@/hook/chat/useFetchConversations";
 import { COLORS } from "@/constants";
+import { useAuthStore } from "@/libs/zustand/auth.zustand";
 
 export default function Conversations() {
   const { data, isRefreshing, refreshConversation } = useFetchConversations();
+  const myEndUserId = useAuthStore((state) => state.endUser._id);
   return (
     <FlatList
       ItemSeparatorComponent={() => (
@@ -28,7 +30,15 @@ export default function Conversations() {
           <ConversationItem
             item={item}
             onPress={() => {
-              router.push("/conversation/" + item._id);
+              router.push({
+                pathname: "/conversation/" + item._id,
+                params: {
+                  aitename:
+                    item.endUserIds[0]?._id == myEndUserId
+                      ? item.endUserIds[1]?.username
+                      : item.endUserIds[0]?.username
+                }
+              });
             }}
           />
         );

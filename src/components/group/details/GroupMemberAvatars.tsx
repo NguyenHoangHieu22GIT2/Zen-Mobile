@@ -5,13 +5,14 @@ type props = {
   avatars: string[];
   memberLength: number;
   className?: string;
+  maxAvatarDisplay: number;
   onPress?: () => void;
 };
-const MAX_AVATAR_DISPLAY = 4;
 export default function GroupMemberAvatars({
   avatars,
   className,
   memberLength,
+  maxAvatarDisplay,
   onPress
 }: props) {
   return (
@@ -20,11 +21,11 @@ export default function GroupMemberAvatars({
       className={`flex-row items-center ${className}`}
     >
       {avatars.map((avatar, index) => {
-        if (index < MAX_AVATAR_DISPLAY) {
-          return <Avatar key={index} />;
+        if (index < maxAvatarDisplay) {
+          return <Avatar avatar={avatar} key={index} />;
         } else if (
-          index === MAX_AVATAR_DISPLAY &&
-          memberLength - MAX_AVATAR_DISPLAY > 0
+          index === maxAvatarDisplay &&
+          memberLength - maxAvatarDisplay > 0
         ) {
           return (
             <View
@@ -32,7 +33,7 @@ export default function GroupMemberAvatars({
               className="-mr-2 rounded-full h-10 w-10 items-center justify-center bg-gray-300"
             >
               <Text className="text-sm font-bold">
-                +{memberLength - MAX_AVATAR_DISPLAY}
+                +{memberLength - maxAvatarDisplay}
               </Text>
             </View>
           );
@@ -41,10 +42,18 @@ export default function GroupMemberAvatars({
     </TouchableOpacity>
   );
 }
-const Avatar = () => {
+const Avatar = ({ avatar }: { avatar: string }) => {
+  console.log("avatar", avatar);
   return (
-    <View className="-mr-2 rounded-full overflow-hidden">
-      <Image source={IMAGES.fakeavatar} className="w-10 h-10 rounded-full" />
+    <View className="-mr-2 rounded-full border border-gray-500/50 overflow-hidden">
+      <Image
+        source={
+          avatar && avatar.length > 10
+            ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + avatar }
+            : IMAGES.fakeavatar
+        }
+        className="w-10 h-10 rounded-full"
+      />
     </View>
   );
 };

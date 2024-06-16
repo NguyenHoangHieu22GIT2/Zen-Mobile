@@ -1,10 +1,16 @@
-import { FontText, TopWrapperView } from "@/components";
+import { FontText, PressableText, TopWrapperView } from "@/components";
 import NoNotification from "@/components/notification/NoNotification";
 import NotificationItemAction from "@/components/notification/NotificationItemAction";
 import NotificationItemAnnounce from "@/components/notification/NotificationItemAnnounce";
 import { COLORS } from "@/constants";
 import useFetchNotifications from "@/hook/notification/useFetchNotifications";
-import { ActivityIndicator, FlatList, RefreshControl } from "react-native";
+import { router } from "expo-router";
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  View
+} from "react-native";
 
 export default function Notifications() {
   const {
@@ -18,15 +24,23 @@ export default function Notifications() {
 
   return (
     <TopWrapperView className="h-full mb-3">
-      <FontText className="font-bold text-2xl mx-3 mt-2 mb-5">
-        Notifications
-      </FontText>
+      <View className="flex-row justify-between mx-3 mt-2 mb-5">
+        <FontText className="font-bold text-2xl">Notifications</FontText>
+        <PressableText
+          className=" text-lg  text-blue-500"
+          onPress={() => {
+            router.push("/friend-request");
+          }}
+        >
+          Friend requests
+        </PressableText>
+      </View>
 
       <FlatList
         data={notifications}
         keyExtractor={(i) => i._id}
         renderItem={({ item }) => {
-          return item.verb === "friend_request" ? (
+          return item.verb === "" ? (
             <NotificationItemAction
               notification={item}
               onAccept={() => {}}

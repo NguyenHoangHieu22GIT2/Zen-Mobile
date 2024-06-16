@@ -8,6 +8,7 @@ export default function CustomDrawerItem(props: {
   FontAwesomeIconName: React.ComponentProps<typeof FontAwesome>["name"];
   pathname: string;
   label: string;
+  onPress?: () => void;
 }) {
   const navigation = useNavigation();
 
@@ -23,8 +24,9 @@ export default function CustomDrawerItem(props: {
         }
       ]}
       onPress={() => {
+        if (props.onPress) props.onPress();
         navigation.dispatch(DrawerActions.closeDrawer());
-        router.push(props.pathname);
+        if (props.pathname) router.push(props.pathname);
       }}
     />
   );

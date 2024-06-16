@@ -13,15 +13,18 @@ import { useState } from "react";
 export default function edit() {
   const endUser = useAuthStore((state) => state.endUser);
   const [selectedImage, setSelectedImage] = useState(IMAGES.fakeavatar);
-  const { inputs, changeInputs, submitEditProfile } = useEditProfile();
+  const { inputs, changeInputs, submitEditProfile, setImage, image } =
+    useEditProfile();
   return (
     <TopWrapperView style={{ height: "100%" }} className="items-center px-4">
       <ChangableProfileAvatarImage
-        setSelectedImage={setSelectedImage}
+        setSelectedImage={setImage}
         source={
-          selectedImage == IMAGES.fakeavatar
+          !image
             ? IMAGES.fakeavatar
-            : { uri: selectedImage }
+            : image === endUser.avatar
+            ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + image }
+            : { uri: image }
         }
       />
       <AuthTextInput

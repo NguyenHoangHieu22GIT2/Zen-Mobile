@@ -33,12 +33,12 @@ export default function ConversationItem({ onPress, item }: props) {
 
       <View className="flex">
         <FontText className="text-xl font-bold">{aitenamae}</FontText>
-        <View className="flex-row ">
+        {/* <View className="flex-row ">
           <FontText className="text-lg text-gray-400" numberOfLines={1}>
             Message
           </FontText>
           <FontText className="text-lg text-gray-400"> • Time</FontText>
-        </View>
+        </View> */}
       </View>
     </Pressable>
   );

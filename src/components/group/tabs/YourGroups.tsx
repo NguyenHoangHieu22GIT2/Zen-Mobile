@@ -25,8 +25,6 @@ export default function YourGroups() {
             }}
           />
         )}
-        onEndReached={fetchMoreGroup}
-        onEndReachedThreshold={0.7}
         refreshControl={
           <RefreshControl
             colors={[COLORS.primary]}

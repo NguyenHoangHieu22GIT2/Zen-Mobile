@@ -1,13 +1,14 @@
 import { View, Image } from "react-native";
 import { Drawer } from "expo-router/drawer";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
-import { Redirect } from "expo-router";
+import { Redirect, router } from "expo-router";
 import CustomDrawerItem from "@/components/layout/CustomDrawerItem";
 import { FontText } from "@/components";
 import { useAuthStore } from "@/libs/zustand/auth.zustand";
+import { IMAGES } from "@/constants";
 
 const CustomDrawerContent = (props) => {
-  const endUserId = useAuthStore((state) => state.endUser._id);
+  const endUser = useAuthStore((state) => state.endUser);
   const isAuth = true;
 
   if (!isAuth) {
@@ -17,25 +18,31 @@ const CustomDrawerContent = (props) => {
       <DrawerContentScrollView {...props}>
         <View className="flex-row p-4 py-6 items-center gap-3">
           <Image
-            source={{ uri: "https://randomuser.me/api/portraits/women/26.jpg" }}
+            source={
+              endUser.avatar?.length > 8
+                ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + endUser.avatar }
+                : IMAGES.fakeavatar
+            }
             style={{ width: 70, height: 70 }}
             className="rounded-full"
           />
           <View className="gap-1 ">
-            <FontText className="font-bold text-xl">John Doe</FontText>
-            <FontText className="text-gray-500">john@email.com</FontText>
+            <FontText className="font-bold text-xl">
+              {endUser.username}
+            </FontText>
+            <FontText className="text-gray-500">{endUser.email}</FontText>
           </View>
         </View>
-        <View className="flex-row gap-3 px-4 mb-6">
+        {/* <View className="flex-row gap-3 px-4 mb-6">
           <View className="flex-row items-center gap-1">
-            <FontText className="font-bold">80</FontText>
-            <FontText className="text-gray-500">Following</FontText>
+            <FontText className="font-bold">2</FontText>
+            <FontText className="text-gray-500">Friends</FontText>
           </View>
           <View className="flex-row items-center gap-1">
             <FontText className="font-bold">100</FontText>
             <FontText className="text-gray-500">Followers</FontText>
           </View>
-        </View>
+        </View> */}
         <CustomDrawerItem
           FontAwesomeIconName="home"
           label="Home"
@@ -44,20 +51,23 @@ const CustomDrawerContent = (props) => {
         <CustomDrawerItem
           FontAwesomeIconName="user"
           label="Profile"
-          pathname={`/profile/${endUserId}`}
+          pathname={`/profile/${endUser._id}`}
         />
         <CustomDrawerItem
           FontAwesomeIconName="gear"
           label="Setting"
           pathname="/setting"
         />
-        <View className="h-32"></View>
-
-        <CustomDrawerItem
-          FontAwesomeIconName="star"
-          label="Upgrade Plan"
-          pathname="/upgrade-plan"
-        />
+        <View className="flex-1 justify-end">
+          <CustomDrawerItem
+            FontAwesomeIconName="sign-out"
+            label="Log out"
+            pathname=""
+            onPress={() => {
+              router.push("login");
+            }}
+          />
+        </View>
       </DrawerContentScrollView>
     );
 };

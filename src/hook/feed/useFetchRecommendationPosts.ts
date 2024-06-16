@@ -6,7 +6,6 @@ const POSTS_PER_FETCH = 8;
 
 export function useFetchRecommendationPosts() {
   const getKey = (pageIndex, previousPageData) => {
-    console.log(pageIndex);
     //end of page?
     if (pageIndex && !previousPageData.length) return null;
     return (

@@ -44,15 +44,11 @@ export function useAddPost() {
     });
 
     return trycatchAxios(async () => {
-      const result = await http.post(
-        process.env.EXPO_PUBLIC_HTTP_ENDPOINT_BASE_POST,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
+      const result = await http.post("/post", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
         }
-      );
+      });
       toast.success({
         message: "Post added",
         subMessage: "Your post has been added",

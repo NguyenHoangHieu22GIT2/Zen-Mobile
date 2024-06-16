@@ -30,6 +30,7 @@ export function useEditPost(post: PostJson) {
   async function submitEditPost() {
     const zodResult = zAddPostInputs.safeParse(inputs);
     if (!zodResult.success) {
+      console.log(inputs.images);
       toast.danger({
         message: "Invalid inputs",
         subMessage: "Please check your inputs",
@@ -54,15 +55,11 @@ export function useEditPost(post: PostJson) {
     });
 
     return trycatchAxios(async () => {
-      const result = await http.patch(
-        process.env.EXPO_PUBLIC_HTTP_ENDPOINT_BASE_POST,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
+      const result = await http.patch("/post", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
         }
-      );
+      });
       toast.success({
         message: "Post edited",
         subMessage: "Your post has been edited",

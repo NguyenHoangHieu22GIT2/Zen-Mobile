@@ -21,6 +21,7 @@ import OptionMenu, { Option } from "@/components/common/popup/OptionMenu";
 import { router } from "expo-router";
 import { useAuthStore } from "@/libs/zustand/auth.zustand";
 import toast from "@/utils/toast/toast";
+import { createNotification } from "@/hook/notification/createNotificationHelper";
 
 type props = {
   post: PostJson;
@@ -36,6 +37,28 @@ function Feed(props: props) {
       );
       return result;
     });
+    await createNotification({
+      subject: {
+        _id: myEndUser._id,
+        name: myEndUser.username,
+        type: "enduser",
+        image: myEndUser.avatar
+      },
+      verb: "like",
+      directObject: {
+        _id: post._id,
+        type: "post",
+        name: post.title,
+        image: ""
+      },
+      indirectObject: {
+        _id: post.endUser._id,
+        name: post.endUser.username,
+        type: "enduser",
+        image: post.endUser.avatar
+      },
+      referenceLink: `post/${post._id}`
+    });
   };
   const post = convertPostDataToFeedfield(props.post);
   const myEndUser = useAuthStore((state) => state.endUser);
@@ -45,7 +68,20 @@ function Feed(props: props) {
   return (
     <View className="px-5 py-3.5 gap-3 border rounded-3xl bg-white border-gray-200">
       <View className="flex-row items-center justify-between pl-2 ">
-        <FeedAvatarImage source={IMAGES.fakeavatar} className="mr-2" />
+        <FeedAvatarImage
+          source={
+            post.endUser.avatar?.length < 8
+              ? IMAGES.fakeavatar
+              : {
+                  uri:
+                    process.env.EXPO_PUBLIC_HTTP_UPLOADS + post.endUser.avatar
+                }
+          }
+          className="mr-2"
+          onPress={() => {
+            router.push("profile/" + post.endUser._id);
+          }}
+        />
         <FontText className="font-bold">{post.endUser.username}</FontText>
         <FontText className="flex-1 text-right text-gray-400">
           {post.postAge}
@@ -72,7 +108,7 @@ function Feed(props: props) {
               label="Delete post"
               onPress={async () => {
                 return trycatchAxios(async () => {
-                  const result = await http.delete("/posts/" + post._id);
+                  const result = await http.delete("/post/" + post._id);
                   toast.success({ message: "Delete successfully" });
                   props.onDelete();
                   return result;
@@ -114,7 +150,7 @@ function Feed(props: props) {
         />
       </View>
       <CustomBottomSheet bottomsheetRef={modalizeRef} snapPoint={[600]}>
-        <Comments postId={post._id} />
+        <Comments post={props.post} />
       </CustomBottomSheet>
     </View>
   );

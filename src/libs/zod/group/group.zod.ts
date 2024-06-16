@@ -5,7 +5,7 @@ const zAddGroupInputs = z.object({
     .string()
     .min(2)
     .max(50, { message: "Name must be between 2 and 50 characters" }),
-  avatar: z.string(),
+  avatar: z.string().optional(),
   isVisible: z.boolean(),
   description: z
     .string()

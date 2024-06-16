@@ -10,7 +10,7 @@ import { TabBar } from "react-native-tab-view";
 
 export default function useProfileTabView() {
   const layout = useWindowDimensions();
-  const headerHeight = useSharedValue(330 / 2);
+  const headerHeight = useSharedValue(360 / 2);
 
   const animatedStyles = useAnimatedStyle(() => ({
     height: withTiming(headerHeight.value * 2, { duration: 500 })

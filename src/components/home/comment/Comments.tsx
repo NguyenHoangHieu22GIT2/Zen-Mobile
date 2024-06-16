@@ -9,9 +9,10 @@ import { COLORS } from "@/constants";
 import { useRef } from "react";
 import { useFetchReplies } from "@/hook/comment/useFetchReplies";
 import PressableText from "@/components/common/PressableText";
+import { PostJson } from "@/types/post.type";
 
 type props = {
-  postId: string;
+  post: PostJson;
 };
 
 export default function Comments(props: props) {
@@ -22,7 +23,7 @@ export default function Comments(props: props) {
     isRefreshing,
     addComment
   } = useFetchComments({
-    postId: props.postId
+    postId: props.post._id
   });
 
   const { replyLists, fetchReplies, addReply } = useFetchReplies();
@@ -34,7 +35,7 @@ export default function Comments(props: props) {
     input,
     changeInput
   } = useCreateComments({
-    postId: props.postId,
+    post: props.post,
     addComment,
     addReply,
     refreshComments

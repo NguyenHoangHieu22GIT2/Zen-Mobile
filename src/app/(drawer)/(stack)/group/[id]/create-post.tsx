@@ -11,6 +11,7 @@ import useAddGroupPost from "@/hook/group/useAddGroupPost";
 
 export default function CreateGroupPost() {
   const { id } = useLocalSearchParams();
+  console.log("id", id);
   const { inputs, changeInputs, submitAddGroupPost } = useAddGroupPost(
     id as string
   );

@@ -12,7 +12,7 @@ type props = {
   isOwner: boolean;
 };
 
-export default function GroupHeader({ data, onLeaveGroup, isOwner }: props) {
+export default function GroupHeader({ data, isOwner }: props) {
   return (
     <View className="flex-row gap-2 bg-white items-center py-1 px-2">
       <Pressable
@@ -32,13 +32,27 @@ export default function GroupHeader({ data, onLeaveGroup, isOwner }: props) {
         {data.group.name}
       </FontText>
       {data.isJoined && (
-        <OptionMenu snapPoint={[150]}>
+        <OptionMenu snapPoint={[200]}>
           {isOwner && (
-            <Option icon={<></>} label="Edit group" onPress={() => {}} />
+            <Option
+              icon={<></>}
+              label="Edit group"
+              onPress={() => {
+                router.push("group/" + data.group._id + "/edit");
+              }}
+            />
           )}
-          {/* {!isOwner && (
-            <Option icon={<></>} label="Leave group" onPress={onLeaveGroup} />
-          )} */}
+          {isOwner && (
+            <Option
+              icon={<></>}
+              label="Show group requests"
+              onPress={() => {
+                router.push({
+                  pathname: "group/" + data.group._id + "/join-request"
+                });
+              }}
+            />
+          )}
         </OptionMenu>
       )}
     </View>

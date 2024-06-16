@@ -16,5 +16,16 @@ type GroupDetail = {
   isJoined: boolean;
   numOfMembers: number;
 };
+type YourGroupExtendedData = {
+  groupsJoined: { _id: string; groupId: Group }[];
+  groupsCreated: (Group & { endUser: EndUserMinimal })[];
+};
 type GroupMember = EndUserMinimal & { isOwner: boolean };
-export { Group, GroupDetail, GroupExtraIsmember, GroupMinimal, GroupMember };
+export {
+  Group,
+  GroupDetail,
+  GroupExtraIsmember,
+  GroupMinimal,
+  GroupMember,
+  YourGroupExtendedData
+};

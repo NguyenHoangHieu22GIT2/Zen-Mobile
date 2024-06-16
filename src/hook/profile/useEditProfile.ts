@@ -16,6 +16,7 @@ export function useEditProfile() {
     username: authStore.endUser.username,
     description: authStore.endUser.description
   });
+  const [image, setImage] = useState(authStore.endUser.avatar);
 
   function changeInputs(type: keyof ztEditProfileInputs, value: string) {
     setInputs((oldInputs) => ({ ...oldInputs, [type]: value }));
@@ -23,6 +24,29 @@ export function useEditProfile() {
 
   async function submitEditProfile() {
     const zodResult = zEditProfileInputs.safeParse(inputs);
+
+    if (image !== authStore.endUser.avatar) {
+      const formData = new FormData();
+      const uri = image;
+      const fileName = uri.split("/").pop();
+      const fileType = fileName.split(".").pop();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      formData.append("file", {
+        uri,
+        name: fileName,
+        type: `image/${fileType}`
+      });
+      await trycatchAxios(async () => {
+        const result = await http.patch("/endusers/change-avatar", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        });
+
+        return result;
+      });
+    }
 
     if (!zodResult.success) {
       toast.danger({
@@ -51,6 +75,8 @@ export function useEditProfile() {
   return {
     inputs,
     changeInputs,
-    submitEditProfile
+    submitEditProfile,
+    image,
+    setImage
   };
 }

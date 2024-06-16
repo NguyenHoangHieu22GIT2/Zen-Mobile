@@ -12,5 +12,18 @@ type EndUserSearchMinimal = Pick<
   EndUser,
   "_id" | "username" | "avatar" | "description"
 >;
+type EndUserProfile = {
+  endUser: EndUser;
+  isFriend: boolean;
+};
+type EndUserProfileMinimal = EndUser & {
+  isFriend: boolean;
+};
 
-export { EndUser, EndUserMinimal, EndUserSearchMinimal };
+export {
+  EndUser,
+  EndUserMinimal,
+  EndUserSearchMinimal,
+  EndUserProfile,
+  EndUserProfileMinimal
+};

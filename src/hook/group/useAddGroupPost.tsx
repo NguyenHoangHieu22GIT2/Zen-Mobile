@@ -29,6 +29,7 @@ export default function useAddGroupPost(groupId: string) {
     const formData = new FormData();
     formData.append("title", inputs.title);
     formData.append("body", inputs.body);
+    formData.append("groupId", groupId);
     inputs.images.forEach((uri) => {
       const fileName = uri.split("/").pop();
       const fileType = fileName.split(".").pop();
@@ -42,17 +43,16 @@ export default function useAddGroupPost(groupId: string) {
     });
 
     return trycatchAxios(async () => {
-      const result = await http.post("..." + `/${groupId}`, formData, {
+      const result = await http.post("/post", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
       });
       toast.success({
-        message: "Post added",
-        subMessage: "Your post has been added",
+        message: "Post added to your group",
         duration: 3000
       });
-      console.log(result);
+      console.log("groupId", groupId);
       router.push("/group/" + groupId);
       return result;
     });

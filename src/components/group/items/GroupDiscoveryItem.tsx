@@ -1,6 +1,7 @@
 import FontText from "@/components/common/FontText";
 import RectangleButton from "@/components/common/RectangleButton";
 import { COLORS, IMAGES } from "@/constants";
+import useGroupEntryActions from "@/hook/group/useGroupEntryActions";
 import { GroupExtraIsmember } from "@/types/group.type";
 import { View, Image, Pressable } from "react-native";
 
@@ -11,6 +12,7 @@ type props = {
 };
 
 export default function GroupDiscoveryItem({ group, onPress, onJoin }: props) {
+  const { joinGroup, requestSent } = useGroupEntryActions();
   return (
     <Pressable
       android_ripple={{
@@ -33,13 +35,25 @@ export default function GroupDiscoveryItem({ group, onPress, onJoin }: props) {
         <FontText className="font-bold text-lg h-14" numberOfLines={2}>
           {group.name}
         </FontText>
-        <FontText className="flex-1">Public group</FontText>
+        <FontText className="flex-1">
+          {group.isVisible ? "Public group" : "Private group"}
+        </FontText>
         <RectangleButton
-          text={!group.isJoined ? "Join" : "Joined"}
+          text={
+            !group.isJoined ? (requestSent ? "Request Sent" : "Join") : "Joined"
+          }
           textStyle="font-bold"
           className={`mt-2 ${group.isJoined && "border border-primary "}`}
-          onPress={!group.isJoined ? onJoin : () => {}}
-          secondary={group.isJoined}
+          onPress={
+            !group.isJoined
+              ? requestSent
+                ? () => {}
+                : () => {
+                    joinGroup(group);
+                  }
+              : () => {}
+          }
+          secondary={group.isJoined ? true : requestSent}
         />
       </View>
     </Pressable>

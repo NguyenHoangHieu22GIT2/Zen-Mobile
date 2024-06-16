@@ -5,9 +5,11 @@ import { Comment } from "@/types/comment.type";
 import { trycatchAxios } from "@/utils/funcs/trycatchAxios";
 import toast from "@/utils/toast/toast";
 import { useState } from "react";
+import { createNotification } from "../notification/createNotificationHelper";
+import { PostJson } from "@/types/post.type";
 
 type PropsType = {
-  postId: string;
+  post: PostJson;
   addComment: (newComment: Comment) => void;
   addReply: (newReply: Comment) => void;
   refreshComments: () => void;
@@ -32,7 +34,7 @@ export function useCreateComments(props: PropsType) {
     input: ztAddCommentInputs
   ) => {
     setIsCreating(true);
-    const postId = props.postId;
+    const postId = props.post._id;
     const zodResult = zAddCommentInputs.safeParse(input);
     if (!zodResult.success) {
       toast.danger({ message: "Comment must be between 5 and 100 characters" });
@@ -46,10 +48,10 @@ export function useCreateComments(props: PropsType) {
           content: input,
           parentCommentId: replyingCommentId
         });
+
         props.addReply({ ...result.data, endUser, hasReplies: false });
         props.refreshComments();
       } else {
-        console.log(props.postId);
         result = await http.post("comment/", { postId, content: input });
         props.addComment({ ...result.data, endUser });
       }
@@ -57,6 +59,30 @@ export function useCreateComments(props: PropsType) {
       setInput("");
       return result;
     });
+    if (endUser._id !== props.post.endUser._id) {
+      await createNotification({
+        subject: {
+          _id: endUser._id,
+          name: endUser.username,
+          type: "enduser",
+          image: endUser.avatar
+        },
+        verb: "comment",
+        directObject: {
+          _id: postId,
+          type: "post",
+          name: props.post.title,
+          image: ""
+        },
+        indirectObject: {
+          _id: props.post.endUser._id,
+          name: props.post.endUser.username,
+          type: "enduser",
+          image: props.post.endUser.avatar
+        },
+        referenceLink: `post/${props.post._id}`
+      });
+    }
     setIsCreating(false);
   };
 

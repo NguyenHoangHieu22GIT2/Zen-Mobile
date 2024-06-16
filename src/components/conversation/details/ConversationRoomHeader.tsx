@@ -4,14 +4,13 @@ import FontText from "../../common/FontText";
 import ChatItemAvatarImage from "./ConversationItemAvatarImage";
 import BackSvg from "../../svg/BackSvg";
 import { router } from "expo-router";
-import { Conversation } from "@/types/conversation.type";
 import { IMAGES } from "@/constants";
 
 type props = {
-  conversation: Conversation;
+  aitename: string;
 };
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function ConversationRoomHeader({ conversation }: props) {
+export default function ConversationRoomHeader({ aitename }: props) {
   return (
     <View className="flex-row items-center gap-2 px-3 py-1 bg-white shadow-lg">
       <Pressable
@@ -26,8 +25,8 @@ export default function ConversationRoomHeader({ conversation }: props) {
       </Pressable>
       <ChatItemAvatarImage source={IMAGES.fakeavatar} />
       <View className="flex-1">
-        <FontText>Username</FontText>
-        <FontText>Status</FontText>
+        <FontText>{aitename}</FontText>
+        <FontText>Offline</FontText>
       </View>
       <OptionMenu snapPoint={[400]}>
         <Option icon={<></>} label="User Profile" onPress={() => {}} />

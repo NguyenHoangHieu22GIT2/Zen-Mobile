@@ -1,10 +1,10 @@
 import FontText from "@/components/common/FontText";
 import { COLORS, IMAGES } from "@/constants";
-import { GroupMinimal } from "@/types/group.type";
+import { Group } from "@/types/group.type";
 import { View, Pressable, Image } from "react-native";
 
 type Props = {
-  group: GroupMinimal;
+  group: Group;
   onPress?: () => void;
 };
 console.log(process.env.EXPO_PUBLIC_HTTP_UPLOADS);

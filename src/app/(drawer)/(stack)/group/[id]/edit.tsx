@@ -5,13 +5,13 @@ import XSVG from "@/components/svg/XSGV";
 import { COLORS } from "@/constants";
 import useEditGroup from "@/hook/group/useEditGroup";
 import { router, useLocalSearchParams } from "expo-router";
-import { View, ScrollView } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { View, ScrollView, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function edit() {
   const { id } = useLocalSearchParams();
-  const { changeInputs, inputs, submitEditGroup } = useEditGroup(id as string);
+  const { changeInputs, inputs, submitEditGroup, isInitialAvatar } =
+    useEditGroup(id as string);
   function removeImage() {
     changeInputs("avatar", "");
   }
@@ -40,23 +40,24 @@ export default function edit() {
           style={{ textAlignVertical: "top" }}
           className=" text-xl font-bold border border-gray-300 rounded-xl px-4 py-2 w-full"
           placeholder="Name of the group.."
-          cursorColor={COLORS.primary}
           onChangeText={(text) => changeInputs("name", text)}
+          value={inputs.name}
         />
         <FontText className="font-bold text-lg">Description</FontText>
         <TextInput
           style={{ textAlignVertical: "top" }}
           className=" text-xl font-bold border border-gray-300 rounded-xl px-4 py-2 w-full"
           placeholder="Tell us about your group.."
-          cursorColor={COLORS.primary}
           multiline
           onChangeText={(text) => changeInputs("description", text)}
+          value={inputs.description}
         />
         <FontText className="font-bold text-lg">Visibility</FontText>
         <Selector
           onValueChange={(value) => {
             changeInputs("isVisible", value == "visible");
           }}
+          defaultValue={inputs.isVisible ? "visible" : "hidden"}
         >
           <SelectItem
             name="Visible"
@@ -75,7 +76,11 @@ export default function edit() {
             addImage(image);
           }}
           onRemoveImage={removeImage}
-          selectedImage={inputs.avatar}
+          selectedImage={
+            isInitialAvatar
+              ? process.env.EXPO_PUBLIC_HTTP_UPLOADS + inputs.avatar
+              : inputs.avatar
+          }
         />
       </ScrollView>
       <View className="">

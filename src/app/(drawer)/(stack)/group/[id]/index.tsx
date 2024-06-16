@@ -18,23 +18,11 @@ import useFetchGroupDetail from "@/hook/group/useFetchGroupDetail";
 import useGroupEntryActions from "@/hook/group/useGroupEntryActions";
 import GroupPosts from "@/components/group/details/GroupPosts";
 
-const data = {
-  _id: "12",
-  name: "Lop hoc thuong binh",
-  description: "Lop hoc giau tinh thuong danh cho nguoi ngheo",
-  avatar: "asd",
-  isVisible: true,
-  createdAt: "",
-  isOwner: true,
-  numberOfMembers: 130,
-  isMember: true
-};
 export default function GroupDetail() {
   const bottomsheetRef = useRef<BottomSheetModal>();
   const { id } = useLocalSearchParams();
   const { data, isOwner, isLoading } = useFetchGroupDetail(id as string);
   const { joinGroup, leaveGroup } = useGroupEntryActions();
-  console.log("detail2", id, typeof id, data);
 
   const GroupInforAbovePosts = () => (
     <View className="bg-white gap-2">
@@ -68,7 +56,7 @@ export default function GroupDetail() {
             disabled={data?.isJoined}
             secondary={data?.isJoined}
             onPress={() => {
-              joinGroup(data.group._id);
+              joinGroup(data.group);
             }}
           />
         </View>
@@ -79,6 +67,7 @@ export default function GroupDetail() {
     </View>
   );
   if (isLoading) return <></>;
+  if (!data) return <></>;
   return (
     <SafeAreaView className="h-full">
       <GroupHeader
@@ -96,18 +85,24 @@ export default function GroupDetail() {
       ) : (
         <FontText>You are not a member of this group to see the posts</FontText>
       )}
-      <FloattingButton
-        onPress={() => {
-          router.push("group/1/create-post");
-        }}
-        icon={<PlusSVG width={25} height={25} />}
-      />
+      {data.isJoined && (
+        <FloattingButton
+          onPress={() => {
+            router.push("group/" + id + "/create-post");
+          }}
+          icon={<PlusSVG width={25} height={25} />}
+        />
+      )}
+
       <CustomBottomSheet bottomsheetRef={bottomsheetRef} snapPoint={[700]}>
         <BottomSheetScrollView className="px-3 pt-5">
           <GroupDetails
             data={data}
             onShowMembers={() => {
-              router.push(`group/${data.group._id}/members`);
+              router.push({
+                pathname: `group/${data.group._id}/members`,
+                params: { ownerId: data.group.endUserId }
+              });
               bottomsheetRef?.current.dismiss();
             }}
           />

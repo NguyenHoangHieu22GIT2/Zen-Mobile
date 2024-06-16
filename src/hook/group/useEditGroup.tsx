@@ -3,15 +3,28 @@ import { ztAddGroupInputs, zAddGroupInputs } from "@/libs/zod";
 import { trycatchAxios } from "@/utils/funcs/trycatchAxios";
 import toast from "@/utils/toast/toast";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useFetchGroupDetail from "./useFetchGroupDetail";
 
 export default function useEditGroup(groupId: string) {
+  const { data } = useFetchGroupDetail(groupId);
   const [inputs, setInputs] = useState<ztAddGroupInputs>({
     name: "",
     avatar: "",
-    isVisible: null,
+    isVisible: true,
     description: ""
   });
+  const isInitialAvatar = inputs.avatar === data?.group.avatar;
+  useEffect(() => {
+    if (data) {
+      setInputs({
+        name: data.group.name ?? "",
+        avatar: data.group.avatar ?? "",
+        isVisible: data.group.isVisible ?? true,
+        description: data.group.description ?? ""
+      });
+    }
+  }, [data]);
 
   function changeInputs(type: keyof ztAddGroupInputs, value: string | boolean) {
     setInputs((oldInputs) => ({ ...oldInputs, [type]: value }));
@@ -31,36 +44,32 @@ export default function useEditGroup(groupId: string) {
     formData.append("name", inputs.name);
     formData.append("description", inputs.description);
     formData.append("isVisible", inputs.isVisible.toString());
-    const uri = inputs.avatar;
-    const fileName = uri.split("/").pop();
-    const fileType = fileName.split(".").pop();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    formData.append("files", {
-      uri,
-      name: fileName,
-      type: `image/${fileType}`
-    });
+    if (!isInitialAvatar) {
+      const uri = inputs.avatar;
+      const fileName = uri.split("/").pop();
+      const fileType = fileName.split(".").pop();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      formData.append("files", {
+        uri,
+        name: fileName,
+        type: `image/${fileType}`
+      });
+    }
     return trycatchAxios(async () => {
-      const result = await http.patch(
-        process.env.EXPO_PUBLIC_HTTP_ENDPOINT_BASE_GROUP + `/${groupId}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
+      const result = await http.patch("/group/" + groupId, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
         }
-      );
+      });
       toast.success({
-        message: "Post edited",
-        subMessage: "Your post has been edited",
+        message: "Group edited",
         duration: 3000
       });
-      console.log(result);
       router.push("/group/" + groupId);
       return result;
     });
   }
 
-  return { inputs, changeInputs, submitEditGroup };
+  return { inputs, changeInputs, submitEditGroup, isInitialAvatar };
 }
