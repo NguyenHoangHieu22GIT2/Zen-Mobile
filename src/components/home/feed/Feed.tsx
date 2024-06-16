@@ -9,7 +9,7 @@ import BookmarkSVG from "@/components/svg/BookmarkSVG";
 import ToggleCommentsButton from "./Buttons/ToggleCommentsButton";
 import CommentSVG from "@/components/svg/CommentSVG";
 import ShareSVG from "@/components/svg/ShareSVG";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import CustomBottomSheet from "@/components/common/popup/CustomBottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import Comments from "../comment/Comments";
@@ -62,7 +62,8 @@ function Feed(props: props) {
   };
   const post = convertPostDataToFeedfield(props.post);
   const myEndUser = useAuthStore((state) => state.endUser);
-
+  const [numberOfLikes, setNumberOfLikes] = useState(post.numOfLikes);
+  const [hasLiked, setHasLiked] = useState(post.hasLiked);
   const modalizeRef = useRef<BottomSheetModal>();
 
   return (
@@ -127,11 +128,12 @@ function Feed(props: props) {
       <View className="flex-row gap-5 px-3 justify-between">
         <ToggleableReactionButton
           hasActivated={post.hasLiked}
-          number={post.numOfLikes}
+          number={numberOfLikes}
           canActiveSvgComponent={<HeartSVG />}
           onPress={() => {
             toggleLike();
-            console.log(post.images);
+            setNumberOfLikes((prev) => (hasLiked ? prev - 1 : prev + 1));
+            setHasLiked((prev) => !prev);
           }}
         />
         <ToggleCommentsButton

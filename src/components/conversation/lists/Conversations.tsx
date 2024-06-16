@@ -36,7 +36,11 @@ export default function Conversations() {
                   aitename:
                     item.endUserIds[0]?._id == myEndUserId
                       ? item.endUserIds[1]?.username
-                      : item.endUserIds[0]?.username
+                      : item.endUserIds[0]?.username,
+                  aiteavatar:
+                    item.endUserIds[0]?._id == myEndUserId
+                      ? item.endUserIds[1]?.avatar
+                      : item.endUserIds[0]?.avatar
                 }
               });
             }}

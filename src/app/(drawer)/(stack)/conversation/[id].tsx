@@ -21,7 +21,7 @@ const clientSocket = io(process.env.EXPO_PUBLIC_SOCKETIO_BASE_URL);
 
 export default function Conversation() {
   //conversationId
-  const { id, aitename } = useLocalSearchParams();
+  const { id, aitename, aiteavatar } = useLocalSearchParams();
   const enduserId = useAuthStore((state) => state.endUser._id);
   const { addMessage, messages, fetchMoreMessages, isReachEnd, isLoading } =
     useFetchMessages(id as string);
@@ -33,7 +33,10 @@ export default function Conversation() {
   return (
     <SafeAreaView>
       <ImageBackground className="w-full h-full" source={IMAGES.appbackground}>
-        <ConversationHeader aitename={aitename as string} />
+        <ConversationHeader
+          aitename={aitename as string}
+          aiteavatar={aiteavatar as string}
+        />
         <FlatList
           data={messages}
           keyExtractor={(i) => i._id}
