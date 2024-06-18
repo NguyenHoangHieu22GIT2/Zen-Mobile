@@ -93,7 +93,7 @@ export default function UserProfile() {
             source={
               endUser.avatar.length < 8
                 ? IMAGES.fakeavatar
-                : { uri: "http://192.168.1.8:3001/uploads/" + endUser.avatar }
+                : { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + endUser.avatar }
             }
           />
           <FontText className="font-bold text-2xl">

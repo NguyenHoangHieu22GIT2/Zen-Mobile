@@ -34,7 +34,7 @@ export default function JoinGroupRequestItem({
           joinGroupRequest.endUserId.avatar?.length > 10
             ? {
                 uri:
-                  "http://192.168.1.8:3001/uploads/" +
+                  process.env.EXPO_PUBLIC_HTTP_UPLOADS +
                   joinGroupRequest.endUserId.avatar
               }
             : IMAGES.fakeavatar

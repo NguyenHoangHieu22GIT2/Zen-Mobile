@@ -28,7 +28,8 @@ export default function GroupMemberItem({
         source={
           member.endUser.avatar.length > 8
             ? {
-                uri: "http://192.168.1.8:3001/uploads/" + member.endUser.avatar
+                uri:
+                  process.env.EXPO_PUBLIC_HTTP_UPLOADS + member.endUser.avatar
               }
             : IMAGES.fakeavatar
         }

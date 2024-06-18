@@ -30,7 +30,7 @@ export default function Message({
           className="w-10 h-10 rounded-full"
           source={
             !isSameUser && aiteavatar
-              ? { uri: "http://192.168.1.8:3001/uploads/" + aiteavatar }
+              ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + aiteavatar }
               : IMAGES.fakeavatar
           }
         />

@@ -20,7 +20,7 @@ const CustomDrawerContent = (props) => {
           <Image
             source={
               endUser.avatar?.length > 8
-                ? { uri: "http://192.168.1.8:3001/uploads/" + endUser.avatar }
+                ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + endUser.avatar }
                 : IMAGES.fakeavatar
             }
             style={{ width: 70, height: 70 }}

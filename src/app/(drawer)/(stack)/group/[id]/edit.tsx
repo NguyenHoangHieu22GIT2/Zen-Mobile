@@ -78,7 +78,7 @@ export default function edit() {
           onRemoveImage={removeImage}
           selectedImage={
             isInitialAvatar
-              ? "http://192.168.1.8:3001/uploads/" + inputs.avatar
+              ? process.env.EXPO_PUBLIC_HTTP_UPLOADS + inputs.avatar
               : inputs.avatar
           }
         />

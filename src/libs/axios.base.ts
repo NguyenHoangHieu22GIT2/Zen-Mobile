@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: "http://192.168.1.8:3001/v1",
+  baseURL: process.env.EXPO_PUBLIC_BASE_URL,
   timeout: 6000,
   withCredentials: true
 });

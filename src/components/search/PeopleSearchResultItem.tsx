@@ -26,7 +26,7 @@ export default function PeopleSearchResultItem({
       <Image
         source={
           avatar.length > 8
-            ? { uri: "http://192.168.1.8:3001/uploads/" + avatar }
+            ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + avatar }
             : IMAGES.fakeavatar
         }
         className="w-14 h-14 rounded-full"

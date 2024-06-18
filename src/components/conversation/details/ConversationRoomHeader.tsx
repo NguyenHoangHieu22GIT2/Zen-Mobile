@@ -30,7 +30,7 @@ export default function ConversationRoomHeader({
       <ChatItemAvatarImage
         source={
           aiteavatar?.length > 8
-            ? { uri: "http://192.168.1.8:3001/uploads/" + aiteavatar }
+            ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + aiteavatar }
             : IMAGES.fakeavatar
         }
       />

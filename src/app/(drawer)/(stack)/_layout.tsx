@@ -34,7 +34,8 @@ export default function StackLayout() {
                       ? IMAGES.fakeavatar
                       : {
                           uri:
-                            "http://192.168.1.8:3001/uploads/" + endUser.avatar
+                            process.env.EXPO_PUBLIC_HTTP_UPLOADS +
+                            endUser.avatar
                         }
                   }
                 />

@@ -17,7 +17,7 @@ import { useAuthStore } from "@/libs/zustand/auth.zustand";
 import { io } from "socket.io-client";
 import useFetchMessages from "@/hook/chat/useFetchMessages";
 
-const clientSocket = io("http://192.168.1.8:3001");
+const clientSocket = io(process.env.EXPO_PUBLIC_SOCKETIO_BASE_URL);
 
 export default function Conversation() {
   //conversationId

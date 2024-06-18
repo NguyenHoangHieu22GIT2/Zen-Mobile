@@ -30,7 +30,7 @@ export default function GroupDetail() {
         source={
           data.group.avatar.length < 10
             ? IMAGES.fakepostimage
-            : { uri: "http://192.168.1.8:3001/uploads/" + data.group.avatar }
+            : { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + data.group.avatar }
         }
         className="w-full h-56"
       />

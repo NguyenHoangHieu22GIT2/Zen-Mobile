@@ -37,7 +37,7 @@ export default function NotificationItemAnnounce({
       <Image
         source={
           avatar.length > 8
-            ? { uri: "http://192.168.1.8:3001/uploads/" + avatar }
+            ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + avatar }
             : IMAGES.fakeavatar
         }
         className="w-11 h-11 rounded-full mr-1"

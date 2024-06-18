@@ -8,7 +8,7 @@ export function convertPostDataToFeedfield(post: Post) {
 
   const postAge = timeAgo(newCreatedAt);
   const imageSources = images.map(
-    (image) => "http://192.168.1.8:3001/uploads/" + image
+    (image) => process.env.EXPO_PUBLIC_HTTP_UPLOADS + image
   );
   return {
     updatedAt: newUpdatedAt,

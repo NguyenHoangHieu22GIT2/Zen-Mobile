@@ -37,7 +37,7 @@ export default function ImagesPickedFlatList(props: ImagesPickedFlatListProps) {
               <Image
                 source={{
                   uri: props.isInitialImage(item)
-                    ? "http://192.168.1.8:3001/uploads/" + item
+                    ? process.env.EXPO_PUBLIC_HTTP_UPLOADS + item
                     : item
                 }}
                 style={{ width: 180, height: 180 }}

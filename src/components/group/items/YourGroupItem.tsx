@@ -7,7 +7,7 @@ type Props = {
   group: Group;
   onPress?: () => void;
 };
-console.log("http://192.168.1.8:3001/uploads/");
+console.log(process.env.EXPO_PUBLIC_HTTP_UPLOADS);
 export default function YourGroupItem({ onPress, group }: Props) {
   return (
     <Pressable
@@ -24,7 +24,7 @@ export default function YourGroupItem({ onPress, group }: Props) {
         source={
           group.avatar.length < 10
             ? IMAGES.fakepostimage
-            : { uri: "http://192.168.1.8:3001/uploads/" + group.avatar }
+            : { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + group.avatar }
         }
       />
       <View>

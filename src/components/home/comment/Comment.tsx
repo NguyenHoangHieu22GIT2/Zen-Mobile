@@ -41,7 +41,8 @@ export default function Comment({
             comment.endUser.avatar.length > 8
               ? {
                   uri:
-                    "http://192.168.1.8:3001/uploads/" + comment.endUser.avatar
+                    process.env.EXPO_PUBLIC_HTTP_UPLOADS +
+                    comment.endUser.avatar
                 }
               : IMAGES.fakeavatar
           }

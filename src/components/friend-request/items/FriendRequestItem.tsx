@@ -34,7 +34,7 @@ export default function FriendRequestItem({
           friendRequest.endUser.avatar?.length > 10
             ? {
                 uri:
-                  "http://192.168.1.8:3001/uploads/" +
+                  process.env.EXPO_PUBLIC_HTTP_UPLOADS +
                   friendRequest.endUser.avatar
               }
             : IMAGES.fakeavatar

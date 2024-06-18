@@ -76,7 +76,8 @@ function Feed(props: props) {
             post.endUser.avatar?.length < 8
               ? IMAGES.fakeavatar
               : {
-                  uri: "http://192.168.1.8:3001/uploads/" + post.endUser.avatar
+                  uri:
+                    process.env.EXPO_PUBLIC_HTTP_UPLOADS + post.endUser.avatar
                 }
           }
           className="mr-2"
