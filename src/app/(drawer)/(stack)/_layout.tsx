@@ -34,8 +34,7 @@ export default function StackLayout() {
                       ? IMAGES.fakeavatar
                       : {
                           uri:
-                            process.env.EXPO_PUBLIC_HTTP_UPLOADS +
-                            endUser.avatar
+                            "http://192.168.1.8:3001/uploads/" + endUser.avatar
                         }
                   }
                 />
@@ -91,7 +90,10 @@ export default function StackLayout() {
             name="friend-request"
             options={{ headerShown: true, title: "Friend request" }}
           />
-          <Stack.Screen name="upgrade-plan" options={{ headerShown: true }} />
+          <Stack.Screen
+            name="upgrade-plan"
+            options={{ headerShown: true, headerTitle: "" }}
+          />
           <Stack.Screen name="favourites" />
           <Stack.Screen name="setting" />
         </Stack>

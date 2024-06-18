@@ -27,7 +27,7 @@ export default function GroupDiscoveryItem({ group, onPress, onJoin }: props) {
         source={
           group.avatar.length < 10
             ? IMAGES.fakepostimage
-            : { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + group.avatar }
+            : { uri: "http://192.168.1.8:3001/uploads/" + group.avatar }
         }
         className="w-full h-40"
       />

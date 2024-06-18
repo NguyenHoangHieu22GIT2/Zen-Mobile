@@ -49,7 +49,7 @@ const Avatar = ({ avatar }: { avatar: string }) => {
       <Image
         source={
           avatar && avatar.length > 10
-            ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + avatar }
+            ? { uri: "http://192.168.1.8:3001/uploads/" + avatar }
             : IMAGES.fakeavatar
         }
         className="w-10 h-10 rounded-full"

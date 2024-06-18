@@ -17,7 +17,7 @@ import { useAuthStore } from "@/libs/zustand/auth.zustand";
 import { io } from "socket.io-client";
 import useFetchMessages from "@/hook/chat/useFetchMessages";
 
-const clientSocket = io(process.env.EXPO_PUBLIC_SOCKETIO_BASE_URL);
+const clientSocket = io("http://192.168.1.8:3001");
 
 export default function Conversation() {
   //conversationId
@@ -42,6 +42,7 @@ export default function Conversation() {
           keyExtractor={(i) => i._id}
           renderItem={({ item, index }) => (
             <Message
+              aitename={aitename as string}
               previousMessage={messages[index - 1]}
               message={item}
               aiteavatar={aiteavatar as string}

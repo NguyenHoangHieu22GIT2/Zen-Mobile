@@ -1,19 +1,25 @@
 import http from "@/libs/axios.base";
+import { fetcher } from "@/libs/swr/fetcher";
 import { zAddPostInputs, ztAddPostInputs } from "@/libs/zod";
 import { PostJson } from "@/types/post.type";
 import { trycatchAxios } from "@/utils/funcs/trycatchAxios";
 import toast from "@/utils/toast/toast";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 const FormData = global.FormData;
 
-export function useEditPost(post: PostJson) {
+export function useEditPost(id: string) {
+  const { data: post } = useSWR<PostJson>(`/post/${id as string}`, fetcher);
   const [inputs, setInputs] = useState<ztAddPostInputs>({
     title: post?.title ?? "",
     body: post?.body ?? "",
     images: post?.images ?? []
   });
+  const isInitialImage = (image: string) => {
+    return post?.images.includes(image);
+  };
   useEffect(() => {
     console.log(post);
     setInputs({
@@ -42,7 +48,12 @@ export function useEditPost(post: PostJson) {
     formData.append("title", inputs.title);
     formData.append("postId", post._id);
     formData.append("body", inputs.body);
+    const existingImages = [];
     inputs.images.forEach((uri) => {
+      if (isInitialImage(uri)) {
+        existingImages.push(uri);
+        return;
+      }
       const fileName = uri.split("/").pop();
       const fileType = fileName.split(".").pop();
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -53,6 +64,7 @@ export function useEditPost(post: PostJson) {
         type: `image/${fileType}`
       });
     });
+    formData.append("existingImages", JSON.stringify(existingImages));
 
     return trycatchAxios(async () => {
       const result = await http.patch("/post", formData, {
@@ -65,7 +77,6 @@ export function useEditPost(post: PostJson) {
         subMessage: "Your post has been edited",
         duration: 3000
       });
-      console.log(result);
       router.push("/popular");
       return result;
     });
@@ -74,6 +85,7 @@ export function useEditPost(post: PostJson) {
   return {
     inputs,
     changeInputs,
-    submitEditPost
+    submitEditPost,
+    isInitialImage
   };
 }

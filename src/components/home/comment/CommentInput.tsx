@@ -47,7 +47,7 @@ export default function CommentInput({
           source={
             myEndUser.avatar.length > 8
               ? {
-                  uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + myEndUser.avatar
+                  uri: "http://192.168.1.8:3001/uploads/" + myEndUser.avatar
                 }
               : IMAGES.fakeavatar
           }

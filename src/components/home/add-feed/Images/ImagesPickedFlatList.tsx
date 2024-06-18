@@ -4,6 +4,7 @@ import { View, FlatList, Image, Pressable } from "react-native";
 type ImagesPickedFlatListProps = {
   selectedImages: string[];
   removeImage: (any) => void;
+  isInitialImage: (image: string) => boolean;
 };
 
 export default function ImagesPickedFlatList(props: ImagesPickedFlatListProps) {
@@ -34,7 +35,11 @@ export default function ImagesPickedFlatList(props: ImagesPickedFlatListProps) {
                 />
               </Pressable>
               <Image
-                source={{ uri: item }}
+                source={{
+                  uri: props.isInitialImage(item)
+                    ? "http://192.168.1.8:3001/uploads/" + item
+                    : item
+                }}
                 style={{ width: 180, height: 180 }}
                 className="rounded-lg"
               />

@@ -32,7 +32,11 @@ export default function FriendRequestItem({
         className="w-16 h-16 rounded-full border border-gray-300"
         source={
           friendRequest.endUser.avatar?.length > 10
-            ? { uri: friendRequest.endUser.avatar }
+            ? {
+                uri:
+                  "http://192.168.1.8:3001/uploads/" +
+                  friendRequest.endUser.avatar
+              }
             : IMAGES.fakeavatar
         }
       />

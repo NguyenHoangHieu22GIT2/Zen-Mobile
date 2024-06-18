@@ -23,7 +23,7 @@ export default function edit() {
           !image
             ? IMAGES.fakeavatar
             : image === endUser.avatar
-            ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + image }
+            ? { uri: "http://192.168.1.8:3001/uploads/" + image }
             : { uri: image }
         }
       />

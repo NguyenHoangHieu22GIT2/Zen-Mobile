@@ -10,12 +10,14 @@ type props = {
   message: MessageType;
   previousMessage: MessageType;
   aiteavatar: string;
+  aitename: string;
 };
 
 export default function Message({
   message,
   previousMessage,
-  aiteavatar
+  aiteavatar,
+  aitename
 }: props) {
   const [openTimeSent, setOpenTimeSent] = useState(false);
   const myEndUserId = useAuthStore((state) => state.endUser._id);
@@ -23,23 +25,30 @@ export default function Message({
   const isSameUser = previousMessage?.endUserId === message.endUserId;
   return (
     <View className="px-3 flex-row items-center gap-2 font-bold">
-      {!isMe && (
+      {!isMe && !isSameUser ? (
         <Image
-          className="w-10 h-10"
+          className="w-10 h-10 rounded-full"
           source={
             !isSameUser && aiteavatar
-              ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + aiteavatar }
+              ? { uri: "http://192.168.1.8:3001/uploads/" + aiteavatar }
               : IMAGES.fakeavatar
           }
         />
+      ) : (
+        <View className="w-10" />
       )}
 
       <View className="flex-1">
-        {!isSameUser && (
-          <FontText className={` self-start ${isMe && "ml-auto"}`}>
-            Username
-          </FontText>
-        )}
+        {!isSameUser &&
+          (!isMe ? (
+            <FontText className={` self-start mb-0.5 ${isMe && "ml-auto"}`}>
+              {aitename}
+            </FontText>
+          ) : (
+            <FontText className={` self-start mb-0.5 ${isMe && "ml-auto"}`}>
+              You
+            </FontText>
+          ))}
 
         <Pressable
           onPress={() => setOpenTimeSent((prev) => !prev)}

@@ -37,28 +37,30 @@ function Feed(props: props) {
       );
       return result;
     });
-    await createNotification({
-      subject: {
-        _id: myEndUser._id,
-        name: myEndUser.username,
-        type: "enduser",
-        image: myEndUser.avatar
-      },
-      verb: "like",
-      directObject: {
-        _id: post._id,
-        type: "post",
-        name: post.title,
-        image: ""
-      },
-      indirectObject: {
-        _id: post.endUser._id,
-        name: post.endUser.username,
-        type: "enduser",
-        image: post.endUser.avatar
-      },
-      referenceLink: `post/${post._id}`
-    });
+    if (myEndUser._id == post.endUser._id) {
+      await createNotification({
+        subject: {
+          _id: myEndUser._id,
+          name: myEndUser.username,
+          type: "enduser",
+          image: myEndUser.avatar
+        },
+        verb: "like",
+        directObject: {
+          _id: post._id,
+          type: "post",
+          name: post.title,
+          image: ""
+        },
+        indirectObject: {
+          _id: post.endUser._id,
+          name: post.endUser.username,
+          type: "enduser",
+          image: post.endUser.avatar
+        },
+        referenceLink: `post/${post._id}`
+      });
+    }
   };
   const post = convertPostDataToFeedfield(props.post);
   const myEndUser = useAuthStore((state) => state.endUser);
@@ -74,8 +76,7 @@ function Feed(props: props) {
             post.endUser.avatar?.length < 8
               ? IMAGES.fakeavatar
               : {
-                  uri:
-                    process.env.EXPO_PUBLIC_HTTP_UPLOADS + post.endUser.avatar
+                  uri: "http://192.168.1.8:3001/uploads/" + post.endUser.avatar
                 }
           }
           className="mr-2"
@@ -123,7 +124,7 @@ function Feed(props: props) {
         {post.title}
       </FontText>
       <FontText className="mx-2 mb-3 text-lg ">{post.body}</FontText>
-      <FeedImage sourceURIs={post.images} />
+      {post.images.length > 0 && <FeedImage sourceURIs={post.images} />}
 
       <View className="flex-row gap-5 px-3 justify-between">
         <ToggleableReactionButton

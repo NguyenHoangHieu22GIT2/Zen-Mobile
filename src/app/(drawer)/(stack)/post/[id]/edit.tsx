@@ -11,14 +11,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ImagesPickedFlatList from "@/components/home/add-feed/Images/ImagesPickedFlatList";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEditPost } from "@/hook/feed/useEditPost";
-import useSWR from "swr";
-import { fetcher } from "@/libs/swr/fetcher";
-import { PostJson } from "@/types/post.type";
 
 export default function AddPostForm() {
   const { id } = useLocalSearchParams();
-  const { data: post } = useSWR<PostJson>(`/post/${id as string}`, fetcher);
-  const { inputs, changeInputs, submitEditPost } = useEditPost(post);
+  const { inputs, changeInputs, submitEditPost, isInitialImage } = useEditPost(
+    id as string
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [postPrivacy, setPostPrivacy] = useState("");
@@ -78,6 +76,7 @@ export default function AddPostForm() {
         value={inputs.body}
       />
       <ImagesPickedFlatList
+        isInitialImage={isInitialImage}
         selectedImages={inputs.images}
         removeImage={removeImage}
       />

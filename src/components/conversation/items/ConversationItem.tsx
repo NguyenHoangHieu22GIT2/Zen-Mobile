@@ -35,15 +35,14 @@ export default function ConversationItem({ onPress, item }: props) {
             ? item.endUserIds[0].avatar
               ? {
                   uri:
-                    process.env.EXPO_PUBLIC_HTTP_UPLOADS +
+                    "http://192.168.1.8:3001/uploads/" +
                     item.endUserIds[0].avatar
                 }
               : IMAGES.fakeavatar
             : item.endUserIds[1].avatar
             ? {
                 uri:
-                  process.env.EXPO_PUBLIC_HTTP_UPLOADS +
-                  item.endUserIds[1].avatar
+                  "http://192.168.1.8:3001/uploads/" + item.endUserIds[1].avatar
               }
             : IMAGES.fakeavatar
         }

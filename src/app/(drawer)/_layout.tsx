@@ -20,7 +20,7 @@ const CustomDrawerContent = (props) => {
           <Image
             source={
               endUser.avatar?.length > 8
-                ? { uri: process.env.EXPO_PUBLIC_HTTP_UPLOADS + endUser.avatar }
+                ? { uri: "http://192.168.1.8:3001/uploads/" + endUser.avatar }
                 : IMAGES.fakeavatar
             }
             style={{ width: 70, height: 70 }}
@@ -57,6 +57,11 @@ const CustomDrawerContent = (props) => {
           FontAwesomeIconName="gear"
           label="Setting"
           pathname="/setting"
+        />
+        <CustomDrawerItem
+          FontAwesomeIconName="star"
+          label="Upgrade Plan"
+          pathname="/upgrade-plan"
         />
         <View className="flex-1 justify-end">
           <CustomDrawerItem
